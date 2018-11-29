@@ -159,7 +159,8 @@
 		  		console.log(results.join(""))
 	  			// console.log("clicked");
 	  			for(i=0; i<numcontainer.length; i++){
-	  				numcontainer[i].innerHTML = gethtml[i].join("");
+	  				var ori = numcontainer[i].innerHTML
+	  				numcontainer[i].innerHTML = gethtml[i].join("") + ori;
 	  				numcontainer[i].classList.add("active");
 	  			}
 	  			clickable = false;
