@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sportbook</title>
+    <style media="screen">
+        .msportbg, .msportbtn img, .msportlogo {
+            display: block;
+            clear: both;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .sportcontainer {
+            display: block;
+            clear: both;
+            float: right;
+            width: 25%;
+            margin-right: 10%;
+            margin-top: -27%;
+            border: 0;
+            background: none;
+            position: relative;
+            z-index: 1;
+            outline: none;
+        }
+
+        .maintenance{
+            background-color: rgba(0,0,0,0.5);
+            padding: 1.5%;
+        }
+
+        .msportbtn {
+            background: none;
+            outline: none;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .sport-maintenance {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            clear: both;
+            font-family: Arial, sans-serif;
+            color: #fae400;
+            font-weight: bold;
+            font-size: 2vw;
+            text-align: center;
+        }
+
+        @media only screen and (max-width: 768px) {
+            html {
+                /*font-size: 5vw;*/
+            }
+
+            .sportcontainer {
+                /*margin-top: -30%;*/
+            }
+
+            .msportlogo, .msportbtn img {
+                widows: 60%;
+            }
+
+            .sport-maintenance {
+                font-size: 2.3vw;
+            }
+        }
+    </style>
+
+    <!-- <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded",function(){
+            var num = 0;
+            document.getElementsByClassName('msportbtn')[0].addEventListener("click",function(){
+                console.log("Clicked "+(num++));
+            });
+        });
+    </script> -->
+</head>
+<body>
+    <img class="msportbg" src="img/sport-bg.jpg" alt="">
+    <div class="sportcontainer maintenance">
+        <img src="img/msporten.png" class="msportlogo" alt="">
+        <!-- <button type="button" name="button" class="msportbtn">
+            <img src="img/btnen.png" alt="">
+        </button> -->
+        <p class="sport-maintenance">The Games Under Maintenance.<br>Please Visit Again Later.</p>
+    </div>
+</body>
+</html>

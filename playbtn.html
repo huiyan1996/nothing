@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type="text/css">
+  	body {
+  		background-color: #000;
+  	}
+
+  	.slotbs {
+  		display: block;
+  		width: 24%;
+  		float: left;
+  		clear: none;
+  		background-color: #000;
+  		position: relative;
+  		font-family: Arial, sans-serif;
+  		margin: .5%;
+  		border: 1px solid #fff;
+  		overflow: hidden;
+  		cursor: pointer;
+  		padding-bottom: 20px;
+  	}
+
+  	.slotbs img {
+  		display: block;
+  		clear: both;
+  		max-width: 100%;
+  		margin: 10% auto;
+  		transform: scale(1.2);
+  	}
+
+  	.slotbs .desc {
+  		position: absolute;
+  		top: 80%;
+  		right: 0;
+  		left: 0;
+  		bottom: 0;
+  		background-color: rgba(255,255,255,.1);
+  		text-decoration: none;
+  		opacity: 1;
+  		transition: all .2s ease-out;
+  	}
+
+  	.slotbs:hover .desc {
+  		position: absolute;
+  		opacity: 1;
+  		background-color: #f7941d;
+  		left: 0;
+  		top: 0;
+  		right: 0;
+  		bottom: 0;
+  	}
+
+  	.slotbs .desc span {
+  		display: block;
+  		clear: both;
+  		width: 100%;
+  		text-align: center;
+  		margin: 3% auto;
+  		color: #fff;
+  		font-weight: bold;
+  	}
+
+  	.slotbs:hover .desc span {
+  		color: #000;
+  		transition: all .2s ease-out;
+  		margin: 7% auto;
+  	}
+
+  	.slotbs .desc .playbtn {
+  		display: none;
+  		width: 45px;
+  		height: 45px;
+  		background-color: #000;
+  		clear: both;
+  		margin: 0 auto;
+  		border-radius: 50%;
+  		position: relative;
+  	}
+
+  	.slotbs .desc .playbtn:before {
+	    content: "";
+	    position: absolute;
+	    border-width: 13px 20px;
+	    border-color: transparent transparent transparent #f7941d;
+	    border-style: solid;
+	    top: 10px;
+	    left: 16px;
+  	}
+
+  	.slotbs:hover .desc .playbtn {
+  		display: block;
+  	}
+
+  	.slotsa {
+  		display: block;
+  		width: 24%;
+  		float: left;
+  		clear: none;
+  		background-color: #000;
+  		position: relative;
+  		font-family: Arial, sans-serif;
+  		margin: .5%;
+  		border: 1px solid #fff;
+  		overflow: hidden;
+  		border-radius: 12px;
+  		cursor: pointer;
+  	}
+
+  	.slotsa img {
+  		display: block;
+  		clear: both;
+  		max-width: 100%;
+  		margin: 5% auto;
+  		transform: scale(1.2);
+  	}
+
+  	.slotsa .desc {
+  		position: absolute;
+  		top: 0;
+  		right: 0;
+  		left: 0;
+  		bottom: 32px;
+  		background-color: rgba(255,255,255,.3);
+  		text-decoration: none;
+  		opacity: 0;
+  		transition: all .1s ease-out;
+  		display: flex;
+  		align-items: center;
+  		justify-content: center;
+  	}
+
+  	.slotsa:hover .desc {
+  		opacity: 1;
+  	}
+
+  	.slotsa .desc .playbtn {
+  		display: block;
+  		width: 45px;
+  		height: 45px;
+  		background-color: #fff;
+  		clear: both;
+  		margin: 0 auto;
+  		border-radius: 7px;
+  		position: relative;
+  	}
+
+  	.slotsa .desc .playbtn:before {
+	    content: "";
+	    position: absolute;
+	    border-width: 13px 20px;
+	    border-color: transparent transparent transparent #f7941d;
+	    border-style: solid;
+	    top: 10px;
+	    left: 16px;
+  	}
+
+  	.slotsa span {
+  		display: block;
+  		clear: both;
+  		width: 100%;
+  		text-align: center;
+  		margin: 0 auto;
+  		height: 32px;
+  		line-height: 32px;
+  		color: #333;
+  		font-weight: bold;
+  		background-color: #fff;
+  		font-size: 14px;
+  	}
+
+  	.slotsa:hover span {
+  		color: #000;
+  		background-color: #f7941d;
+  	}
+  </style>
+</head>
+<body>
+	<div class="slotbs">
+		<img src="img/GiovannisGems_Button-whSmall_wh.png">
+		<div class="desc"><span>Giovanni's Gems</span><b class="playbtn"></b></div>
+	</div>
+
+	<div class="slotsa">
+		<img src="img/GiovannisGems_Button-whSmall_wh.png">
+		<span>Giovanni's Gems</span>
+		<div class="desc"><b class="playbtn"></b></div>
+	</div>
+</body>
+</html>

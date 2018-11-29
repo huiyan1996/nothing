@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type="text/css">
+  	body {
+  		font-family: arial, sans-serif;
+  	}
+
+  	.machine {
+  		display: block;
+  		width: 60vw;
+  		height: 23vw;
+  		background-image: url(img/4d/slot.png);
+  		background-size: 100% 100%;
+  		margin: 0 auto;
+  		overflow: auto;
+  	}
+
+  	.wrapper {
+  		position: relative;
+  		overflow: hidden;
+  		height: 9vw;
+  		float: left;
+	    left: 14vw;
+    	top: 8.1vw;
+		/*background: #FDE08D;
+		background: -webkit-linear-gradient(top, #8f6B29, #FDE08D, #DF9F28);
+		background: linear-gradient(top, #8f6B29, #FDE08D, #DF9F28);*/
+  	}
+
+  	.wrapper .nums{
+  		position: relative;
+  		float: left;
+  		display: block;
+  		top: 0;
+	    width: 5vw;
+	    text-align: center;
+	    line-height: 9vw;
+	    font-size: 50px;
+        margin-right: 2.7vw;
+  	}
+
+  	.wrapper .nums.active {
+		-webkit-animation: startslot 1s ease-in forwards; /* Safari 4+ */
+		-moz-animation:    startslot 1s ease-in forwards; /* Fx 5+ */
+		-o-animation:      startslot 1s ease-in forwards; /* Opera 12+ */
+		animation:         startslot 1s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums:nth-child(2).active {
+		-webkit-animation: startslot 1.5s ease-in forwards; /* Safari 4+ */
+		-moz-animation:    startslot 1.5s ease-in forwards; /* Fx 5+ */
+		-o-animation:      startslot 1.5s ease-in forwards; /* Opera 12+ */
+		animation:         startslot 1.5s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums:nth-child(3).active {
+		-webkit-animation: startslot 2.2s ease-in forwards; /* Safari 4+ */
+		-moz-animation:    startslot 2.2s ease-in forwards; /* Fx 5+ */
+		-o-animation:      startslot 2.2s ease-in forwards; /* Opera 12+ */
+		animation:         startslot 2.2s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums:nth-child(4).active {
+		-webkit-animation: startslot 2.8s ease-in forwards; /* Safari 4+ */
+		-moz-animation:    startslot 2.8s ease-in forwards; /* Fx 5+ */
+		-o-animation:      startslot 2.8s ease-in forwards; /* Opera 12+ */
+		animation:         startslot 2.8s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums b {
+  		display: block;
+  		margin: 0 auto;
+  		width: 100%;
+  		clear: both;
+  	}
+
+  	.wrapper .nums b img {
+  		display: block;
+  		width: 100%;
+  		clear: both;
+  		margin: 0 auto;
+  	}
+
+  	#spinbtn {
+	    display: block;
+	    position: relative;
+	    float: left;
+	    left: 17vw;
+	    cursor: pointer;
+	    font-size: 24px;
+	    height: 22vw;
+	    top: 2.5px;
+	    width: 9.8vw;
+	    background-color: transparent;
+	    color: transparent;
+	    text-align: center;
+	    margin-left: 5px;
+  	}
+
+  	@-webkit-keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 9vw)); }
+	  100% { transform: translateY(0); }
+	}
+	@-moz-keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 9vw)); }
+	  100% { transform: translateY(0); }
+	}
+	@-o-keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 9vw)); }
+	  100% { transform: translateY(0); }
+	}
+	@keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 9vw)); }
+	  100% { transform: translateY(0); }
+	}
+
+	@media only screen and (max-width: 768px) {
+		.machine {
+			width: 90vw;
+			height: 34vw;
+		}
+
+		.wrapper {
+			height: 14vw;
+		    top: 11.7vw;
+    		left: 20.8vw;
+		}
+
+		.wrapper .nums {
+			width: 8vw;
+		    margin-right: 3.6vw;
+		}
+
+		#spinbtn {
+		    height: 33vw;
+		    width: 15vw;
+		    left: 26vw;
+		}
+
+		@-webkit-keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 14vw)); }
+		  100% { transform: translateY(0); }
+		}
+		@-moz-keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 14vw)); }
+		  100% { transform: translateY(0); }
+		}
+		@-o-keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 14vw)); }
+		  100% { transform: translateY(0); }
+		}
+		@keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 14vw)); }
+		  100% { transform: translateY(0); }
+		}
+	}
+  </style>
+  <script type="text/javascript">
+  	var gnum = [];
+  	var clickable = true;
+
+  	document.addEventListener("DOMContentLoaded",function(){
+  		
+  		document.getElementById("spinbtn").addEventListener("click",function(){
+  			if(clickable){
+  				var numcontainer = document.getElementsByClassName("nums");
+	  			gnum = generateNum();
+
+		  		var gethtml = generatehtml();
+		  		var results = result();
+
+		  		console.log(gnum);
+		  		console.log(results.join(""))
+	  			// console.log("clicked");
+	  			for(i=0; i<numcontainer.length; i++){
+	  				var ori  = numcontainer[i].innerHTML;
+	  				numcontainer[i].innerHTML = gethtml[i].join("") + numcontainer[i].innerHTML;
+	  				numcontainer[i].classList.add("active");
+	  			}
+	  			clickable = false;
+
+	  			var rclass = setTimeout(function(){
+	  				for(i=0; i<numcontainer.length; i++){
+		  				numcontainer[i].innerHTML = "<b><img src='img/4d/"+results[i]+".png'></b>";
+	  					numcontainer[i].classList.remove("active");
+		  			}
+		  			clickable = true;
+
+		  			clearTimeout(rclass);
+	  			},2800);
+  			}
+  		});
+
+  		result();
+  	});
+
+  	function result() {
+  		var getNum = gnum;
+  		var nums = [];
+  		for (i = 0; i < getNum.length; i++){
+  			nums.push(getNum[i][0]);
+  		}
+
+  		return(nums);
+  	}
+
+  	function generatehtml() {
+  		var getNum = gnum;
+  		var htmls = [[],[],[],[],];
+
+  		for(i=0; i<getNum.length; i++){
+  			for (j=0; j<getNum[i].length; j++) {
+  				htmls[i].push("<b><img src='img/4d/"+getNum[i][j]+".png'></b>");
+  			}
+  		}
+
+  		return(htmls);
+  	}
+
+  	function generateNum(){
+  		var nums = [[],[],[],[],];
+  		var qty = [15, 25, 35, 45];
+
+  		for(i=0; i<nums.length; i++){
+  			for (j=0; j<qty[i]; j++) {
+  				nums[i].push(rdnNum());
+  			}
+  		}
+
+  		return(nums);
+  	}
+
+  	function rdnNum(){
+  		return Math.floor((Math.random() * 10));
+  	}
+  </script>
+</head>
+<body>
+	<div class="machine">
+		<div class="wrapper">
+			<span class="nums" id="num1"><b><img src='img/4d/0.png'></b></span>
+			<span class="nums" id="num2"><b><img src='img/4d/0.png'></b></span>
+			<span class="nums" id="num3"><b><img src='img/4d/0.png'></b></span>
+			<span class="nums" id="num4"><b><img src='img/4d/0.png'></b></span>
+		</div>
+		<span id="spinbtn"></span>
+	</div>
+</body>
+</html>

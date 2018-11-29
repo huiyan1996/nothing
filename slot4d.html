@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type="text/css">
+  	body {
+  		font-family: arial, sans-serif;
+  	}
+
+  	.machine {
+  		display: block;
+  		width: 505px;
+  		margin: 0 auto;
+  		overflow: auto;
+  	}
+
+  	.wrapper {
+  		position: relative;
+  		overflow: hidden;
+  		height: 100px;
+  		float: left;
+		background: #ccc;
+  	}
+
+  	.wrapper .nums{
+  		position: relative;
+  		float: left;
+  		display: block;
+  		top: 0;
+	    width: 100px;
+	    text-align: center;
+	    line-height: 100px;
+	    font-size: 50px;
+
+  	}
+
+  	.wrapper .nums.active {
+		-webkit-animation: startslot 1s ease-in forwards; /* Safari 4+ */
+		-moz-animation:    startslot 1s ease-in forwards; /* Fx 5+ */
+		-o-animation:      startslot 1s ease-in forwards; /* Opera 12+ */
+		animation:         startslot 1s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums:nth-child(2).active {
+		-webkit-animation: startslot 1.5s ease-in forwards; /* Safari 4+ */
+		-moz-animation:    startslot 1.5s ease-in forwards; /* Fx 5+ */
+		-o-animation:      startslot 1.5s ease-in forwards; /* Opera 12+ */
+		animation:         startslot 1.5s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums:nth-child(3).active {
+		-webkit-animation: startslot 2.2s ease-in forwards; /* Safari 4+ */
+		-moz-animation:    startslot 2.2s ease-in forwards; /* Fx 5+ */
+		-o-animation:      startslot 2.2s ease-in forwards; /* Opera 12+ */
+		animation:         startslot 2.2s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums:nth-child(4).active {
+		-webkit-animation: startslot 2.8s ease-in forwards; /* Safari 4+ */
+		-moz-animation:    startslot 2.8s ease-in forwards; /* Fx 5+ */
+		-o-animation:      startslot 2.8s ease-in forwards; /* Opera 12+ */
+		animation:         startslot 2.8s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums b {
+  		display: block;
+  		margin: 0 auto;
+  		width: 100%;
+  		clear: both;
+  	}
+
+  	#spinbtn {
+  		display: block;
+  		float: left;
+  		cursor: pointer;
+  		font-size: 24px;
+  		line-height: 100px;
+  		width: 100px;
+  		background-color: #999;
+  		color: #fff;
+  		text-align: center;
+  		margin-left: 5px;
+  	}
+
+  	@-webkit-keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 100px)); }
+	  100% { transform: translateY(0); }
+	}
+	@-moz-keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 100px)); }
+	  100% { transform: translateY(0); }
+	}
+	@-o-keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 100px)); }
+	  100% { transform: translateY(0); }
+	}
+	@keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 100px)); }
+	  100% { transform: translateY(0); }
+	}
+
+	@media only screen and (max-width: 768px) {
+		.machine {
+			width: 255px;
+		}
+
+		.wrapper {
+			height: 50px;
+		}
+
+		.wrapper .nums {
+			width: 50px;
+			line-height: 50px;
+			font-size: 35px;
+		}
+
+		#spinbtn {
+			line-height: 50px;
+			width: 50px;
+			font-size: 18px;
+		}
+
+		@-webkit-keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 50px)); }
+		  100% { transform: translateY(0); }
+		}
+		@-moz-keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 50px)); }
+		  100% { transform: translateY(0); }
+		}
+		@-o-keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 50px)); }
+		  100% { transform: translateY(0); }
+		}
+		@keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 50px)); }
+		  100% { transform: translateY(0); }
+		}
+	}
+  </style>
+  <script type="text/javascript">
+  	var gnum = [];
+  	var clickable = true;
+
+  	document.addEventListener("DOMContentLoaded",function(){
+  		
+  		document.getElementById("spinbtn").addEventListener("click",function(){
+  			if(clickable){
+  				var numcontainer = document.getElementsByClassName("nums");
+	  			gnum = generateNum();
+
+		  		var gethtml = generatehtml();
+		  		var results = result();
+
+		  		console.log(gnum);
+		  		console.log(results.join(""))
+	  			// console.log("clicked");
+	  			for(i=0; i<numcontainer.length; i++){
+	  				numcontainer[i].innerHTML = gethtml[i].join("");
+	  				numcontainer[i].classList.add("active");
+	  			}
+	  			clickable = false;
+
+	  			var rclass = setTimeout(function(){
+	  				for(i=0; i<numcontainer.length; i++){
+		  				numcontainer[i].innerHTML = "<b>"+results[i]+"</b>";
+	  					numcontainer[i].classList.remove("active");
+		  			}
+		  			clickable = true;
+
+		  			clearTimeout(rclass);
+	  			},2800);
+  			}
+  		});
+
+  		result();
+  	});
+
+  	function result() {
+  		var getNum = gnum;
+  		var nums = [];
+  		for (i = 0; i < getNum.length; i++){
+  			nums.push(getNum[i][0]);
+  		}
+
+  		return(nums);
+  	}
+
+  	function generatehtml() {
+  		var getNum = gnum;
+  		var htmls = [[],[],[],[],];
+
+  		for(i=0; i<getNum.length; i++){
+  			for (j=0; j<getNum[i].length; j++) {
+  				htmls[i].push("<b>"+getNum[i][j]+"</b>");
+  			}
+  		}
+
+  		return(htmls);
+  	}
+
+  	function generateNum(){
+  		var nums = [[],[],[],[],];
+  		var qty = [15, 25, 35, 45];
+
+  		for(i=0; i<nums.length; i++){
+  			for (j=0; j<qty[i]; j++) {
+  				nums[i].push(rdnNum());
+  			}
+  		}
+
+  		return(nums);
+  	}
+
+  	function rdnNum(){
+  		return Math.floor((Math.random() * 9) + 1);
+  	}
+  </script>
+</head>
+<body>
+	<div class="machine">
+		<div class="wrapper">
+			<span class="nums" id="num1"><b>0</b></span>
+			<span class="nums" id="num2"><b>0</b></span>
+			<span class="nums" id="num3"><b>0</b></span>
+			<span class="nums" id="num4"><b>0</b></span>
+		</div>
+		<span id="spinbtn">Spin</span>
+	</div>
+</body>
+</html>
