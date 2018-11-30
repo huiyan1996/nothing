@@ -14,7 +14,7 @@
   		display: block;
   		width: 855px;
   		height: 325px;
-  		background-image: url(img/4d/slot.png);
+  		background-image: url(img/4d/slot1.png);
   		background-size: 100% 100%;
   		margin: 0 auto;
   		overflow: auto;
@@ -87,19 +87,31 @@
   	}
 
   	#spinbtn {
-  		display: block;
-	    position: relative;
+	    display: block;
+		position: relative;
 	    float: left;
-	    left: 275px;
+	    left: 303px;
 	    cursor: pointer;
 	    font-size: 24px;
-	    line-height: 320px;
-	    top: 2.5px;
-	    width: 110px;
-	    background-color: transparent;
+	    height: 199px;
+	    top: 0;
+	    width: 89px;
 	    color: transparent;
 	    text-align: center;
-	    margin-left: 5px;
+	    background-image: url(img/4d/spin.png);
+	    background-repeat: no-repeat;
+	    background-position: top right;
+	    background-size: 100% auto;
+  	}
+
+  	#spinbtn.step1 {
+  		background-position: center right;
+  		top: -4px;
+  	}
+
+  	#spinbtn.step2 {
+  		background-position: bottom right;
+  		top: -11px;
   	}
 
   	@-webkit-keyframes startslot {
@@ -140,12 +152,22 @@
 		}
 
 		#spinbtn {
-		    height: 117px;
-		    line-height: 117px;
-		    width: 50px;
-		    font-size: 18px;
-		    left: 95px;
-		    top: 1px;
+			height: 81px;
+			line-height: 117px;
+			width: 36px;
+			font-size: 18px;
+			left: 124px;
+			top: 0;
+		}
+
+		#spinbtn.step1 {
+			background-position: center right;
+			top: -1px;
+		}
+
+		#spinbtn.step2 {
+			background-position: bottom right;
+			top: -3px;
 		}
 
 		@-webkit-keyframes startslot {
@@ -174,6 +196,22 @@
   		
   		document.getElementById("spinbtn").addEventListener("click",function(){
   			if(clickable){
+  				var spinbtn = document.getElementById("spinbtn");
+
+  				spinbtn.classList.add("step1");
+  				setTimeout(function(){
+  					spinbtn.classList.remove("step1");
+  					spinbtn.classList.add("step2");
+  					setTimeout(function(){
+  						spinbtn.classList.remove("step2");
+  						spinbtn.classList.add("step1");
+  						setTimeout(function(){
+  							spinbtn.classList.remove("step1","step2");
+  						},200);
+  					},200);
+  					// spinbtn.classList.remove("step2");
+  				},200);
+
   				var numcontainer = document.getElementsByClassName("nums");
 	  			gnum = generateNum();
 
@@ -254,7 +292,7 @@
 			<span class="nums" id="num3"><b><img src='img/4d/0.png'></b></span>
 			<span class="nums" id="num4"><b><img src='img/4d/0.png'></b></span>
 		</div>
-		<span id="spinbtn">Spin</span>
+		<span id="spinbtn"></span>
 	</div>
 </body>
 </html>
