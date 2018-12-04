@@ -121,7 +121,8 @@
         numset.push(i);
       }
 
-      for(var i=0; i<3; i++){
+      for(var i=0; i<2; i++){
+        //how much should be selected
         var rdn = rdnNum(num);
         correct.push(numset[rdn]);
         numset.splice(rdn,1);
@@ -148,7 +149,8 @@
       ];
 
       var obj = [];
-      for (var i = 0; i < 6; i++) {
+      for (var i = 0; i < 5; i++) {
+        //how much should be displayed for selection
         var rdn = rdnNum(option.length);
         obj.push(option[rdn]);
         option.splice(rdn, 1);
