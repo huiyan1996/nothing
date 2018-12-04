@@ -20,12 +20,9 @@
   		display: flex;
   		clear: both;
   		width: 500px;
-      flex-wrap: wrap;
-      max-width: 100%;
   	}
   	.selectionwrapper label {
   		flex: 1;
-      width: 100px;
   		text-align: center;
   		position: relative;
   	}
@@ -33,12 +30,13 @@
   		position: absolute;
   		visibility: hidden;
   	}
-  	.selectionwrapper label svg {
+  	.selectionwrapper label i {
+  		font-size: 35px;
       padding: 15% 0;
   		width: 100%;
   		border: 2px solid transparent;
   	}
-  	.selectionwrapper label input[type='checkbox']:checked + svg {
+  	.selectionwrapper label input[type='checkbox']:checked + i {
   		background-color: #e8b923;
   		border: 2px dashed #000;
   		color: #000;
@@ -51,21 +49,23 @@
       var submitbtn = document.getElementById("submitbtn");
       var opt = document.getElementById("option");
       var correct = rdnCorrect();
-      sethtml(correct, lang);
+      var key = rdnkey();
+
+      sethtml(correct, key);
 
   		submitbtn.addEventListener("click",function(){
-        if(!check(correct)){
+        if(!check(correct, key)){
           correct = rdnCorrect();
-          sethtml(correct, lang);
-          opt.innerHTML = (check(correct));
-          check(correct);
+          key = rdnkey();
+          sethtml(correct, key);
+          opt.innerHTML = "";
         }else {
-          opt.innerHTML = (check(correct));
+          opt.innerHTML = (check(correct, key));
         }
       });
   	});
 
-    function check(num){
+    function check(num, key){
       var checkedValue = [];
       var result = false;
       var inputElements = document.getElementsByClassName('capticon');
@@ -79,8 +79,8 @@
         var correctArr = [];
         for (var i = 0; i < checkedValue.length; i++) {
           for (var j = 0; j < num.length; j++) {
-            if(checkedValue[i] == num[j]){
-              correctArr.push(num[j]);
+            if(checkedValue[i] == key[num[j]]){
+              correctArr.push(key[num[j]]);
             }
           }
         }
@@ -92,12 +92,12 @@
       return result;
     }
 
-    function sethtml(num) {
+    function sethtml(num, key) {
       var html = "";
       var obj = rdnObj();
       var captchawrapper = document.getElementById("captchawrapper");
 
-      html+= "<span>Click or tap on the icon: ";
+      html+= "<span>Click or tap on the icon: </span>";
 
       for(var i=0; i<num.length; i++){
         html+="<b class='highlight'>"+obj[num[i]][lang]+"</b> "
@@ -106,7 +106,7 @@
       html+="<div class='selectionwrapper'>";
 
       for(var i=0; i<obj.length;i++){
-        html+= "<label><input type='checkbox' class='capticon' name='captcha' value='"+i+"'><font-awesome-icon icon='"+obj[i].name+"' size='6x' /></label>"
+        html+= "<label><input type='checkbox' class='capticon' name='captcha' value='"+key[i]+"'><i class='glyphicon glyphicon-"+obj[i].name+"'></i></label>"
       }
 
       html+= "</div>";
@@ -114,8 +114,18 @@
       captchawrapper.innerHTML = html;
     }
 
+    function rdnkey() {
+      var num  = rdnObj().length;
+      var key = [];
+
+      for(var i=0; i<num; i++){
+        key.push(rdnNum(1000));
+      }
+
+      return key;
+    }
+
     function rdnCorrect() {
-      //generate two number
       var num  = rdnObj().length;
       var numset = [];
       var correct = [];
@@ -125,6 +135,7 @@
       }
 
       for(var i=0; i<2; i++){
+        //how much should be selected
         var rdn = rdnNum(num);
         correct.push(numset[rdn]);
         numset.splice(rdn,1);
@@ -135,24 +146,24 @@
     }
 
     function rdnObj() {
-      //randomly select option for user selection
       var option = [
         {"name":"file", "en":"document", "cn":"文件"},
         {"name":"home", "en":"house", "cn":"房子"},
         {"name":"lock", "en":"lock", "cn":"锁头"},
-        {"name":"tag", "en":"price tag", "cn":"标签"},
+        {"name":"tag", "en":"tag", "cn":"标签"},
         {"name":"camera", "en":"camera", "cn":"相机"},
         {"name":"gift", "en":"gift", "cn":"礼物盒"},
         {"name":"phone", "en":"phone", "cn":"手机"},
-        {"name":"heart", "en":"heart", "cn":"爱心"},
-        {"name":"flag", "en":"flag", "cn":"旗子"},
-        {"name":"hourglass", "en":"hour glass", "cn":"漏斗"},
-        {"name":"book", "en":"book", "cn":"书本"},
+        {"name":"flash", "en":"flash", "cn":"闪电"},
+        {"name":"apple", "en":"apple", "cn":"苹果"},
+        {"name":"hourglass", "en":"hourglass", "cn":"漏斗"},
+        {"name":"scissors", "en":"scissors", "cn":"剪刀"},
         {"name":"magnet", "en":"magnet", "cn":"磁铁"},
       ];
 
       var obj = [];
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 6; i++) {
+        //how much should be displayed for selection
         var rdn = rdnNum(option.length);
         obj.push(option[rdn]);
         option.splice(rdn, 1);
@@ -162,7 +173,6 @@
     }
 
   	function rdnNum(len){
-      //random a number
   		return Math.floor((Math.random() * len));
   	}
   </script>
