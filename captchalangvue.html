@@ -19,10 +19,13 @@
   	.selectionwrapper {
   		display: flex;
   		clear: both;
-  		width: 50%;
+  		width: 500px;
+      flex-wrap: wrap;
+      max-width: 100%;
   	}
   	.selectionwrapper label {
   		flex: 1;
+      width: 100px;
   		text-align: center;
   		position: relative;
   	}
@@ -81,7 +84,7 @@
             }
           }
         }
-        if(correctArr.length == 2){
+        if(correctArr.length == num.length){
           result = true;
         }
       }

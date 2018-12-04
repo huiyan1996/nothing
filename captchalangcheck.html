@@ -73,7 +73,7 @@
         }
       }
 
-      if(checkedValue.length == 2){
+      if(checkedValue.length == num.length){
         var correctArr = [];
         for (var i = 0; i < checkedValue.length; i++) {
           for (var j = 0; j < num.length; j++) {
@@ -82,7 +82,7 @@
             }
           }
         }
-        if(correctArr.length == 2){
+        if(correctArr.length == num.length){
           result = true;
         }
       }
@@ -95,7 +95,13 @@
       var obj = rdnObj();
       var captchawrapper = document.getElementById("captchawrapper");
 
-      html+= "<span>Click or tap on <b class='highlight'>"+obj[num[0]][lang]+"</b> and <b class='highlight'>"+obj[num[1]][lang]+"</b> icon.<div class='selectionwrapper'>";
+      html+= "<span>Click or tap on the icon: ";
+
+      for(var i=0; i<num.length; i++){
+        html+="<b class='highlight'>"+obj[num[i]][lang]+"</b> "
+      }
+
+      html+="<div class='selectionwrapper'>";
 
       for(var i=0; i<obj.length;i++){
         html+= "<label><input type='checkbox' class='capticon' name='captcha' value='"+i+"'><i class='glyphicon glyphicon-"+obj[i].name+"'></i></label>"
@@ -115,7 +121,7 @@
         numset.push(i);
       }
 
-      for(var i=0; i<2; i++){
+      for(var i=0; i<3; i++){
         var rdn = rdnNum(num);
         correct.push(numset[rdn]);
         numset.splice(rdn,1);
@@ -142,7 +148,7 @@
       ];
 
       var obj = [];
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 6; i++) {
         var rdn = rdnNum(option.length);
         obj.push(option[rdn]);
         option.splice(rdn, 1);
