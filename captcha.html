@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Document</title>
+  <style type="text/css">
+  	*{
+  		box-sizing: border-box;
+  	}
+  	.highlight {
+  		background-color: #e8b923;
+  		color: #fff;
+  		padding: 1px 3px;
+  		text-transform: uppercase;
+  	}
+  	.selectionwrapper {
+  		display: flex;
+  		clear: both;
+  		width: 380px;
+  	}
+  	.selectionwrapper label {
+  		flex: 1;
+  		text-align: center;
+  		position: relative;
+  		padding: 3px;
+  	}
+  	.selectionwrapper label input[type='radio'] {
+  		position: absolute;
+  		visibility: hidden;
+  	}
+  	.selectionwrapper label i {
+  		font-size: 35px;
+  		line-height: 90px;
+  		width: 100%;
+  		border: 2px solid transparent;
+  	}
+  	.selectionwrapper label input[type='radio']:checked + i {
+  		background-color: #e8b923;
+  		border: 2px dashed #000;
+  		color: #000;
+  	}
+  </style>
+  <script type="text/javascript">
+  	document.addEventListener("DOMContentLoaded",function(){
+		var getOption = selectCorrectOption();
+		document.getElementById("captchawrapper").innerHTML = sethtml(getOption);
+
+  		document.getElementById("submitbtn").addEventListener("click",function(){
+        if(document.forms["register"]["name"].value == ""){
+          alert("Please enter your name");
+          return false;
+        }
+
+        if(document.forms["register"]["password"].value == ""){
+          alert("Please enter your password");
+          return false;
+        }
+
+        if(document.forms["register"]["cfmpassword"].value == ""){
+          alert("Please confirm your password");
+          return false;
+        }
+
+        if(document.forms["register"]["email"].value == ""){
+          alert("Please enter your email");
+          return false;
+        }
+
+  			var selected = document.forms["register"]["captcha"].value;
+  			if (selected!=null && selected!="") {
+  				if(selected == getOption.index){
+            
+  					document.getElementById("option").innerHTML = "success";
+  				}else{
+					document.getElementById("option").innerHTML = "failed";
+					getOption = selectCorrectOption();
+					document.getElementById("captchawrapper").innerHTML = sethtml(getOption);
+  				}
+  			}else {
+          alert("Please select a captcha icon");
+          return false;
+        }
+  		});
+  	});
+
+  	function sethtml(optionobj){
+  		var html = "";
+  		html+="<span>Click or touch the <b class='highlight'>"+optionobj.correct+"</b> icon.</span><div class='selectionwrapper'>";
+
+  		for (i=0; i<optionobj.option.length; i++) {
+  			html+="<label><input type='radio' name='captcha' value='"+i+"'><i class='glyphicon glyphicon-"+optionobj.option[i]+"'></i></label>";
+  		}
+
+  		html+= "</div>";
+
+  		return html;
+  	}
+
+  	function selectCorrectOption() {
+  		var option = shuffleOption();
+  		var getrdn = rdnNum(option.length);
+  		var correct = option[getrdn];
+  		var optionobj = {
+  			"option": option,
+  			"correct": correct,
+  			"index": getrdn,
+  		};
+
+  		return optionobj;
+  	}
+
+  	function shuffleOption() {
+  		var getrdn;
+  		var option = ["file", "home", "lock", "tag", "camera", "gift", "phone", "flash", "apple", "hourglass", "scissors", "magnet"];
+  		var name = [];
+
+  		for(i=0; i<4; i++) {
+  			getrdn = rdnNum(option.length);
+  			name.push(option[getrdn]);
+  			option.splice(getrdn,1);
+  		}
+
+  		return name;
+  	}
+
+  	function rdnNum(len){
+  		return Math.floor((Math.random() * len));
+  	}
+  </script>
+</head>
+<body>
+	<form name="register">
+		<input type="text" name="name" class="inp" placeholder="Name">
+		<input type="password" name="password" class="inp" placeholder="Password">
+		<input type="password" name="cfmpassword" class="inp" placeholder="Confirm Password">
+		<input type="email" name="email" class="inp" placeholder="email">
+		<div class="captchawrapper" id="captchawrapper"></div>
+		<input type="button" name="submit" id="submitbtn" value="Submit">
+	</form>
+
+	<div id="option"></div>
+</body>
+</html>

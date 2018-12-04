@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Document</title>
+  <style type="text/css">
+  	*{
+  		box-sizing: border-box;
+  	}
+  	.highlight {
+  		background-color: #e8b923;
+  		color: #fff;
+  		padding: 1px 5px;
+  		text-transform: uppercase;
+  	}
+  	.selectionwrapper {
+  		display: flex;
+  		clear: both;
+  		width: 500px;
+  	}
+  	.selectionwrapper label {
+  		flex: 1;
+  		text-align: center;
+  		position: relative;
+  	}
+  	.selectionwrapper label input[type='checkbox'] {
+  		position: absolute;
+  		visibility: hidden;
+  	}
+  	.selectionwrapper label i {
+  		font-size: 35px;
+      padding: 15% 0;
+  		width: 100%;
+  		border: 2px solid transparent;
+  	}
+  	.selectionwrapper label input[type='checkbox']:checked + i {
+  		background-color: #e8b923;
+  		border: 2px dashed #000;
+  		color: #000;
+  	}
+  </style>
+  <script type="text/javascript">
+  	var lang = "cn";
+
+  	document.addEventListener("DOMContentLoaded",function(){
+      var submitbtn = document.getElementById("submitbtn");
+      var opt = document.getElementById("option");
+      var correct = rdnCorrect();
+      sethtml(correct, lang);
+
+  		submitbtn.addEventListener("click",function(){
+        if(!check(correct)){
+          correct = rdnCorrect();
+          sethtml(correct, lang);
+          opt.innerHTML = (check(correct));
+          check(correct);
+        }else {
+          opt.innerHTML = (check(correct));
+        }
+      });
+  	});
+
+    function check(num){
+      var checkedValue = [];
+      var result = false;
+      var inputElements = document.getElementsByClassName('capticon');
+      for(var i=0; i<inputElements.length; i++){
+        if(inputElements[i].checked){
+          checkedValue.push(inputElements[i].value);
+        }
+      }
+
+      if(checkedValue.length == 2){
+        var correctArr = [];
+        for (var i = 0; i < checkedValue.length; i++) {
+          for (var j = 0; j < num.length; j++) {
+            if(checkedValue[i] == num[j]){
+              correctArr.push(num[j]);
+            }
+          }
+        }
+        if(correctArr.length == 2){
+          result = true;
+        }
+      }
+
+      return result;
+    }
+
+    function sethtml(num) {
+      var html = "";
+      var obj = rdnObj();
+      var captchawrapper = document.getElementById("captchawrapper");
+
+      html+= "<span>Click or tap on <b class='highlight'>"+obj[num[0]][lang]+"</b> and <b class='highlight'>"+obj[num[1]][lang]+"</b> icon.<div class='selectionwrapper'>";
+
+      for(var i=0; i<obj.length;i++){
+        html+= "<label><input type='checkbox' class='capticon' name='captcha' value='"+i+"'><i class='glyphicon glyphicon-"+obj[i].name+"'></i></label>"
+      }
+
+      html+= "</div>";
+
+      captchawrapper.innerHTML = html;
+    }
+
+    function rdnCorrect() {
+      var num  = rdnObj().length;
+      var numset = [];
+      var correct = [];
+
+      for(var i=0; i<num; i++){
+        numset.push(i);
+      }
+
+      for(var i=0; i<2; i++){
+        var rdn = rdnNum(num);
+        correct.push(numset[rdn]);
+        numset.splice(rdn,1);
+        num-=1;
+      }
+
+      return correct;
+    }
+
+    function rdnObj() {
+      var option = [
+        {"name":"file", "en":"document", "cn":"文件"},
+        {"name":"home", "en":"house", "cn":"房子"},
+        {"name":"lock", "en":"lock", "cn":"锁头"},
+        {"name":"tag", "en":"tag", "cn":"标签"},
+        {"name":"camera", "en":"camera", "cn":"相机"},
+        {"name":"gift", "en":"gift", "cn":"礼物盒"},
+        {"name":"phone", "en":"phone", "cn":"手机"},
+        {"name":"flash", "en":"flash", "cn":"闪电"},
+        {"name":"apple", "en":"apple", "cn":"苹果"},
+        {"name":"hourglass", "en":"hourglass", "cn":"漏斗"},
+        {"name":"scissors", "en":"scissors", "cn":"剪刀"},
+        {"name":"magnet", "en":"magnet", "cn":"磁铁"},
+      ];
+
+      var obj = [];
+      for (var i = 0; i < 5; i++) {
+        var rdn = rdnNum(option.length);
+        obj.push(option[rdn]);
+        option.splice(rdn, 1);
+      }
+
+      return obj;
+    }
+
+  	function rdnNum(len){
+  		return Math.floor((Math.random() * len));
+  	}
+  </script>
+</head>
+<body>
+	<form name="register">
+		<input type="text" name="name" class="inp" placeholder="Name">
+		<input type="password" name="password" class="inp" placeholder="Password">
+		<input type="password" name="cfmpassword" class="inp" placeholder="Confirm Password">
+		<input type="email" name="email" class="inp" placeholder="email">
+		<div class="captchawrapper" id="captchawrapper"></div>
+		<input type="button" name="submit" id="submitbtn" value="Submit">
+	</form>
+
+	<div id="option"></div>
+</body>
+</html>
