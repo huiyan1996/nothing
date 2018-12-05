@@ -48,12 +48,32 @@
   	var lang = "en";
 
   	document.addEventListener("DOMContentLoaded",function(){
+      var en = document.getElementById("en");
+      var cn = document.getElementById("cn");
       var submitbtn = document.getElementById("submitbtn");
       var opt = document.getElementById("option");
       var correct = rdnCorrect();
       var key = rdnkey();
 
       sethtml(correct, key);
+
+      en.addEventListener("click", function(){
+        lang = "en";
+        correct = rdnCorrect();
+        key = rdnkey();
+        clearCheck();
+        sethtml(correct, key);
+        opt.innerHTML = "";
+      });
+
+      cn.addEventListener("click", function(){
+        lang = "cn";
+        correct = rdnCorrect();
+        key = rdnkey();
+        clearCheck();
+        sethtml(correct, key);
+        opt.innerHTML = "";
+      });
 
   		submitbtn.addEventListener("click",function(){
         if(!check(correct, key)){
@@ -186,6 +206,8 @@
   </script>
 </head>
 <body>
+  <a href="javascript:;" id="en">EN</a>
+  <a href="javascript:;" id="cn">CN</a>
 	<form name="register">
 		<div class="captchawrapper" id="captchawrapper">
       <span>Click or touch the following icons: </span><br><b class="highlight"></b> / <b class="highlight"></b>
