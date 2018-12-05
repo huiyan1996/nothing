@@ -59,34 +59,30 @@
       sethtml(correct, key);
 
       en.addEventListener("click", function(){
-        lang = "en";
-        correct = rdnCorrect();
-        key = rdnkey();
-        clearCheck();
-        sethtml(correct, key);
+        refresh();
         opt.innerHTML = "";
       });
 
       cn.addEventListener("click", function(){
-        lang = "cn";
-        correct = rdnCorrect();
-        key = rdnkey();
-        clearCheck();
-        sethtml(correct, key);
+        refresh();
         opt.innerHTML = "";
       });
 
   		submitbtn.addEventListener("click",function(){
         if(!check(correct, key)){
-          correct = rdnCorrect();
-          key = rdnkey();
-          clearCheck();
-          sethtml(correct, key);
+          refresh();
           opt.innerHTML = "";
         }else {
           opt.innerHTML = (check(correct, key));
         }
       });
+
+      function refresh() {
+        correct = rdnCorrect();
+        key = rdnkey();
+        clearCheck();
+        sethtml(correct, key);
+      }
   	});
 
     function clearCheck() {
