@@ -59,6 +59,7 @@
         if(!check(correct, key)){
           correct = rdnCorrect();
           key = rdnkey();
+          clearCheck();
           sethtml(correct, key);
           opt.innerHTML = "";
         }else {
@@ -66,6 +67,15 @@
         }
       });
   	});
+
+    function clearCheck() {
+      var capticon = document.getElementsByClassName("capticon");
+
+      for(i=0; i<capticon.length; i++){
+        capticon[i].checked = false;
+        capticon[i].nextSibling.className = "";
+      }
+    }
 
     function check(num, key){
       var checkedValue = [];
@@ -97,23 +107,19 @@
     function sethtml(num, key) {
       var html = "";
       var obj = rdnObj();
-      var captchawrapper = document.getElementById("captchawrapper");
-
-      html+= "<span>Click or tap on the icon: </span>";
+      var highlight = document.getElementsByClassName("highlight");
+      var capticon = document.getElementsByClassName("capticon");
 
       for(var i=0; i<num.length; i++){
-        html+="<b class='highlight'>"+obj[num[i]][lang]+"</b> "
+        highlight[i].innerHTML = obj[num[i]][lang];
       }
-
-      html+="<div class='selectionwrapper'>";
 
       for(var i=0; i<obj.length;i++){
-        html+= "<label><input type='checkbox' class='capticon' name='captcha' value='"+key[i]+"'><i class='glyphicon glyphicon-"+obj[i].name+"'></i></label>"
+        capticon[i].value = key[i];
+        capticon[i].nextSibling.classList.add("glyphicon");
+        capticon[i].nextSibling.classList.add("glyphicon-"+obj[i].name);
       }
 
-      html+= "</div>";
-
-      captchawrapper.innerHTML = html;
     }
 
     function rdnkey() {
@@ -185,7 +191,16 @@
 		<input type="password" name="password" class="inp" placeholder="Password">
 		<input type="password" name="cfmpassword" class="inp" placeholder="Confirm Password">
 		<input type="email" name="email" class="inp" placeholder="email">
-		<div class="captchawrapper" id="captchawrapper"></div>
+		<div class="captchawrapper" id="captchawrapper">
+      <span>Click or touch the following icons: </span><b class="highlight"></b> / <b class="highlight"></b>
+      <div class='selectionwrapper'>
+        <label><input type='checkbox' class='capticon' name='captcha' value=''><i class=''></i></label>
+        <label><input type='checkbox' class='capticon' name='captcha' value=''><i class=''></i></label>
+        <label><input type='checkbox' class='capticon' name='captcha' value=''><i class=''></i></label>
+        <label><input type='checkbox' class='capticon' name='captcha' value=''><i class=''></i></label>
+        <label><input type='checkbox' class='capticon' name='captcha' value=''><i class=''></i></label>
+      </div>
+    </div>
 		<input type="button" name="submit" id="submitbtn" value="Submit">
 	</form>
 
