@@ -126,8 +126,13 @@
     function sethtml(num, key) {
       var html = "";
       var obj = rdnObj();
+      var titlelang = {"en":"Click or touch the following icons:","cn":"点击或触摸以下图标："}
+
       var highlight = document.getElementsByClassName("highlight");
       var capticon = document.getElementsByClassName("capticon");
+      var title = document.getElementById("title");
+
+      title.innerHTML = titlelang[lang];
 
       for(var i=0; i<num.length; i++){
         highlight[i].innerHTML = obj[num[i]][lang];
@@ -209,7 +214,7 @@
   <a href="javascript:;" id="cn">CN</a>
 	<form name="register">
 		<div class="captchawrapper" id="captchawrapper">
-      <span>Click or touch the following icons: </span><br><b class="highlight"></b> / <b class="highlight"></b>
+      <span id="title">Click or touch the following icons: </span><br><b class="highlight"></b> / <b class="highlight"></b>
       <div class='selectionwrapper'>
         <label><input type='checkbox' class='capticon' name='captcha' value=''><i class=''></i></label>
         <label><input type='checkbox' class='capticon' name='captcha' value=''><i class=''></i></label>
