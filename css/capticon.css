@@ -1,0 +1,319 @@
+.capticon {
+	background-image: url('../img/captcha/icon.jpg');
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+}
+
+.capticon.home {
+	background-position: -225px -100px;
+}
+.capticon.unlock-alt {
+	background-position: -200px -100px;
+}
+.capticon.tag {
+	background-position: -175px -100px;
+}
+.capticon.camera-retro {
+	background-position: 0 0;
+}
+.capticon.gift {
+	background-position: -150px -50px;
+}
+.capticon.mobile-alt {
+	background-position: -150px -25px;
+}
+.capticon.heart {
+	background-position: -75px -50px;
+}
+.capticon.flag {
+	background-position: -225px -50px;
+}
+.capticon.hourglass-end {
+	background-position: -50px -50px;
+}
+.capticon.book {
+	background-position: -25px -100px;
+}
+.capticon.magnet {
+	background-position: -200px -25px;
+}
+.capticon.apple-alt {
+	background-position: -125px -100px;
+}
+.capticon.car-side {
+	background-position: 0 -100px;
+}
+.capticon.eye {
+	background-position: -50px -75px;
+}
+.capticon.star {
+	background-position: -150px 0;
+}
+.capticon.umbrella {
+	background-position: -25px 0;
+}
+.capticon.cat {
+	background-position: -225px -75px;
+}
+.capticon.puzzle-piece {
+	background-position: 0 -25px;
+}
+.capticon.tshirt {
+	background-position: -50px 0;
+}
+.capticon.music {
+	background-position: -100px -25px;
+}
+.capticon.envelope {
+	background-position: -75px -75px;
+}
+.capticon.bomb {
+	background-position: -50px -100px;
+}
+.capticon.crown {
+	background-position: -125px -75px;
+}
+.capticon.fish {
+	background-position: 0 -75px;
+}
+.capticon.tree {
+	background-position: -75px 0;
+}
+.capticon.spider {
+	background-position: -175px 0;
+}
+.capticon.pencil-alt {
+	background-position: -25px -25px;
+}
+.capticon.paperclip {
+	background-position: -75px -25px;
+}
+.capticon.hammer {
+	background-position: -100px -50px;
+}
+.capticon.lemon {
+	background-position: -225px -25px;
+}
+.capticon.clock {
+	background-position: -175px -75px;
+}
+.capticon.gem {
+	background-position: -175px -50px;
+}
+.capticon.moon {
+	background-position: -125px -25px;
+}
+.capticon.paw {
+	background-position: -50px -25px;
+}
+.capticon.shield-alt {
+	background-position: -200px 0;
+}
+.capticon.table-tennis {
+	background-position: -100px 0;
+}
+.capticon.anchor {
+	background-position: -150px -100px;
+}
+.capticon.bell {
+	background-position: -100px -100px;
+}
+.capticon.glasses {
+	background-position: -125px -50px;
+}
+.capticon.key {
+	background-position: -25px -50px;
+}
+.capticon.dice-six {
+	background-position: -100px -75px;
+}
+.capticon.feather-alt {
+	background-position: -25px -75px;
+}
+.capticon.gamepad {
+	background-position: -200px -50px;
+}
+.capticon.keyboard {
+	background-position: 0 -50px;
+}
+.capticon.mask {
+	background-position: -175px -25px;
+}
+.capticon.robot {
+	background-position: -225px 0;
+}
+.capticon.sun {
+	background-position: -125px 0;
+}
+.capticon.bicycle {
+	background-position: -75px -100px;
+}
+.capticon.chess {
+	background-position: -200px -75px;
+}
+.capticon.compass {
+	background-position: -150px -75px;
+}
+
+
+@media only screen and (max-width: 768px){
+	.capticon {
+		background-image: url('../img/captcha/micon.jpg');
+		width: 15px;
+		height: 15px;
+	}
+
+	.capticon.home {
+		background-position: -135px -60px;
+	}
+	.capticon.unlock-alt {
+		background-position: -120px -60px;
+	}
+	.capticon.tag {
+		background-position: -105px -60px;
+	}
+	.capticon.camera-retro {
+		background-position: 0 0;
+	}
+	.capticon.gift {
+		background-position: -90px -30px;
+	} 
+	.capticon.mobile-alt {
+		background-position: -90px -15px;
+	}
+	.capticon.heart {
+		background-position: -45px -30px;
+	}
+	.capticon.flag {
+		background-position: -135px -30px;
+	}
+	.capticon.hourglass-end {
+		background-position: -30px -30px;
+	}
+	.capticon.book {
+		background-position: -15px -60px;
+	}
+	.capticon.magnet {
+		background-position: -120px -15px;
+	}
+	.capticon.apple-alt {
+		background-position: -75px -60px;
+	}
+	.capticon.car-side {
+		background-position: 0 -60px;
+	}
+	.capticon.eye {
+		background-position: -30px -45px;
+	}
+	.capticon.star {
+		background-position: -90px 0;
+	}
+	.capticon.umbrella {
+		background-position: -15px 0;
+	}
+	.capticon.cat {
+		background-position: -135px -45px;
+	}
+	.capticon.puzzle-piece {
+		background-position: 0 -15px;
+	}
+	.capticon.tshirt {
+		background-position: -30px 0;
+	}
+	.capticon.music {
+		background-position: -60px -15px;
+	}
+	.capticon.envelope {
+		background-position: -45px -45px;
+	}
+	.capticon.bomb {
+		background-position: -30px -60px;
+	}
+	.capticon.crown {
+		background-position: -75px -45px;
+	}
+	.capticon.fish {
+		background-position: 0 -45px;
+	}
+	.capticon.tree {
+		background-position: -45px 0;
+	}
+	.capticon.spider {
+		background-position: -105px 0;
+	}
+	.capticon.pencil-alt {
+		background-position: -15px -15px;
+	}
+	.capticon.paperclip {
+		background-position: -45px -15px;
+	}
+	.capticon.hammer {
+		background-position: -60px -30px;
+	}
+	.capticon.lemon {
+		background-position: -135px -15px;
+	}
+	.capticon.clock {
+		background-position: -105px -45px;
+	}
+	.capticon.gem {
+		background-position: -105px -30px;
+	}
+	.capticon.moon {
+		background-position: -75px -15px;
+	}
+	.capticon.paw {
+		background-position: -30px -15px;
+	}
+	.capticon.shield-alt {
+		background-position: -120px 0;
+	}
+	.capticon.table-tennis {
+		background-position: -60px 0;
+	}
+	.capticon.anchor {
+		background-position: -90px -60px;
+	}
+	.capticon.bell {
+		background-position: -60px -60px;
+	}
+	.capticon.glasses {
+		background-position: -75px -30px;
+	}
+	.capticon.key {
+		background-position: -15px -30px;
+	}
+	.capticon.dice-six {
+		background-position: -60px -45px;
+	}
+	.capticon.feather-alt {
+		background-position: -15px -45px;
+	}
+	.capticon.gamepad {
+		background-position: -120px -30px;
+	}
+	.capticon.keyboard {
+		background-position: 0 -30px;
+	}
+	.capticon.mask {
+		background-position: -105px -15px;
+	}
+	.capticon.robot {
+		background-position: -135px 0;
+	}
+	.capticon.sun {
+		background-position: -75px 0;
+	}
+	.capticon.bicycle {
+		background-position: -45px -60px;
+	}
+	.capticon.chess {
+		background-position: -120px -45px;
+	}
+	.capticon.compass {
+		background-position: -90px -45px;
+	}
+}
+
+

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>7play11: China | Singapore</title>
+  <meta name="description" content="7play11 Group provide Worldwide Online Casino Entertainment. Join us now & To be our Big Winners! ">
+  <meta name="keywords" content="7play11 Group provide Worldwide Online Casino Entertainment. Join us now & To be our Big Winners! ">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/js/flipclock/flipclock.css">
+  <link type="text/css" rel="stylesheet" href="./css/style2.css" />
+  <script src="./js/flipclock/jquery.min.js" charset="utf-8"></script>
+  <script src="./js/flipclock/flipclock.min.js" charset="utf-8"></script>
+
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(){
+      CountDownTimer('1/1/2019 12:00 AM', 'clock');
+    });
+
+    function CountDownTimer(dt, id){
+      var end = new Date(dt);
+
+      var _second = 1000;
+      var _minute = _second * 60;
+      var _hour = _minute * 60;
+      var _day = _hour * 24;
+      var timer;
+
+      function showRemaining() {
+          var now = new Date();
+          var distance = end - now;
+          if (distance < 0) {
+
+              clearInterval(timer);
+              document.getElementById(id).innerHTML = 'EXPIRED!';
+
+              return;
+          }
+          var days = Math.floor(distance / _day);
+          var hours = Math.floor((distance % _day) / _hour);
+          var minutes = Math.floor((distance % _hour) / _minute);
+          var seconds = Math.floor((distance % _minute) / _second);
+
+          document.getElementById(id).innerHTML = '<span><b>' + days + '</b><i>days</i></span>';
+          document.getElementById(id).innerHTML += '<span><b>' + (hours<10?'0':'') + hours + '</b><i>hrs</i></span>';
+          document.getElementById(id).innerHTML += '<span><b>' + (minutes<10?'0':'') + minutes + '</b><i>mins</i></span>';
+          document.getElementById(id).innerHTML += '<span><b>' + (seconds<10?'0':'') + seconds + '</b><i>secs</i></span>';
+      }
+
+      timer = setInterval(showRemaining, 1000);
+    }
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <div class="logoclock">
+        <img class='sitetitle' src="./img/logo.png" alt="">
+        <div class="timer">
+          <!-- <span class='eventname'>New Year Left: </span> -->
+          <img src="./img/newyear.jpg" class="eventbanner" alt="">
+          <div class="clock" id="clock"></div>
+        </div>
+
+        <div class="langblock">
+          <div class="lang-select">
+            <img src="./img/my.jpg" alt="">
+            <span>中文</span>
+            <span>ENGLISH</span>
+          </div>
+          <div href="#" class="lang-select">
+            <img src="./img/sg.jpg" alt="">
+            <span>中文</span>
+            <span>ENGLISH</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- <div class="container">
+    </div> -->
+  </div>
+</body>
+</html>

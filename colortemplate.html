@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<meta name=description content="">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title>Color Code</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		html, body {
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			font-family: "Courier New", "Gabriola", "Georgia", Arial, sans-serif;
+			font-size: 12px;
+		}
+
+		.row {
+			display: block;
+			width: 100%;
+			clear: none;
+			float: left;
+			overflow: auto;
+			padding: 15px;
+		}
+
+		.colorblock {
+			display: block;
+			width: 25%;
+			clear: none;
+			float: left;
+			overflow: auto;
+			margin-top: 15px;
+		}
+
+		.color {
+			display: block;
+			float: left;
+			width: 40px;
+			height: 40px;
+			clear: none;
+			position: relative;
+		}
+
+		.color:after {
+			content: "";
+			background-color: var(--color);
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+		}
+		.colorcode {
+			display: block;
+			float: left;
+			clear: none;
+			padding: 0 10px;
+			height: 40px;
+			line-height: 39px;
+			text-transform: uppercase;
+			border-width: 1px 0 1px 0;
+			border-color: #0f2f50;
+			border-style: dashed;
+		}
+		.copycolor {
+			display: block;
+			width: 60px;
+			height: 40px;
+			line-height: 40px;
+			float: left;
+			clear: none;
+			color: #fff;
+			background-color: #850dc1;
+			text-align: center;
+			position: relative;
+			text-decoration: none;
+		}
+		.copycolor:hover {
+			text-decoration: underline;
+		}
+		.copycolor:after {
+			content: "\2714";
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background-color: green;
+			position: absolute;
+			left: calc(100% + 5px);
+			top: 10px;
+			line-height: 23px;
+			display: none;
+		}
+		.copycolor.active:after {
+			display: block;
+		}
+
+		@media only screen and (max-width: 768px) {
+			.colorblock {
+				width: 33.3333%;
+			}
+		}
+
+		@media only screen and (max-width: 589px) {
+			.colorblock {
+				width: 50%;
+			}
+		}
+
+		@media only screen and (max-width: 387px) {
+			.colorblock {
+				width: 100%;
+			}
+		}
+	</style>
+	<script>
+		document.addEventListener("DOMContentLoaded",function(){
+			var copy = document.getElementsByClassName('copycolor');
+
+		    for (var i = 0, len = copy.length; i < len; i++)
+			{
+			    (function(index){
+			        copy[i].onclick = function(){
+		             	ClipBoard(index);
+		             	tick(index);
+			        }    
+			    })(i);
+			}
+		});
+
+		function tick(index) {
+			var check = document.getElementsByClassName('copycolor')[index];
+			check.classList.add('active');
+			setTimeout(function(){
+				check.classList.remove('active');
+			},700)
+		}
+
+		function ClipBoard(index)
+		{
+			var holdtext = document.getElementById("holdtext");
+			holdtext.innerText = document.getElementsByClassName('colorcode')[index].innerText;
+			holdtext.focus();
+			var Copied = holdtext.setSelectionRange(0, -1);
+			document.execCommand("Copy");
+			// console.log(Copied);
+		}
+
+		function copyToClipboard(element) {
+		  var $temp = $("<input>");
+		  $("body").append($temp);
+		  $temp.val($(element).text()).select();
+		  document.execCommand("copy");
+		  $temp.remove();
+		}
+	</script>
+</head>
+<body>
+	<div class="gridcontainer">
+		<textarea id="holdtext" style="display: none;"></textarea>
+		<div class="row">
+			<h3>Color Code</h3>
+			<div class="colorblock">
+				<div class="color" style="--color:#837068;"></div>
+				<span class="colorcode">#837068</span>
+				<a href="javascript:;" class="copycolor">Copy</a>
+			</div>
+			<div class="colorblock">
+				<div class="color" style="--color:#3E1702;"></div>
+				<span class="colorcode">#3E1702</span>
+				<a href="javascript:;" class="copycolor">Copy</a>
+			</div>
+			<div class="colorblock">
+				<div class="color" style="--color:#160901;"></div>
+				<span class="colorcode">#160901</span>
+				<a href="javascript:;" class="copycolor">Copy</a>
+			</div>
+			<div class="colorblock">
+				<div class="color" style="--color:#401E08;"></div>
+				<span class="colorcode">#401E08</span>
+				<a href="javascript:;" class="copycolor">Copy</a>
+			</div>
+			<div class="colorblock">
+				<div class="color" style="--color:#67330C;"></div>
+				<span class="colorcode">#67330C</span>
+				<a href="javascript:;" class="copycolor">Copy</a>
+			</div>
+			<div class="colorblock">
+				<div class="color" style="--color:#201708;"></div>
+				<span class="colorcode">#201708</span>
+				<a href="javascript:;" class="copycolor">Copy</a>
+			</div>
+			<div class="colorblock">
+				<div class="color" style="--color:#ECBF84;"></div>
+				<span class="colorcode">#ECBF84</span>
+				<a href="javascript:;" class="copycolor">Copy</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
