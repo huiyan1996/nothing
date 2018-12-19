@@ -100,6 +100,12 @@
 			display: block;
 		}
 
+		.hidetext {
+			visibility: hidden;
+			width: 0;
+			height: 0;
+		}
+
 		@media only screen and (max-width: 768px) {
 			.colorblock {
 				width: 33.3333%;
@@ -162,7 +168,7 @@
 </head>
 <body>
 	<div class="gridcontainer">
-		<textarea id="holdtext" style="visibility: hidden;"></textarea>
+		<textarea id="holdtext" class="hidetext"></textarea>
 		<div class="row">
 			<h3>Color Code</h3>
 			<div class="colorblock">
