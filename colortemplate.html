@@ -100,12 +100,6 @@
 			display: block;
 		}
 
-		.hidetext {
-			visibility: hidden;
-			width: 0;
-			height: 0;
-		}
-
 		@media only screen and (max-width: 768px) {
 			.colorblock {
 				width: 33.3333%;
@@ -139,6 +133,16 @@
 			}
 		});
 
+		function ClipBoard(index)
+		{
+			var holdtext = document.getElementById("holdtext");
+			holdtext.value = document.getElementsByClassName('colorcode')[index].innerHTML;
+			holdtext.focus();
+			var Copied = holdtext.setSelectionRange(0, -1);
+			document.execCommand("Copy");
+			// console.log(Copied);
+		}
+
 		function tick(index) {
 			var check = document.getElementsByClassName('copycolor')[index];
 			check.classList.add('active');
@@ -146,29 +150,11 @@
 				check.classList.remove('active');
 			},700)
 		}
-
-		function ClipBoard(index)
-		{
-			var holdtext = document.getElementById("holdtext");
-			holdtext.innerText = document.getElementsByClassName('colorcode')[index].innerText;
-			holdtext.focus();
-			var Copied = holdtext.setSelectionRange(0, -1);
-			document.execCommand("Copy");
-			// console.log(Copied);
-		}
-
-		function copyToClipboard(element) {
-		  var $temp = $("<input>");
-		  $("body").append($temp);
-		  $temp.val($(element).text()).select();
-		  document.execCommand("copy");
-		  $temp.remove();
-		}
 	</script>
 </head>
 <body>
 	<div class="gridcontainer">
-		<textarea id="holdtext" class="hidetext"></textarea>
+		<input type="text" id="holdtext" style="position:fixed; left: -100%;" />
 		<div class="row">
 			<h3>Color Code</h3>
 			<div class="colorblock">
