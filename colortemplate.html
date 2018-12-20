@@ -138,6 +138,7 @@
 			var holdtext = document.getElementById("holdtext");
 			holdtext.value = document.getElementsByClassName('colorcode')[index].innerHTML;
 			var Copied = holdtext.setSelectionRange(0, -1);
+			holdtext.focus();
 			document.execCommand("Copy");
 			// console.log(Copied);
 		}
