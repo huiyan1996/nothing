@@ -19,6 +19,7 @@
     		font-family: Arial, sans-serif;
     	}
 
+        /* Side Menu */
     	.nav-top {
     		position: relative;
     		width: 100%;
@@ -129,11 +130,6 @@
     		justify-content: center;
     	}
 
-    	/*#menu:checked ~ .menutoggle {
-    		position: fixed;
-    		right: calc(60% + 10px);
-    	}*/
-
     	#menu:checked ~ .menutoggle span {
     		background-color: transparent;
     	}
@@ -187,6 +183,77 @@
     	#afterlogin:checked ~ .menutitle:after, #main:checked ~ .menutitle:after {
     		transform: rotate(180deg);
     	}
+
+        /* End Side Menu */
+
+        /* Bottom Menu */
+        .bottomwrapper {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #bottom-check {
+            position: absolute;
+        }
+
+        .bottom-toggle {
+    		width: 40px;
+    		display: block;
+    		position: absolute;
+    		bottom: 0;
+    		z-index: 4;
+    		transition: all .5s ease-in-out;
+            left: calc(50% - 20px);
+    	}
+
+    	.bottom-toggle span {
+    		display: block;
+    		height: 4px;
+    		width: 80%;
+    		margin: 19px auto;
+    		background-color: #000;
+    		position: relative;
+    		border-radius: 5px;
+    		transition: all .5s ease-in-out;
+    	}
+
+    	.bottom-toggle span:before, .bottom-toggle span:after {
+    		content: "";
+    		width: 100%;
+    		height: inherit;
+    		background-color: inherit;
+    		position: absolute;
+    		top: -10px;
+    		border-radius: inherit;
+    		transition: all .5s ease-in-out;
+    	}
+
+    	.bottom-toggle span:after {
+    		top: 10px;
+    	}
+
+        .bottomwrapper .menu-wrapper {
+            position: fixed;
+            bottom: 0;
+            display: block;
+        }
+
+        .bottomwrapper .menu-wrapper ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: fixed;
+            bottom: 40px;
+            left: calc(50% - 75px);
+        }
+
+        .bottomwrapper .menu-wrapper ul li {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+        }
     </style>
 </head>
 <body>
@@ -220,7 +287,21 @@
 			</div>
 		</div>
 
-		<div class="bottomwrapper"></div>
+		<div class="bottomwrapper">
+            <input type="checkbox" id="bottom-check" name="" value="">
+            <label class="bottom-toggle" for="bottom-check">
+                <span></span>
+            </label>
+            <nav class="menu-wrapper">
+                <ul>
+                    <li>A</li>
+                    <li>B</li>
+                    <li>C</li>
+                    <li>D</li>
+                    <li>E</li>
+                </ul>
+            </nav>
+        </div>
 	</div>
 </body>
 </html>
