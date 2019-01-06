@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rock, scissors, paper</title>
+    <style>
+        .game-wrapper {
+            font-family: "Courier New", Courier, Arial, sans-serif;
+            display: block;
+            clear: both;
+            width: 370px;
+            background-color: #333;
+            color: #fff;
+            margin: 0 auto;
+        }
+
+        .score-wrapper {
+            display: flex;
+            width: 100%;
+            clear: both;
+            margin: 0 auto;
+        }
+
+        .score-wrapper .player {
+            flex: 1;
+            position: relative;
+        }
+
+        .score-wrapper .player.user {
+            text-align: left;
+        }
+
+        .score-wrapper .player.comp {
+            text-align: right;
+        }
+
+        .score-wrapper .player .name, .score-wrapper .player .score {
+            display: block;
+            clear: both;
+            padding: 2px 5px;
+        }
+
+        .score-wrapper .player .score {
+            font-size: 17px;
+            background-color: #0d9f00;
+            color: #fff;
+            padding: 4px 5px;
+        }
+
+        .score-wrapper .player.comp .score {
+            background-color: #0f7c06;
+        }
+
+        .game-area {
+            display: block;
+            clear: both;
+            width: 100%;
+            margin: 0 auto;
+            overflow: auto;
+        }
+
+        .result {
+            overflow: auto;
+        }
+
+        .result-img {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #fff;
+            margin: 15px;
+            float: left;
+        }
+
+        .result-img.green {
+            background-color: #3fb962;
+        }
+
+        .result-img.yellow {
+            background-color: #ffea7a;
+        }
+
+        .result-img.red {
+            background-color: #d2564a;
+        }
+
+        .vs-txt {
+            display: inline-block;
+            height: 100px;
+            line-height: 100px;
+            width: 90px;
+            text-align: center;
+            margin: 10px;
+            float: left;
+            font-size: 50px;
+        }
+
+        .guide-txt {
+            display: block;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .selection-area {
+            display: block;
+            text-align: center;
+            background-color: #777;
+            padding: 4% 0;
+        }
+
+        .selection {
+            width: 80px;
+            height: 80px;
+            display: inline-block;
+            background-color: #eee;
+            border-radius: 50%;
+            border: 2px solid #888;
+            margin-top: 10px;
+        }
+
+        .selection:active {
+            border-color: #000;
+        }
+
+        .selection img {
+            display: block;
+            width: 80%;
+            height: 80%;
+            margin: 10% auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-wrapper">
+        <div class="score-wrapper">
+            <span class="player user">
+                <small class="name"><b>User</b></small>
+                <b class="score" id="user-score" >0</b>
+            </span>
+            <span class="player comp">
+                <small class="name"><b>Comp</b></small>
+                <b class="score" id="comp-score">0</b>
+            </span>
+        </div>
+
+        <div class="game-area">
+            <div class="result">
+                <img src="./img/rsp/r.png" class="result-img" alt="" id="user-choose">
+                <b class="vs-txt">VS</b>
+                <img src="./img/rsp/r.png" class="result-img" alt="" id="comp-choose">
+            </div>
+            <div class="selection-area">
+                <span class="guide-txt">Make your choice</span>
+                <a href="javascript:;" class="selection" id="r"><img src="./img/rsp/r.png" alt=""></a>
+                <a href="javascript:;" class="selection" id="p"><img src="./img/rsp/p.png" alt=""></a>
+                <a href="javascript:;" class="selection" id="s"><img src="./img/rsp/s.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        let userScore = 0;
+        let compScore = 0;
+        const userResult = document.getElementById('user-choose');
+        const compResult = document.getElementById('comp-choose');
+        const selectRock = document.getElementById('r');
+        const selectPaper = document.getElementById('p');
+        const selectScissors = document.getElementById('s');
+        const userScoreDisplay = document.getElementById('user-score');
+        const compScoreDisplay = document.getElementById('comp-score');
+
+        userAction();
+
+        function userAction() {
+            selectRock.addEventListener("click", function(){
+                getResult("r");
+            });
+            selectPaper.addEventListener("click", function(){
+                getResult("p");
+            });
+            selectScissors.addEventListener("click", function(){
+                getResult("s");
+            });
+        }
+
+        function win(userSel, compSel) {
+            userScore+=1;
+            userScoreDisplay.innerHTML = userScore;
+            compScoreDisplay.innerHTML = compScore;
+            userResult.setAttribute("src", "./img/rsp/"+userSel+".png");
+            compResult.setAttribute("src", "./img/rsp/"+compSel+".png");
+            userResult.style.backgroundColor = "#3fb962";
+            compResult.style.backgroundColor = "#d2564a";
+        }
+
+        function lose(userSel, compSel) {
+            compScore+=1;
+            userScoreDisplay.innerHTML = userScore;
+            compScoreDisplay.innerHTML = compScore;
+            userResult.setAttribute("src", "./img/rsp/"+userSel+".png");
+            compResult.setAttribute("src", "./img/rsp/"+compSel+".png");
+            compResult.style.backgroundColor = "#3fb962";
+            userResult.style.backgroundColor = "#d2564a";
+        }
+
+        function draw(userSel, compSel) {
+            userResult.setAttribute("src", "./img/rsp/"+userSel+".png");
+            compResult.setAttribute("src", "./img/rsp/"+compSel+".png");
+            userResult.style.backgroundColor = "#ffea7a";
+            compResult.style.backgroundColor = "#ffea7a";
+        }
+
+        function getResult(userSel) {
+            let compSel = getCompSel();
+            switch(userSel+compSel){
+                //win
+                case "rs":
+                case "sp":
+                case "pr": win(userSel, compSel);
+                    break;
+                //lose
+                case "rp":
+                case "ps":
+                case "sr": lose(userSel, compSel);
+                    break;
+                //draw
+                case "rr":
+                case "ss":
+                case "pp": draw(userSel, compSel);
+                    break;
+                default: alert("Opps, we are busy!");
+            }
+        }
+
+        function getCompSel() {
+            const selection = ['r','p','s'];
+            return selection[Math.floor(Math.random()*3)];
+        }
+    </script>
+</body>
+</html>
