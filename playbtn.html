@@ -19,10 +19,9 @@
   		position: relative;
   		font-family: Arial, sans-serif;
   		margin: .5%;
-  		border: 1px solid #fff;
+  		border: 1px solid #837068;
   		overflow: hidden;
   		cursor: pointer;
-  		padding-bottom: 20px;
   	}
 
   	.slotbs img {
@@ -35,66 +34,51 @@
 
   	.slotbs .desc {
   		position: absolute;
-  		top: 80%;
+  		top: 0;
   		right: 0;
   		left: 0;
   		bottom: 0;
-  		background-color: rgba(255,255,255,.1);
+  		background-color: rgba(255,255,255,.5);
   		text-decoration: none;
-  		opacity: 1;
+  		opacity: 0;
   		transition: all .2s ease-out;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
   	}
 
   	.slotbs:hover .desc {
-  		position: absolute;
   		opacity: 1;
-  		background-color: #f7941d;
-  		left: 0;
-  		top: 0;
-  		right: 0;
-  		bottom: 0;
-  	}
+    }
 
   	.slotbs .desc span {
-  		display: block;
-  		clear: both;
-  		width: 100%;
-  		text-align: center;
-  		margin: 3% auto;
-  		color: #fff;
-  		font-weight: bold;
-  	}
+      display: block;
+      clear: both;
+      text-align: center;
+      color: #fff;
+      position: absolute;
+      padding: 7px 0;
+      bottom: 0;
+      text-shadow: 1px 1px 2px #000;
+    }
 
-  	.slotbs:hover .desc span {
-  		color: #000;
-  		transition: all .2s ease-out;
-  		margin: 7% auto;
-  	}
+  	.slotbs:hover .desc span {}
 
   	.slotbs .desc .playbtn {
-  		display: none;
-  		width: 45px;
-  		height: 45px;
-  		background-color: #000;
-  		clear: both;
-  		margin: 0 auto;
-  		border-radius: 50%;
-  		position: relative;
-  	}
+      display: block;
+      clear: both;
+      text-align: center;
+      color: #fff;
+      width: 70%;
+      padding: 7px 0;
+      background-color: #67330C;
+      border-radius: 4px;
+    }
 
-  	.slotbs .desc .playbtn:before {
-	    content: "";
-	    position: absolute;
-	    border-width: 13px 20px;
-	    border-color: transparent transparent transparent #f7941d;
-	    border-style: solid;
-	    top: 10px;
-	    left: 16px;
-  	}
+  	.slotbs .desc .playbtn:before {}
 
-  	.slotbs:hover .desc .playbtn {
-  		display: block;
-  	}
+  	.slotbs:hover .desc .playbtn {}
 
   	.slotsa {
   		display: block;
@@ -182,7 +166,7 @@
 <body>
 	<div class="slotbs">
 		<img src="img/GiovannisGems_Button-whSmall_wh.png">
-		<div class="desc"><span>Giovanni's Gems</span><b class="playbtn"></b></div>
+		<div class="desc"><b class="playbtn">Play</b><span>Giovanni's Gems</span></div>
 	</div>
 
 	<div class="slotsa">
