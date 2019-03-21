@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<meta name=description content="">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+
+		.game-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 90vw;
+			height: 40vw;
+			position: relative;
+			background-color: wheat;
+			margin: 15px auto;
+			overflow: hidden;
+		}
+
+		/* Card selection wrapper */
+		.card-wrapper {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.card-wrapper .card {
+			width: 10vw;
+			height: 15vw;
+			background-color: #FA8072;
+			position: absolute;
+			bottom: 2.6vw;
+			left: 50%;
+			transform: translateX(-50%) rotate(-30deg);
+			transform-origin: bottom center;
+			transition: bottom .2s ease-in;
+			cursor: pointer;
+			border: 2px solid #fff;
+		}
+
+		.card-wrapper .card:hover {
+			bottom: 4vw;
+		}
+
+		.card-wrapper .card:nth-child(2) {
+			background-color: #CD5C5C;
+			transform: translateX(-50%) rotate(-15deg);
+		}
+		.card-wrapper .card:nth-child(3) {
+			background-color: #DC143C;
+			transform: translateX(-50%) rotate(0deg);
+		}
+		.card-wrapper .card:nth-child(4) {
+			background-color: #B22222;
+			transform: translateX(-50%) rotate(15deg);
+		}
+		.card-wrapper .card:nth-child(5) {
+			background-color: #8B0000;
+			transform: translateX(-50%) rotate(30deg);
+		}
+		/* end card selection wrapper */
+
+		/* Button */
+		.winner-btn {
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			text-align: center;
+			height: 30px;
+			line-height: 30px;
+			background: #e5a400;
+			color: whitesmoke;
+			text-decoration: none;
+		}
+
+		.info-btn {
+		    position: absolute;
+		    left: 0;
+		    top: 30px;
+		    right: 0;
+		    text-align: center;
+		    height: 30px;
+		    line-height: 30px;
+		    background: chocolate;
+		    color: whitesmoke;
+		    text-decoration: none;
+		}
+		/* End Button */
+
+
+		/* Pop up wrapper */
+		.result-wrapper {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			background-color: rgba(0,0,0,.7);
+			align-items: center;
+			justify-content: center;
+			display: none;
+		}
+
+		.inner {
+			display: block;
+			width: 70%;
+			height: 70%;
+			background-color: #fff;
+			border-radius: 10px;
+			position: relative;
+			padding: 15px;
+		}
+
+		.result {
+			width: 60%;
+			height: 160px;
+		}
+
+		.close-result {
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			width: 30px;
+			height: 30px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.close-result span {
+			display: block;
+			width: 80%;
+			height: 5px;
+			background-color: transparent;
+			position: relative;
+		}
+
+		.close-result span:before, .close-result span:after {
+			content: "";
+			display: block;
+			position: absolute;
+			background-color: #000;
+			top: 0;
+			left: 0;
+			height: inherit;
+			width: inherit;
+			transform: rotate(45deg);
+		}
+
+		.close-result span:after {
+			transform: rotate(135deg);
+		}
+
+		#result-wrapper .inner .coin {
+			display: flex;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background-image: -webkit-linear-gradient(top, #efd100 0, #e2a233 38%, #f0c328 60%, #fff1a3 86%, #ffe13e 100%);
+			border: 1px solid goldenrod;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			font-size: 30px;
+			font-weight: bold;
+			position: relative;
+		}
+
+		#result-wrapper .inner .coin:after {
+			content: "";
+			width: 20px;
+			height: 10px;
+			border-radius: 50%;
+			position: absolute;
+			top: calc(100% - 5px);
+			box-shadow: 0 20px 10px -2px #000;
+		}
+		/* End pop up wrapper */
+
+
+		/* Animation */
+		.slide {
+			animation: slideIn .3s ease-in forwards;
+		}
+
+		@keyframes slideIn {
+			0% {
+				opacity: 0;
+				transform: translateY(-40px);
+			}
+			100% {
+				opacity: 1;
+				transform: translateY(0%);
+			}
+		}
+
+		.rotate {
+			animation: rotate .8s ease-in-out infinite;
+		}
+
+		@keyframes rotate {
+			from {
+				transform: rotateY(0deg);
+			}
+			to {
+				transform: rotateY(360deg);
+			}
+		}
+		/* End animation */
+
+		/* Mobile site */
+		@media only screen and (max-width: 768px) {
+			.game-wrapper {
+				height: 120vw;
+			}
+
+			.card-wrapper .card {
+				width: 30vw;
+				height: 45vw;
+				bottom: 7.5vw;
+			}
+
+			.card-wrapper .card:hover {
+				bottom: 12vw;
+			}
+		}
+		/* End mobile site */
+	</style>
+</head>
+<body>
+	<div class="game-wrapper">
+		<a href="javascript:;" class="info-btn" id="info-btn" onclick="showInfo()">Info</a>
+		<a href="javascript:;" class="winner-btn" id="winner-btn" onclick="showWinner()">Winner</a>
+
+		<div class="card-wrapper">
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+		</div>
+		<div class="result-wrapper" id="result-wrapper">
+			<div class="inner result">
+				<a href="javascript:;" class="close-result" onclick="closeResult()"><span></span></a>
+				<div class="coin rotate">
+					<span>$</span>
+				</div>
+			</div>
+		</div>
+		<div class="result-wrapper" id="winner-wrapper">
+			<div class="inner">
+				<a href="javascript:;" class="close-result" onclick="closeWinner()"><span></span></a>
+				Winner
+			</div>
+		</div>
+		<div class="result-wrapper" id="info-wrapper">
+			<div class="inner">
+				<a href="javascript:;" class="close-result" onclick="closeInfo()"><span></span></a>
+				Info
+			</div>
+		</div>
+	</div>
+	<script>
+		const resultWrapper = document.getElementById("result-wrapper");
+		const result = document.querySelector("#result-wrapper .inner");
+		const winnerWrapper = document.getElementById("winner-wrapper");
+		const winner = document.querySelector("#winner-wrapper .inner");
+		const infoWrapper = document.getElementById("info-wrapper");
+		const info = document.querySelector("#info-wrapper .inner");
+		const card = document.getElementsByClassName("card");
+
+		showResult();
+
+		function showResult() {
+			var clicked = false;
+			for (i=0; i < card.length; i++) {
+				(function(index){
+					card[i].addEventListener("click", function(){
+						resultWrapper.style.display = 'flex';
+						result.classList.add('slide');
+					});
+				})(i);
+			}
+		}
+
+		function showWinner() {
+			winnerWrapper.style.display = 'flex';
+			winner.classList.add('slide');
+		}
+
+		function showInfo() {
+			infoWrapper.style.display = 'flex';
+			info.classList.add('slide');
+		}
+
+		function closeResult() {
+			resultWrapper.style.display = 'none';
+		}
+
+		function closeWinner() {
+			winnerWrapper.style.display = 'none';
+		}
+
+		function closeInfo() {
+			infoWrapper.style.display = 'none';
+		}
+	</script>
+</body>
+</html>
