@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#favor-btn").click(function(){
+                    if($(this).children('.fa').hasClass('fa-heart-o')){
+                        $(this).children('.fa').removeClass('fa-heart-o').addClass('fa-heart');
+                    }else{
+                        $(this).children('.fa').removeClass('fa-heart').addClass('fa-heart-o');
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <span class="page-title">Queue</span>
+        <div class="queue-now">
+            <span>5</span>
+        </div>
+        <span class="queuetitle">Current Number of People Waiting</span>
+        <a href="queuedetail.html" class="queue-now-btn">Queue Now</a>
+    </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#nextbtn").click(function(){
+                    if($('input[name="reserve"]:checked').val() == '1'){
+                        $("#nextbtn").attr('href','preorderlist.html');
+                    }else{
+                        $("#nextbtn").attr('href','checkreservedetail.html');
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <span class="page-title">Booking Details</span>
+
+        <span class="book-title">Customer’s Details</span>
+        <div class="book-det">
+            <span class="left">Name</span>
+            <div class="right-two"><input type="text" class="book-inp" name=""></div>
+        </div>
+
+        <div class="book-det">
+            <span class="left">Phone.No</span>
+            <div class="center"><input type="text" class="book-inp" name="" placeholder="Phone number"/></div>
+            <div class="right"><input type="submit" class="book-veri" name="" value="Request TAC"/></div>
+        </div>
+
+        <div class="book-det">
+            <span class="left">TAC.No</span>
+            <div class="center"><input type="text" class="book-inp" name="" placeholder="Enter TAC here" /></div>
+        </div>
+
+        <span class="book-title">Booking’s Detail</span>
+        <div class="book-list">
+            <span class="book-list-title">Date</span>
+            <span class="book-list-txt">2018-01-20</span>
+        </div>
+
+        <div class="book-list">
+            <span class="book-list-title">Time</span>
+            <span class="book-list-txt">15:30</span>
+        </div>
+
+        <div class="book-list">
+            <span class="book-list-title">Select your table</span>
+            <select name="" class="book-list-option">
+                <option value=""></option>
+                <option value="">THE VBLOC-B1 (2-3pax)</option>
+                <option value="">THE VBLOC-B2 (4-5pax)</option>
+                <option value="">THE VBLOC-B3 (4-5pax)</option>
+                <option value="">THE VBLOC-B4 (5-6pax)</option>
+            </select>
+        </div>
+
+        <div class="book-list no-border">
+            <span class="book-list-title">Select Your Optional</span>
+            <label class="book-list-radio">
+                <input type="radio" name="reserve" value="0" checked>
+                <span>Reservation only</span>
+            </label>
+            <label class="book-list-radio">
+                <input type="radio" name="reserve" value="1">
+                <span>Order food in advance (Minimum spend: RM50)</span>
+            </label>
+        </div>
+
+        <div class="reserve-space"></div>
+        <a href="checkreservedetail.html" class="reserve-btn" id="nextbtn">Next</a>
+    </body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <script>
+            $(document).ready(function(){
+                price();
+
+                $('.cus-minus').click(function(){
+                    var ind = $('.cus-minus').index(this);
+                    var num = parseFloat($('.cus-food-num').eq(ind).val());
+
+                    if(num>1){
+                        num-=1;
+                        $('.cus-food-num').eq(ind).val(num);
+                    }
+
+                    price();
+                });
+
+                $('.cus-add').click(function(){
+                    var ind = $('.cus-add').index(this);
+                    var num = parseFloat($('.cus-food-num').eq(ind).val())+1;
+                    $('.cus-food-num').eq(ind).val(num);
+
+                    price();
+                });
+
+                $("#clear-btn").click(function(){
+                    if(confirm("Confirm to clear all of the order?")){
+                        alert('Cleared!');
+                    }
+                });
+
+                function price(){
+                    var total = 0;
+
+                    for(i=0;i<$('.cus-food-price').length;i++){
+                        total = total + parseFloat($('.cus-food-price label').eq(i).text())*parseFloat($('.cus-food-num').eq(i).val());
+                    }
+
+                    $("#cus-total").text("RM "+total.toFixed(2));
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div id="fixed-menu">
+            <a href="index.html" class="left">
+                <span id="company-name">Company Name</span>
+            </a>
+            <div class="right">
+                <div id="fixed-nav-item">
+                    <a href="usercenter.html" class="fixed-icon" alt="Home" label="Home"></a>
+                    <a href="order.html" class="fixed-icon active" alt="Order" label="Order"></a>
+                    <a href="category.html" class="fixed-icon" alt="Food" label="Food"></a>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+
+        <span class="page-title">My Order</span>
+
+        <span class="preorder-title">Order Details</span>
+        <div class="clear-block">
+            <a href="javascript:;" class="clear-btn" id="clear-btn">Clear Order</a>
+        </div>
+
+        <div class="cus-order-block">
+            <div class="cus-order-row">
+                <div class="cus-order-left">
+                    <span class="cus-order-food">Name of Food</span>
+                    <i class="cus-order-desc">Add Rice + 1.50</i>
+                </div>
+                <div class="cus-order-right">
+                    <a href="javascript:;" class="cus-minus">-</a>
+                    <input type="number" class="cus-food-num" value="1" readonly>
+                    <a href="javascript:;" class="cus-add">+</a>
+
+                    <span class="cus-food-price">RM <label>16.50</label></span>
+                </div>
+            </div>
+            <div class="cus-order-row">
+                <div class="cus-order-left">
+                    <span class="cus-order-food">Name of Food</span>
+                    <i class="cus-order-desc">Description</i>
+                </div>
+                <div class="cus-order-right">
+                    <a href="javascript:;" class="cus-minus">-</a>
+                    <input type="number" class="cus-food-num" value="1" readonly>
+                    <a href="javascript:;" class="cus-add">+</a>
+
+                    <span class="cus-food-price">RM <label>12.90</label></span>
+                </div>
+            </div>
+            <div class="cus-order-row">
+                <div class="cus-order-left">
+                    <span class="cus-order-food">Name of Food</span>
+                    <i class="cus-order-desc">Description</i>
+                </div>
+                <div class="cus-order-right">
+                    <a href="javascript:;" class="cus-minus">-</a>
+                    <input type="number" class="cus-food-num" value="1" readonly>
+                    <a href="javascript:;" class="cus-add">+</a>
+
+                    <span class="cus-food-price">RM <label>23.00</label></span>
+                </div>
+            </div>
+        </div>
+        <span class="gst-tips">*Notice: The above price does not include GST and Service Charge! </span>
+
+        <div class="cus-add-order">
+            <input type="text" value="+ Add Order" class="cus-add-btn" name="">
+        </div>
+
+        <div class="order-total-row">
+            <div class="column-left"><span>Total: 4 Items</span></div>
+            <div class="column-right"><span id="cus-total">RM 49.50</span></div>
+        </div>
+
+        <div class="order-space"></div>
+        <a href="discount.html" class="order-add">Confirm Order</a>
+    </body>
+</html>

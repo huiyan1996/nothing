@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+    </head>
+    <body>
+        <span class="page-title">Your Queueing Number</span>
+        <div class="queue-num-block border1">
+            <span class="queue-current-num">P008</span>
+            <span class="queue-your-title">Current Number</span>
+            <span class="queue-your-num">P003</span>
+            <span class="queue-your-title">Remaining People</span>
+            <span class="queue-your-num">5</span>
+        </div>
+
+        <div class="queue-action-block">
+            <div class="queue-action">
+                <span class="icon">
+                    <i class="fa fa-repeat"></i>
+                </span>
+                <span class="txt">Refresh List</span>
+            </div>
+            <div class="queue-action" onclick="$('#dialog1').show();">
+                <span class="icon">
+                    <i class="fa fa-times"></i>
+                </span>
+                <span class="txt">Cancel Queue</span>
+            </div>
+            <!-- <div class="queue-action">
+                <span class="icon">
+                    <i class="fa fa-file-text-o"></i>
+                </span>
+                <span class="txt">Make Order</span>
+            </div> -->
+        </div>
+
+        <a href="store.html" class="queue-back-btn">&#10094;&nbsp; Back</a>
+
+        <div class="weui_dialog_confirm" id="dialog1" style="display:none;">
+            <div class="weui_mask"></div>
+            <div class="weui_dialog">
+                <div class="weui_dialog_hd"><strong class="weui_dialog_title"><i class="weui_icon_warn icon-dialog"></i></strong></div>
+                <div class="weui_dialog_bd" style="text-align:center;word-break:keep-all;">Not reversible after this action. Confirm to cancel?</div>
+                <div class="weui_dialog_ft">
+                    <a href="javascript:;" class="weui_btn_dialog default" onclick="$('#dialog1').hide();">Cancel</a>
+                    <a href="store.html" class="weui_btn_dialog primary">Okay</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

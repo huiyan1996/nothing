@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <script>
+            $(document).ready(function(){
+                var first = 0;
+                var last = 3;
+
+                if($(".combo-block").length > 0){
+                    $('.combo-block .combo-img').click(function(){
+                        $('#waps').addClass('active');
+                    });
+                }
+
+                if($('#waps .wap .selection-block .selections label').length > 0){
+                    check();
+                }
+
+                if($('.minus').length > 0){
+                    foodnum();
+                }
+
+                if($('#waps .wap .choose-block .choose-food .scroll').length>0){
+                    scroll();
+                }
+
+            });
+
+            function foodnum(){
+                var ind = 0;
+                var num = 1;
+                $('.minus').click(function(){
+                    ind = $('.minus').index(this);
+                    num = parseInt($('.foodnum').eq(ind).val());
+                    if(num>1){
+                        num-=1;
+                    }
+                    $('.foodnum').eq(ind).val(num);
+                });
+
+                $('.plus').click(function(){
+                    ind = $('.plus').index(this);
+                    num = parseInt($('.foodnum').eq(ind).val());
+                    num+=1;
+                    $('.foodnum').eq(ind).val(num);
+                });
+                num = 1;
+            }
+
+            function check(){
+                $('.waplists .wap .selection-block .selections label').unbind('click').click(function(){
+                    $('.selections label').children('input').not(':checked').parent('label').removeClass('active');
+                    $('.selections label').children('input:checked').parent('label').addClass('active');
+                });
+
+                $('#waps .wap .food-block .close-wap').click(function(){
+                    $('#waps').removeClass('active');
+
+                    first = 0;
+                    last = 3;
+                    $('#waps .wap .choose-block .choose-food #scroll').css({'left':'0'});
+                });
+            }
+
+            function scroll(){
+                var sc = $('#waps .wap .choose-block .choose-food #scroll');
+                var img = $('#waps .wap .choose-block .choose-food #scroll .food-cate');
+                var lbtn = $(".left-btn");
+
+                var imgW = img.eq(0).width();
+                var len = img.length;
+                var w = $(window).width();
+
+                first = 0;
+                last = 3;
+
+                len = sc.children('.food-cate').length;
+                sc.children('.food-cate:first').addClass('active');
+                sc.width(imgW*len+"px");
+                $("#waps .wap").children('.selection-slide:first').addClass("active");
+
+                var pos = 0;
+                var startpos = 0;
+                startpos = w*0.05;
+
+                $(".left-btn").click(function(){
+                    if(first>0){
+                        pos = sc.position().left - startpos;
+                        sc.animate({
+                            left: (pos + imgW) + 'px'
+                        });
+                        first-=1;
+                        last-=1;
+                    }
+                });
+
+                $(".right-btn").click(function(){
+                    len = sc.children('.food-cate').length;
+
+                    if(last<len-1){
+                        pos = sc.position().left - startpos;
+                        sc.animate({
+                            left: (pos - imgW) + 'px'
+                        });
+                        first+=1;
+                        last+=1;
+                    }
+                });
+
+                $(".food-cate").click(function(){
+                    var ind = $(".food-cate").index(this);
+                    var len = $(".food-cate").length;
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+
+                    $("#waps .wap .selection-slide.active").hide().removeClass('active');
+                    $("#waps .wap .selection-slide").eq(ind).fadeIn().addClass('active');
+
+                    btn(ind,len);
+                });
+
+                $(".prev-btn").click(function(){
+                    var active = $('.selection-slide').index($('.selection-slide.active'))-1;
+                    var len = $(".food-cate").length;
+
+                    $('.scroll').children(".food-cate.active").removeClass('active');
+                    $('.scroll').children(".food-cate:eq("+active+")").addClass('active');
+
+                    $("#waps .wap").children('.selection-slide.active').hide().removeClass('active');
+                    $("#waps .wap .selection-slide").eq(active).fadeIn().addClass('active');
+
+                    /* ———————————————————— */
+                    if(active < first){
+                        $(".left-btn").click();
+                    }
+                    /* ———————————————————— */
+
+                    console.log(active);
+                    btn(active, len);
+                });
+
+                $(".next-btn").click(function(){
+                    var active = $('.selection-slide').index($('.selection-slide.active'))+1;
+                    var len = $(".food-cate").length;
+
+                    $('.scroll').children(".food-cate.active").removeClass('active');
+                    $('.scroll').children(".food-cate:eq("+active+")").addClass('active');
+
+                    $("#waps .wap").children('.selection-slide.active').hide().removeClass('active');
+                    $("#waps .wap .selection-slide").eq(active).fadeIn().addClass('active');
+
+                    /* ———————————————————— */
+                    if(active > last){
+                        $(".right-btn").click();
+                    }
+                    /* ———————————————————— */
+
+                    console.log(active);
+                    btn(active,len);
+                });
+
+                $(".done-btn").click(function(){
+                    $('#waps').removeClass('active');
+                    window.location.href = 'comboone.html';
+                });
+
+                function btn(ind, len){
+                    len = len-1;
+                    if(ind <= 0){
+                        $(".prev-btn").hide();
+                        $(".next-btn").show();
+                        $(".done-btn").hide();
+                    }else if(ind>=len){
+                        $(".prev-btn").show();
+                        $(".next-btn").hide();
+                        $(".done-btn").show();
+                    }else{
+                        $(".prev-btn").show();
+                        $(".next-btn").show();
+                        $(".done-btn").hide();
+                    }
+                    console.log("ind: "+ind+"len: "+len);
+                }
+
+            }
+        </script>
+    </head>
+    <body>
+        <div id="fixed-menu">
+            <a href="index.html" class="left">
+                <span id="company-name">Company Name</span>
+            </a>
+            <div class="right">
+                <div id="fixed-nav-item">
+                    <a href="usercenter.html" class="fixed-icon" alt="Home" label="Home"></a>
+                    <a href="order.html" class="fixed-icon" alt="Order" label="Order"></a>
+                    <a href="category.html" class="fixed-icon active" alt="Food" label="Food"></a>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+
+        <span class="page-title">Combo Set</span>
+
+        <div class="combo-block">
+            <div class="combo-pax">
+                <span class="pax-number">1 pax</span>
+            </div>
+            <span class="combo-name">Name of combo set 1</span>
+            <img src="img/combo.png" alt="" class="combo-img">
+            <span class="combo-desc">This is Description. This is Description. This is Description. This is Description.This is Description. This is Description. This is Description.</span>
+            <span class="combo-price"><small>RM</small> 80.00</span>
+        </div>
+
+        <div class="combo-block">
+            <div class="combo-pax">
+                <span class="pax-number">2/3 pax</span>
+            </div>
+            <span class="combo-name">Name of combo set 2</span>
+            <img src="img/combo.png" alt="" class="combo-img">
+            <span class="combo-desc">This is Description. This is Description. This is Description. This is Description.This is Description. This is Description. This is Description.</span>
+            <span class="combo-price"><small>RM</small> 160.00</span>
+        </div>
+
+        <!-- 选项 -->
+        <div class="waplists" id="waps">
+            <div class="wap">
+                <div class="food-block">
+                    <div class="close-wap"><div class="close"><span class="bar"></span><span class="bar"></span></div></div>
+                    <span class="food-name">Name of food 1</span>
+                    <span class="food-desc">This is Description. This is Description. This is Description. This is Description. This is Description. This is Description.This is Description.This is Description.This is Description. This is Description.</span>
+                    <span class="food-price"><small>RM</small> 10.00</span>
+                    <span class="set-num">1 set</span>
+                </div>
+
+                <div class="choose-block">
+                    <a href="javascript:;" class="scroll-btn left-btn">&#10092;</a>
+                    <div class="choose-food">
+                        <div class="scroll" id="scroll">
+                            <div class="food-cate">
+                                <img src="img/chick.png">
+                                <span>Chicken</span>
+                            </div>
+
+                            <div class="food-cate">
+                                <img src="img/fish.png">
+                                <span>Fish</span>
+                            </div>
+
+                            <div class="food-cate">
+                                <img src="img/fish2.png">
+                                <span>Fish</span>
+                            </div>
+
+                            <div class="food-cate">
+                                <img src="img/beverage.png">
+                                <span>Beverage</span>
+                            </div>
+
+                            <div class="food-cate">
+                                <img src="img/icecream.png">
+                                <span>Ice-cream</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="scroll-btn right-btn">&#10093;</a>
+                </div>
+
+                <div class="selection-slide">
+                    <div class="selection-block">
+                        <span class="selection-title">Select your flavor</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="flavor" value="" class="selection-food"><span>BBQ Chicken</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="flavor" value="" class="selection-food"><span>Roasted Chicken</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="flavor" value="" class="selection-food"><span>Rendang Chicken</span></label>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Select your specification</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec-c" value="" class="selection-food"><span>Less Spicy</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec-c" value="" class="selection-food"><span>Less Salt</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec-c" value="" class="selection-food"><span>Less Oil</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selection-slide">
+                    <div class="selection-block">
+                        <span class="selection-title">Select your optional</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="opt1" value="" class="selection-food"><span>Asam Fish</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="opt1" value="" class="selection-food"><span>Roasted Fish</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="opt1" value="" class="selection-food"><span>Fried Fish</span></label>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Select your specification</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec1" value="" class="selection-food"><span>Less Spicy</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec1" value="" class="selection-food"><span>Less Salt</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec1" value="" class="selection-food"><span>Less Oil</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec1" value="" class="selection-food"><span>No Vegetable</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec1" value="" class="selection-food"><span>No Spicy</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selection-slide">
+                    <div class="selection-block">
+                        <span class="selection-title">Select your optional</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="opt2" value="" class="selection-food"><span>Asam Fish</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="opt2" value="" class="selection-food"><span>Roasted Fish</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="opt2" value="" class="selection-food"><span>Fried Fish</span></label>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Select your specification</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec2" value="" class="selection-food"><span>Less Spicy</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec2" value="" class="selection-food"><span>Less Salt</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec2" value="" class="selection-food"><span>Less Oil</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec2" value="" class="selection-food"><span>No Vegetable</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="spec2" value="" class="selection-food"><span>No Spicy</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selection-slide">
+                    <div class="selection-block">
+                        <span class="selection-title">Beverage</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="bev" value="" class="selection-food"><span>Lemon Tea</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="bev" value="" class="selection-food"><span>Orange Juice</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="bev" value="" class="selection-food"><span>Coca-cola</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="bev" value="" class="selection-food"><span>Sprite</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="bev" value="" class="selection-food"><span>7 up</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selection-slide">
+                    <div class="selection-block">
+                        <span class="selection-title">Select your favor</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="ice" value="" class="selection-food"><span>Vanilla</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="ice" value="" class="selection-food"><span>Chocolate</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="ice" value="" class="selection-food"><span>Mint</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="ice" value="" class="selection-food"><span>Strawberry</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="ice" value="" class="selection-food"><span>Honeydew</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="ice" value="" class="selection-food"><span>Green Tea</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="ice" value="" class="selection-food"><span>Espresso</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="radio" name="ice" value="" class="selection-food"><span>Blueberry Yogurt</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="submit-block">
+                    <a href="javascript:;" class="prev-btn"><< Prev</a>
+                    <a href="javascript:;" class="next-btn">Next >></a>
+                    <a href="javascript:;" class="done-btn">Done</a>
+                </div>
+
+                <div class="order-space"></div>
+
+            </div>
+        </div>
+        <!-- END选项 -->
+
+        <!-- 这里的space和那个按钮如果没有Combo的order 就可以display none -->
+        <div class="order-space"></div>
+        <a href="order.html" class="order-add">My Order List</a>
+        <!-- 到这里 -->
+
+    </body>
+</html>

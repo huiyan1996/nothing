@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#save-btn").click(function(){
+                    $("#done-back").css('display','-webkit-box');
+                    setTimeout(function(){
+                        window.location.href = 'history.html';
+                    },1000);
+                });
+
+                $(".fa").click(function(){
+                    $(this).prevAll().removeClass('fa-star-o').addClass('fa-star');
+                    $(this).removeClass('fa-star-o').addClass('fa-star');
+                    $(this).nextAll().removeClass('fa-star').addClass('fa-star-o');
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="fixed-menu">
+            <a href="index.html" class="left">
+                <span id="company-name">Company Name</span>
+            </a>
+            <div class="right">
+                <div id="fixed-nav-item">
+                    <a href="usercenter.html" class="fixed-icon active" alt="Home" label="Home"></a>
+                    <a href="order.html" class="fixed-icon" alt="Order" label="Order"></a>
+                    <a href="category.html" class="fixed-icon" alt="Food" label="Food"></a>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <span class="page-title">Rate and Review</span>
+
+        <div class="rate-block">
+            <span class="rate-title">Star Rating</span>
+
+            <div class="star-block">
+                <i class="fa fa-star-o"></i>
+                <i class="fa fa-star-o"></i>
+                <i class="fa fa-star-o"></i>
+                <i class="fa fa-star-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+        </div>
+
+        <div class="rate-block">
+            <span class="rate-title">Review</span>
+
+            <div class="review-block">
+                <textarea name="" class="review-txt" ></textarea>
+            </div>
+        </div>
+
+        <div id="done-back">
+            <div class="center">
+                <i class="weui_icon_success_no_circle"></i>
+                <span class="txt">Thank you!</span>
+            </div>
+        </div>
+
+        <a href="javascript:;" class="rate-btn save-btn" id="save-btn">Save</a>
+        <a href="history.html" class="rate-btn cancel-btn">Cancel</a>
+
+    </body>
+</html>
