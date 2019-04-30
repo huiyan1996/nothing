@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<meta name=description content="">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title>Pair</title>
+	<style type="text/css">
+		.gamewrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 1130px;
+			height: 530px;
+			background-color: #e1e1e1;
+			margin: 0 auto;
+			padding: 15px;
+			flex-flow: column;
+		}
+
+		.cardwrapper {
+			display: flex;
+			width: 100%;
+			height: 100%;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.cardwrapper .card {
+			width: 120px;
+			margin: .5%;
+			height: 120px;
+			background-color: #ccc;
+			perspective: 1000px;
+		}
+
+		.cardwrapper .card span {
+			transform-style: preserve-3d;
+			position: relative;
+			width: 100%;
+			height: 100%;
+			transition: 0.4s ease-in-out;
+			display: block;
+		}
+
+		.cardwrapper .card span:before, .cardwrapper .card span:after {
+			backface-visibility: hidden;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.cardwrapper .card span:before {
+			content: "";
+			z-index: 2;
+			transform: rotateY(0deg);
+			background-color: antiquewhite;
+		}
+
+		.cardwrapper .card span:after {
+			content: attr(data-name);
+			font-family: cursive;
+			transform: rotateY(-180deg);
+			background-color: greenyellow;
+			color: #000;
+		}
+
+		.cardwrapper .card.active span {
+			transform: rotateY(180deg);
+		}
+	</style>
+</head>
+<body>
+	<div class="gamewrapper">
+		<div class="cardwrapper">
+			<div class="card"><span data-name="1"></span></div>
+			<div class="card"><span data-name="2"></span></div>
+			<div class="card"><span data-name="3"></span></div>
+			<div class="card"><span data-name="4"></span></div>
+
+			<div class="card"><span data-name="5"></span></div>
+			<div class="card"><span data-name="6"></span></div>
+			<div class="card"><span data-name="7"></span></div>
+			<div class="card"><span data-name="8"></span></div>
+
+			<div class="card"><span data-name="9"></span></div>
+			<div class="card"><span data-name="10"></span></div>
+			<div class="card"><span data-name="11"></span></div>
+			<div class="card"><span data-name="12"></span></div>
+
+			<div class="card"><span data-name="13"></span></div>
+			<div class="card"><span data-name="14"></span></div>
+			<div class="card"><span data-name="15"></span></div>
+			<div class="card"><span data-name="16"></span></div>
+		</div>
+
+		<span id="result"></span>
+	</div>
+
+	<script type="text/javascript">
+		const card = document.getElementsByClassName('card');
+		const resulttxt = document.getElementById('result');
+		let sel1 = null;
+		let sel2 = null;
+		let result = null;
+
+		for (var i = 0; i < card.length; i++)
+		{
+		    (function(index){
+		        card[i].onclick = function(){
+		        	console.log('click');
+		            // this.style.backgroundColor = '#ffabab';
+		            this.classList.add('active');
+
+		            if(sel1 == null){
+		            	sel1 = index;
+		            }else if(sel2 == null){
+		            	sel2 = index;
+		            }
+
+		            if(sel1!=null && sel2!=null){
+		            	result = sel1+sel2;
+		            	resulttxt.innerHTML = 'sel1:'+sel1+', sel2: '+sel2+', result: '+result;
+
+		            	sel1 = null;
+		            	sel2 = null;
+
+		            	setTimeout(clearSelection, 2000);
+		            }
+		        }    
+		    })(i);
+		}
+
+		function clearSelection() {
+			for (var i = 0; i < card.length; i++) {
+				card[i].classList.remove('active');
+			}
+		}
+	</script>
+</body>
+</html>

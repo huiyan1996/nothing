@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<meta name=description content="Change Background">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title></title>
+	<script src="jquery.js"></script>
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+		}
+
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: cursive;
+			background-color: #333;
+		}
+
+		/* width */
+
+		.game-wrapper {
+			display: block;
+			clear: both;
+			width: 100vw;
+			height: 100vh;
+			margin: 0 auto;
+			position: relative;
+		}
+
+		.reset-btn {
+		 	display: block;
+			border: 2px solid #fff;
+			text-decoration: none;
+			color: #fff;
+			border-radius: 5px;
+			overflow: hidden;
+			width: -moz-fit-content;
+			width: min-content;
+			margin-top: 5px;
+			position: relative;
+			padding: 2px 5px;
+			/*background-color: #000;*/
+			float: left;
+			margin-left: 5px;
+			z-index: 11;
+		}
+
+		.btn-area {
+			display: flex;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.game-btn {
+			display: block;
+			width: 25vw;
+			height: 15vw;
+			margin: 20px 10px;
+			border: 2px solid #fff;
+			cursor: pointer;
+			transition: .3s ease-in-out;
+			/*opacity: 1;*/
+			position: relative;
+		}
+
+		.game-btn.left { background-color: #ccc; }
+		.game-btn.middle { background-color: #999; }
+		.game-btn.right { background-color: #666; }
+
+		.game-btn.close {
+			/*opacity: 0;*/
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100vw;
+			height: 100vh;
+			z-index: 10;
+			margin: 0;
+			padding: 0;
+			border: none;
+		}
+
+		.content-wrapper {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			background-color: rgba(0,0,0,.2);
+			display: none;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.close-result {
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			width: 30px;
+			height: 30px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.close-result span {
+			display: block;
+			width: 80%;
+			height: 5px;
+			background-color: transparent;
+			position: relative;
+		}
+
+		.close-result span:before, .close-result span:after {
+			content: "";
+			display: block;
+			position: absolute;
+			background-color: #000;
+			top: 0;
+			left: 0;
+			height: inherit;
+			width: inherit;
+			transform: rotate(45deg);
+		}
+
+		.close-result span:after {
+			transform: rotate(135deg);
+		}
+
+		.result {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 600px;
+			height: 300px;
+			background-color: #fff;
+			font-size: 24px;
+			border-radius: 10px;
+			position: relative;
+			max-width: 90%;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="game-wrapper">
+		<a href="javascript:;" class="reset-btn">Reset</a>
+		<div class="btn-area">
+			<a class="game-btn left"></a>
+			<a class="game-btn middle"></a>
+			<a class="game-btn right"></a>
+		</div>
+
+		<div class="content-wrapper" id="result-wrapper">
+			<div class="result">
+				<a href="javascript:;" class="close-result" id="close-result"><span></span></a>
+				<span>Congratulation, You win x.xx!</span>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const btn = $('.game-btn');
+		const resetbtn = $('.reset-btn');
+		const gamewrapper = $('.game-wrapper');
+		const resultWrapper = $('#result-wrapper');
+		const result = $('.result');
+		const closeResult = $('#close-result');
+
+		btn.click(function(e){
+			// gamewrapper.css('background-color',$(e.target).css('background-color'));
+			// resultWrapper.css('display', 'flex');
+
+			$(this).addClass("close");
+		});
+
+		resetbtn.click(function(e){resetBG();});
+		closeResult.click(() => {resultWrapper.css('display', 'none');});
+
+		function resetBG() { gamewrapper.css('background-color', 'transparent');btn.removeClass("close");} 
+		
+	</script>
+</body>
+</html>

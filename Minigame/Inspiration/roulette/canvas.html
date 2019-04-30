@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<meta name=description content="">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		body {
+			font-family: Arial, sans-serif;
+		}
+
+		.rollWrapper {
+			display: block;
+			/*width: 300px;
+			height: 300px;*/
+			margin: 15px 50px;
+			overflow: hidden;
+			position: relative;
+			float: left;
+		}
+
+		.rollWrapper:before {
+			content: "";
+			border-color: #333 transparent transparent transparent;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			box-sizing: border-box;
+			border-width: 48px 4px;
+			border-style: solid;
+			z-index: 10;
+			transform: translateX(-50%);
+			border-radius: 50%;
+		}
+
+		#roulette.active {
+			transition: transform 2s cubic-bezier(0,-0.05,.01,1.14);
+		}
+
+		.actionArea {
+			display: block;
+			float: left;
+		}
+
+		#reset, #spin, #section {
+			display: block;
+			width: 200px;
+			border: 2px solid #000;
+			cursor: default;
+			font-weight: bold;
+			margin: 15px auto;
+			text-align: center;
+			padding: 4px 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="rollWrapper">
+		<canvas id="roulette" class="" width="300" height="300"></canvas>
+	</div>
+
+	<div class="actionArea">
+		<span id="reset">RESET</span>
+
+		<span id="spin">SPIN</span>
+
+		<select id="section">
+			<option value="8">PRIZE 8</option>
+			<option value="18">PRIZE 18</option>
+			<option value="28">PRIZE 28</option>
+			<option value="38">PRIZE 38</option>
+			<option value="48">PRIZE 48</option>
+			<option value="58">PRIZE 58</option>
+			<option value="68">PRIZE 68</option>
+			<option value="0">TRY AGAIN</option>
+		</select>
+	</div>
+
+	<script type="text/javascript">
+		const resetbtn = document.getElementById('reset');
+		const spinbtn = document.getElementById('spin');
+		const sectionbtn = document.getElementById('section');
+
+		const json = {
+			"color": ["#4ee83a","#620aa6","#6a388a","#862c93","#dfb8c1","#0b15be","#9de989","#b711bf", "#ff4a4a"],
+			"txt": {
+				"p8": 'PRIZE 8',
+				"p18": 'PRIZE 18',
+				"p28": 'PRIZE 28',
+				"p38": 'PRIZE 38',
+				"p48": 'PRIZE 48',
+				"p58": 'PRIZE 58',
+				"p68": 'PRIZE 68',
+				"p0": 'TRY AGAIN',
+			}
+		};
+
+		setRoulette('roulette', json);
+		rotateDeg('roulette', json);
+
+		spinbtn.addEventListener('click', function(){
+			// let sec = parseInt(sectionbtn.value);
+			let sec = sectionbtn.value;
+			rotateDeg('roulette', json, sec);
+		});
+
+		resetbtn.addEventListener('click', function(){
+			rotateDeg('roulette', json);
+		});
+
+		//set rotate degree
+		function rotateDeg(id, json, sel) {
+			let section = 0;
+			const elem = document.getElementById(id);
+			let startAngle = 0;
+			let arr = [];
+			const txtObj = json.txt;
+			let chose = 0;
+			let selkey = 'p'+sel;
+
+			for (var key in txtObj) {
+			    if (txtObj.hasOwnProperty(key)) {
+			    	section++;
+			    	if(selkey === key) {
+			    		chose = section;
+			    	}
+			    }
+			}
+
+			startAngle = 90+(180/section);
+
+			for (i=0; i<section;i++){
+				arr[i] = (i*(360/section) - startAngle) + 1080;
+			}
+
+			let first = arr.shift();
+			arr.reverse();
+			arr.unshift(first);
+
+			if(sel){
+				elem.classList.add('active');
+				elem.style.transform = 'rotate('+arr[chose-1]+'deg)';
+			}else{
+				elem.classList.remove('active');
+				elem.style.transform = 'rotate('+(-startAngle)+'deg)';
+			}
+			
+			return true;
+		}
+		
+		//draw roulette
+		function setRoulette(id, json) {
+			const canvas = document.getElementById(id);
+			const x = parseInt(canvas.getAttribute('width'))/2;
+			const y = parseInt(canvas.getAttribute('height'))/2;
+			const radius = x;
+			const c = canvas.getContext('2d');
+			const color = json['color'];
+			let section = 0;
+			const txtObj = json.txt;
+			let txt = [];
+
+			for (var key in txtObj) {
+			    if (txtObj.hasOwnProperty(key)) {
+			    	txt.push(txtObj[key]);
+			    	section++;
+			    }
+			}
+
+			// Outer Spin board
+			c.beginPath();
+			c.arc(x, y, radius, 0, (2 * Math.PI));
+
+			let grad = c.createLinearGradient(0,200,200,0);
+
+			grad.addColorStop(0, 'rgba(51,51,51,1)');
+			grad.addColorStop(0.5, 'rgba(232,232,232,1)');
+			grad.addColorStop(1, 'rgba(51,51,51,1)');
+
+		    c.fillStyle = grad;
+			c.fill();
+
+			// Arc Section
+			for (let i = 0; i<section; i++){
+				c.beginPath();
+				c.moveTo(x, y);
+				c.arc(x, y, radius-5, i*((2 * Math.PI)/section), (i+1)*(2 * Math.PI)/section);
+				c.lineTo(x, y);
+				c.closePath();
+				c.fillStyle = color[i];
+				c.fill();
+
+				c.save();
+				c.font = "bolder 16px Arial";
+				c.translate(x, y);
+				c.rotate((i+0.65)*(2 * Math.PI)/section);
+				c.textAlign = 'left';
+				c.fillStyle = '#fff';
+				c.shadowOffsetX = .9;
+				c.shadowOffsetY = .9;
+				c.shadowColor = '#000';
+				c.fillText(txt[i], 45, 0);
+
+				c.restore();
+			}
+		}
+	</script>
+</body>
+</html>
