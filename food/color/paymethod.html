@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+    </head>
+    <body>
+        <span class="page-title">Payment Method</span>
+
+        <span class="payment-title">Please select your payment method:</span>
+
+        <label class="payment-block">
+            <input type="radio" name="payment" value="" checked>
+            <span>
+                <img src="img/ipay88.png" alt="">
+            </span>
+        </label>
+
+        <label class="payment-block">
+            <input type="radio" name="payment" value="">
+            <span>
+                <img src="img/wechatpay.png" alt="">
+            </span>
+        </label>
+
+        <!-- 只有在Delivery（送餐）模式才有 -->
+        <label class="payment-block" style="display:none;">
+            <input type="radio" name="payment" value="">
+            <span>
+                <i class="fa fa-money"></i> Cash On Delivery
+            </span>
+        </label>
+        <!-- END -->
+
+        <div class="reserve-space"></div>
+        <a href="successpreorder.html" class="reserve-btn">Pay</a>
+    </body>
+</html>

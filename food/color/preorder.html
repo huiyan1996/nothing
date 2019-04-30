@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#favor-btn").click(function(){
+                    if($(this).children('.fa').hasClass('fa-heart-o')){
+                        $(this).children('.fa').removeClass('fa-heart-o').addClass('fa-heart');
+                    }else{
+                        $(this).children('.fa').removeClass('fa-heart').addClass('fa-heart-o');
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <span class="page-title">Pre-Order and Reservation</span>
+        <div class="preorder-tips">
+            <i class="fa fa-bookmark"></i>
+            <span class="preorder-tips-txt">Please arrive at the restaurant 20 minutes before the booking time and the restaurant have the right to cancel the reservation.</span>
+        </div>
+
+        <div class="reserve-block">
+            <span class="reserve-title">Select Your Booking Date</span>
+            <select name="" id="" class="reserve-selection">
+                <option value=""></option>
+                <option value="">2018-01-20</option>
+                <option value="">2018-01-21 (Not Available)</option>
+                <option value="">2018-01-22</option>
+                <option value="">2018-01-23 (Not Available)</option>
+                <option value="">2018-01-24 (Not Available)</option>
+                <option value="">2018-01-25</option>
+                <option value="">2018-01-26</option>
+            </select>
+        </div>
+
+        <div class="reserve-block">
+            <span class="reserve-title">Select Your Time</span>
+            <select name="" id="" class="reserve-selection-half">
+                <option value=""></option>
+                <option value="">15:30</option>
+                <option value="">16:00</option>
+                <option value="">16:30</option>
+                <option value="">17:00</option>
+                <option value="">17:30</option>
+                <option value="">18:00</option>
+                <option value="">18:30</option>
+                <option value="">19:00</option>
+                <option value="">19:30</option>
+                <option value="">20:00</option>
+                <option value="">20:30</option>
+            </select>
+        </div>
+
+        <div class="reserve-block">
+            <span class="reserve-title">Select Your Seat</span>
+            <label class="reserve-radio-block">
+                <input type="radio" class="reserve-radio" name="re-time" checked>
+                <span class="reserve-txt">Box</span>
+            </label>
+            <label class="reserve-radio-block">
+                <input type="radio" class="reserve-radio" name="re-time">
+                <span class="reserve-txt">Hall</span>
+            </label>
+        </div>
+
+        <div class="reserve-space"></div>
+        <a href="booking.html" class="reserve-btn">Next</a>
+    </body>
+</html>

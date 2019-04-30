@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Recommendation</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+      	<link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                if($("#reco-scroll")){
+                    reco();
+                }
+
+                if($('.waplists .wap .selection-block .selections label').length > 0){
+                    check();
+                }
+
+                if($('.minus').length > 0){
+                    foodnum();
+                }
+            });
+
+            function reco(){
+                var i = 0;
+                var item = $('.reco-item');
+                var len = item.width();
+                var num = item.length;
+
+                $('.reco-item .page span').text(num);
+
+                for(k = 0;k < num;k++){
+                    $('.dots').append('<span></span>');
+                }
+
+                for(j = 0;j < num;j++){
+                    $('.reco-item .page label').eq(j).text(j+1);
+                    $('.reco-item .dots').eq(j).children('span').eq(j).addClass('active');
+                }
+
+                $("#reco-scroll").css({
+                    'width':(len*num)+"px"
+                });
+
+                var prev = $(".prev");
+                var next = $(".next");
+                var img = $('.reco-item .img');
+
+                prev.click(function(){
+                    if(i<=0){
+                        i = num-1;
+                    }else{
+                        i--;
+                    }
+
+                    $('.reco-item').eq(i).siblings().removeClass('active');
+                    $('.reco-item').eq(i).addClass('active');
+                });
+
+                next.click(function(){
+                    if(i>=num-1){
+                        i=0;
+                    }else{
+                        i++;
+                    }
+
+                    $('.reco-item').eq(i).siblings().removeClass('active');
+                    $('.reco-item').eq(i).addClass('active');
+                });
+
+                img.click(function(){
+                    var ind = $('.reco-item .img').index(this);
+                    $('.waplists').eq(ind).addClass('active');
+                });
+
+            }
+
+            function foodnum(){
+                var ind = 0;
+                var num = 1;
+                $('.minus').click(function(){
+                    ind = $('.minus').index(this);
+                    num = parseInt($('.foodnum').eq(ind).val());
+                    if(num>1){
+                        num-=1;
+                    }
+                    $('.foodnum').eq(ind).val(num);
+                });
+
+                $('.plus').click(function(){
+                    ind = $('.plus').index(this);
+                    num = parseInt($('.foodnum').eq(ind).val());
+                    num+=1;
+                    $('.foodnum').eq(ind).val(num);
+                });
+                num = 1;
+            }
+
+            function check(){
+                $('.waplists .wap .selection-block .selections label').unbind('click').click(function(){
+                    $('.selections label').children('input').not(':checked').parent('label').removeClass('active');
+                    $('.selections label').children('input:checked').parent('label').addClass('active');
+                });
+
+                $('.waplists .wap .food-block .close-wap').click(function(){
+                    var i = $('.waplists .wap .food-block .close-wap').index(this);
+                    $('.waplists').eq(i).removeClass('active');
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <!-- 菜單 -->
+        <div id="fixed-menu">
+            <a href="index.html" class="left">
+                <span id="company-name">Company Name</span>
+            </a>
+            <div class="right">
+                <div id="fixed-nav-item">
+                    <a href="usercenter.html" class="fixed-icon" alt="Home" label="Home"></a>
+                    <a href="order.html" class="fixed-icon" alt="Order" label="Order"></a>
+                    <a href="category.html" class="fixed-icon active" alt="Food" label="Food"></a>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <!-- END 菜單 -->
+
+        <span class="chef-title"><img src="img/chefstar.png"><label>Chef’s<br>Recommendations</label></span>
+
+        <div class="reco-block">
+
+            <!-- 推薦1 -->
+
+            <div class="reco-item active">
+                <a href='javascript:;' class="img" style="background-image: url('img/cheffood.png')"></a>
+                <b class="fname">Name of Food 1</b>
+                <label class="fprice">RM 10.00</label>
+
+                <a href="javascript:;" class="btn prev">&#10092;</a>
+                <span class="desc"><small>This is Description. This is Description. This is Description. This is Description. This is Description. This is Description.This is Description.This is Description.This is Description. This is Description.</small></span>
+                <a href="javascript:;" class="btn next">&#10093;</a>
+
+                <div class="page"><label></label> / <span></span></div>
+                <div class="dots"></div>
+            </div>
+
+            <!-- 選項 -->
+            <div class="waplists">
+                <div class="wap">
+                    <div class="food-block">
+                        <div class="close-wap"><div class="close"><span class="bar"></span><span class="bar"></span></div></div>
+                        <span class="food-name">Name of food 1</span>
+                        <span class="food-desc">This is Description. This is Description. This is Description. This is Description. This is Description. This is Description.This is Description.This is Description.This is Description. This is Description.</span>
+                        <span class="food-price"><small>RM</small> 10.00</span>
+                        <div class="food-num">
+                            <a class="bttn minus" href="javascript:;">-</a>
+                            <input type="number" name="food" class="foodnum" value="1" readonly>
+                            <a class="bttn plus" href="javascript:;">+</a>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Select your size</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Large - RM 27.00</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Medium - RM 27.00</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Small - RM 27.00</span></label>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Additonal Add-On</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Fried Egg + RM1.20</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Meat + RM 1.50</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Vegetable + RM 1.00</span></label>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Select your specification (can select more than one)</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Spicy</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Salt</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Oil</span></label>
+                        </div>
+                    </div>
+
+                    <input type="submit" name="" value="Add to Order" class="wap-submit">
+                </div>
+            </div>
+            <!-- END選項 -->
+
+            <!-- END推薦1 -->
+
+
+            <!-- 推薦2 -->
+            <div class="reco-item">
+                <a href='javascript:;' class="img" style="background-image: url('img/cheffood.png')"></a>
+                <b class="fname">Name of Food 2</b>
+                <label class="fprice">RM 20.00</label>
+
+                <a href="javascript:;" class="btn prev">&#10092;</a>
+                <span class="desc"><small>This is Description. This is Description. This is Description. This is Description. This is Description. This is Description.This is Description.This is Description.This is Description. This is Description.</small></span>
+                <a href="javascript:;" class="btn next">&#10093;</a>
+
+                <div class="page"><label></label> / <span></span></div>
+                <div class="dots"></div>
+            </div>
+
+            <div class="waplists">
+                <div class="wap">
+                    <div class="food-block">
+                        <div class="close-wap"><div class="close"><span class="bar"></span><span class="bar"></span></div></div>
+                        <span class="food-name">Name of food 2</span>
+                        <span class="food-desc">This is Description. This is Description. This is Description. This is Description. This is Description. This is Description.This is Description.This is Description.This is Description. This is Description.</span>
+                        <span class="food-price"><small>RM</small> 20.00</span>
+                        <div class="food-num">
+                            <a class="bttn minus" href="javascript:;">-</a>
+                            <input type="number" name="food" class="foodnum" value="1" readonly>
+                            <a class="bttn plus" href="javascript:;">+</a>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Select your size</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Large - RM 27.00</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Medium - RM 27.00</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Small - RM 27.00</span></label>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Additonal Add-On</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Fried Egg + RM1.20</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Meat + RM 1.50</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Vegetable + RM 1.00</span></label>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Select your specification (can select more than one)</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Spicy</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Salt</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Oil</span></label>
+                        </div>
+                    </div>
+
+                    <input type="submit" name="" value="Add to Order" class="wap-submit">
+                </div>
+            </div>
+
+            <!-- END推薦2 -->
+
+            <!-- 推薦3 -->
+            <div class="reco-item">
+                <a href='javascript:;' class="img" style="background-image: url('img/cheffood.png')"></a>
+                <b class="fname">Name of Food 3</b>
+                <label class="fprice">RM 30.00</label>
+
+                <a href="javascript:;" class="btn prev">&#10092;</a>
+                <span class="desc"><small>This is Description. This is Description. This is Description. This is Description. This is Description. This is Description.This is Description.This is Description.This is Description. This is Description.</small></span>
+                <a href="javascript:;" class="btn next">&#10093;</a>
+
+                <div class="page"><label></label> / <span></span></div>
+                <div class="dots"></div>
+            </div>
+
+            <div class="waplists">
+                <div class="wap">
+                    <div class="food-block">
+                        <div class="close-wap"><div class="close"><span class="bar"></span><span class="bar"></span></div></div>
+                        <span class="food-name">Name of food 3</span>
+                        <span class="food-desc">This is Description. This is Description. This is Description. This is Description. This is Description. This is Description.This is Description.This is Description.This is Description. This is Description.</span>
+                        <span class="food-price"><small>RM</small> 30.00</span>
+                        <div class="food-num">
+                            <a class="bttn minus" href="javascript:;">-</a>
+                            <input type="number" name="food" class="foodnum" value="1" readonly>
+                            <a class="bttn plus" href="javascript:;">+</a>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Select your size</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Large - RM 27.00</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Medium - RM 27.00</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Small - RM 27.00</span></label>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Additonal Add-On</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Fried Egg + RM1.20</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Meat + RM 1.50</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Vegetable + RM 1.00</span></label>
+                        </div>
+                    </div>
+
+                    <div class="selection-block">
+                        <span class="selection-title">Select your specification (can select more than one)</span>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Spicy</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Salt</span></label>
+                        </div>
+                        <div class="selections">
+                            <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Oil</span></label>
+                        </div>
+                    </div>
+
+                    <input type="submit" name="" value="Add to Order" class="wap-submit">
+                </div>
+            </div>
+
+            <!-- END推薦3 -->
+
+        </div>
+    </body>
+</html>

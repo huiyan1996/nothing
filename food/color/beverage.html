@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var bev = $('.bev-block');
+                if(bev.length > 0){
+                    bevblock();
+                    check();
+                }
+            });
+
+            function bevblock(){
+                var block = $('.bev-block');
+                block.click(function(){
+                    $('#waplists').addClass('active');
+
+                    var close = $('#close-wap').click(function(){
+                        $('#waplists').removeClass('active');
+                        $('#foodnum').val(1);
+                    });
+                });
+
+                $('#minus').click(function(){
+                    var num = parseInt($('#foodnum').val());
+                    if(num > 1){
+                        num = num - 1;
+                    }
+                    $('#foodnum').val(num);
+                });
+
+                $('#plus').click(function(){
+                    var n = parseInt($('#foodnum').val());
+                    if(n > 0){
+                        n = n + 1;
+                    }
+                    $('#foodnum').val(n);
+                });
+            }
+
+            function check(){
+                $('.waplists .wap .selection-block .selections label').unbind('click').click(function(){
+                    $('.selections label').children('input').not(':checked').parent('label').removeClass('active');
+                    $('.selections label').children('input:checked').parent('label').addClass('active');
+                });
+
+                $('.waplists .wap .food-block .close-wap').click(function(){
+                    var i = $('.waplists .wap .food-block .close-wap').index(this);
+                    $('.waplists').eq(i).removeClass('active');
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="fixed-menu">
+            <a href="index.html" class="left">
+                <span id="company-name">Company Name</span>
+            </a>
+            <div class="right">
+                <div id="fixed-nav-item">
+                    <a href="usercenter.html" class="fixed-icon" alt="Home" label="Home"></a>
+                    <a href="order.html" class="fixed-icon" alt="Order" label="Order"></a>
+                    <a href="category.html" class="fixed-icon active" alt="Food" label="Food"></a>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <span class="page-title">Beverage</span>
+
+        <a href="javascript:;" class="bev-block">
+            <img src="img/bev.png" alt="" class="bev-img">
+            <span class="bev-name">Beverage 1</span>
+            <span class="bev-price">Hot RM 4.50 / Cold RM 5.80</span>
+        </a>
+
+        <a href="javascript:;" class="bev-block">
+            <img src="img/bev.png" alt="" class="bev-img">
+            <span class="bev-name">Beverage 2</span>
+            <span class="bev-price">Hot RM 14.50 / Cold RM 15.80</span>
+        </a>
+
+        <a href="javascript:;" class="bev-block">
+            <img src="img/bev.png" alt="" class="bev-img">
+            <span class="bev-name">Beverage 3</span>
+            <span class="bev-price">Hot RM 4.50 / Cold RM 5.80</span>
+        </a>
+
+        <a href="javascript:;" class="bev-block">
+            <img src="img/bev.png" alt="" class="bev-img">
+            <span class="bev-name">Beverage 4</span>
+            <span class="bev-price">Hot RM 14.50 / Cold RM 15.80</span>
+        </a>
+
+        <div class="waplists" id="waplists">
+            <div class="wap">
+                <div class="food-block">
+                    <div class="close-wap" id="close-wap"><div class="close"><span class="bar"></span><span class="bar"></span></div></div>
+                    <span class="food-name">Name of Beverage</span>
+                    <span class="food-desc">This is Description. This is Description. This is Description. This is Description. This is Description. This is Description.This is Description.This is Description.This is Description. This is Description.</span>
+                    <span class="food-price"><small>RM</small> 4.50</span>
+                    <div class="food-num">
+                        <a class="bttn minus" id="minus" href="javascript:;">-</a>
+                        <input type="number" name="food" id="foodnum" class="foodnum" value="1" readonly>
+                        <a class="bttn plus" id="plus" href="javascript:;">+</a>
+                    </div>
+                </div>
+
+                <div class="selection-block">
+                    <span class="selection-title">Select your size</span>
+                    <div class="selections">
+                        <label><b>&#9656;</b><input type="radio" name="bev" value="" class="selection-food"><span>Large - RM 6.50</span></label>
+                    </div>
+                    <div class="selections">
+                        <label><b>&#9656;</b><input type="radio" name="bev" value="" class="selection-food"><span>Medium - RM 5.80</span></label>
+                    </div>
+                    <div class="selections">
+                        <label><b>&#9656;</b><input type="radio" name="bev" value="" class="selection-food"><span>Small - RM 4.50</span></label>
+                    </div>
+                </div>
+
+                <div class="selection-block">
+                    <span class="selection-title">Optional</span>
+                    <div class="selections">
+                        <label><b>&#9656;</b><input type="radio" name="bevtem" value="" class="selection-food"><span>Hot</span></label>
+                    </div>
+                    <div class="selections">
+                        <label><b>&#9656;</b><input type="radio" name="bevtem" value="" class="selection-food"><span>Cold</span></label>
+                    </div>
+                </div>
+
+                <div class="selection-block">
+                    <span class="selection-title">Select your specification (can select more than one)</span>
+                    <div class="selections">
+                        <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Ice</span></label>
+                    </div>
+                    <div class="selections">
+                        <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Less Sugar</span></label>
+                    </div>
+                    <div class="selections">
+                        <label><b>&#9656;</b><input type="checkbox" name="" value="" class="selection-food"><span>Slight Sugar</span></label>
+                    </div>
+                </div>
+
+                <input type="submit" name="" value="Add to Order" class="wap-submit">
+                <div class="order-space"></div>
+            </div>
+        </div>
+
+        <!-- 如果沒有在這頁的訂單 就可以把這個關掉 -->
+        <div class="order-space"></div>
+        <a href="order.html" class="order-add">My Order List</a>
+        <!-- 到這裡 -->
+
+    </body>
+</html>

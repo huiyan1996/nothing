@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <style type="text/css">
+            .scroll-btn{
+                display: block;
+                clear: none;
+                float: left;
+                width: 5vw;
+                font-size: 8vw;
+                text-align: center;
+                line-height: 22.5vw;
+                height: 22.5vw;
+                margin: 3% auto;
+                color: #bcbdc0;
+            }
+
+            .imgs{
+                display: block;
+                clear: none;
+                float: left;
+                width: 90vw;
+                height: 22.5vw;
+                overflow: hidden;
+                margin: 3% auto;
+            }
+
+            .imgs .scroll{
+                display: block;
+                clear: both;
+                height: 100%;
+                overflow: auto;
+                position: relative;
+            }
+
+            .imgs .scroll .img{
+                display: block;
+                clear: none;
+                float: left;
+                width: 22.5vw;
+                height: 22.5vw;
+            }
+
+            .imgs .scroll .img img{
+                display: block;
+                clear: both;
+                width: 80%;
+                height: 80%;
+                margin: 10% auto;
+                border: 2px solid #ccc;
+                border-radius: 100%;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var sc = $('.scroll');
+                var img = $('.imgs .scroll .img');
+
+                var imgW = img.width();
+                var len = img.length;
+                var pos = sc.position().left;
+                var startpos = pos;
+                var w = $(window).width();
+
+                var first = 0;
+                var last = 3;
+
+                console.log(imgW +", "+len+", "+pos.left+", "+w);
+
+                sc.width(imgW*len+"px");
+
+                $("#left-btn").click(function(){
+                    pos = sc.position().left-startpos;
+                    if(first>0){
+                        sc.animate({
+                            left: (pos + imgW) + 'px'
+                        });
+                        first-=1;
+                        last-=1;
+                    }
+                });
+
+                $("#right-btn").click(function(){
+                    pos = sc.position().left-startpos;
+                    if(last<len-1){
+                        sc.animate({
+                            left: (pos - imgW) + 'px'
+                        });
+                        first+=1;
+                        last+=1;
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="fixed-menu">
+            <div class="left">
+                <span id="company-name">Company Name</span>
+            </div>
+            <div class="right">
+                <div id="fixed-nav-item">
+                    <a href="#" class="fixed-icon" alt="Order" label="Order"></a>
+                    <a href="category.html" class="fixed-icon" alt="Food" label="Food"></a>
+                    <a href="index.html" class="fixed-icon active" alt="Home" label="Home"></a>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <!-- <div class="carousel-block">
+            <a href="javascript" class="left-arrow"></a>
+            <a href="javascript" class="right-arrow"></a>
+        </div> -->
+
+        <a href="javascript:;" class="scroll-btn" id="left-btn">&#10092;</a>
+        <div class="imgs">
+            <div class="scroll">
+                <div class="img"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><text font-size='80px' fill='#D1D3D4' x='50%' y='50%' alignment-baseline='middle' text-anchor='middle' font-family='arial'>1</text></svg>"></div>
+
+                <div class="img"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><text font-size='80px' fill='#D1D3D4' x='50%' y='50%' alignment-baseline='middle' text-anchor='middle' font-family='arial'>2</text></svg>"></div>
+
+                <div class="img"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><text font-size='80px' fill='#D1D3D4' x='50%' y='50%' alignment-baseline='middle' text-anchor='middle' font-family='arial'>3</text></svg>"></div>
+
+                <div class="img"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><text font-size='80px' fill='#D1D3D4' x='50%' y='50%' alignment-baseline='middle' text-anchor='middle' font-family='arial'>4</text></svg>"></div>
+
+                <div class="img"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><text font-size='80px' fill='#D1D3D4' x='50%' y='50%' alignment-baseline='middle' text-anchor='middle' font-family='arial'>5</text></svg>"></div>
+
+                <div class="img"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><text font-size='80px' fill='#D1D3D4' x='50%' y='50%' alignment-baseline='middle' text-anchor='middle' font-family='arial'>6</text></svg>"></div>
+
+                <div class="img"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><text font-size='80px' fill='#D1D3D4' x='50%' y='50%' alignment-baseline='middle' text-anchor='middle' font-family='arial'>7</text></svg>"></div>
+            </div>
+        </div>
+        <a href="javascript:;" class="scroll-btn" id="right-btn">&#10093;</a>
+    </body>
+</html>

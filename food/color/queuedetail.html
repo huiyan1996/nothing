@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+    </head>
+    <body>
+        <span class="page-title">Customer Details</span>
+        <div class="queue-cus-block">
+            <span class="queue-cus-title">Pax Number</span>
+            <input type="number" class="queue-cus-input">
+
+            <span class="queue-cus-title">Phone No</span>
+            <input type="number" class="queue-cus-input" placeholder="Please verify your phone number">
+            <input type="submit" name="" value="Request TAC" class="queue-req-tac">
+            <span class="queue-req-desc">
+                Note: The Maximum number of request TAC is 3. Tap "Request TAC" again if TAC is not received via SMS.
+            </span>
+
+            <span class="queue-cus-title">Tac No</span>
+            <input type="number" class="queue-cus-input" placeholder="Enter TAC Number here">
+        </div>
+
+        <a href="queuenum.html" class="queue-now-btn">Done</a>
+        <a href="queuenow.html" class="queue-back-btn">&#10094;&nbsp; Back</a>
+
+        <!-- 验证码错误提示 -->
+        <div class="weui_dialog_alert" id="dialog2" style="display:none;">
+            <div class="weui_mask"></div>
+            <div class="weui_dialog">
+                <div class="weui_dialog_hd"><strong class="weui_dialog_title"><i class="weui_icon_warn icon-dialog"></i></strong></div>
+                <div class="weui_dialog_bd">Wrong TAC entered.</div>
+                <div class="weui_dialog_ft">
+                    <a href="javascript:;" class="weui_btn_dialog primary" onclick="$('#dialog2').hide();">OK</a>
+                </div>
+            </div>
+        </div>
+        <!-- END -->
+    </body>
+</html>

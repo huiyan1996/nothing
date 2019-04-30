@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+    </head>
+    <body>
+        <div id="fixed-menu">
+            <a href="index.html" class="left">
+                <span id="company-name">Company Name</span>
+            </a>
+            <div class="right">
+                <div id="fixed-nav-item">
+                    <a href="usercenter.html" class="fixed-icon" alt="Home" label="Home"></a>
+                    <a href="order.html" class="fixed-icon active" alt="Order" label="Order"></a>
+                    <a href="category.html" class="fixed-icon" alt="Food" label="Food"></a>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+
+        <span class="page-title">Order Total</span>
+
+        <span class="discount-total">
+            <i class="fa fa-usd"></i> <span class="total-price">RM 42.85</span>
+        </span>
+
+        <div class="discount-method-block">
+            <span class="discount-title">Select your optional to get discount:</span>
+            <div class="discount-block">
+                <label for="promo-code" class="discount-select">
+                    <input type="radio" name="discount" class="discount-radio" id="promo-code"/>
+                    <span class="discount-name">Promotion Code</span>
+                </label>
+                <input type="text" class="discount-input" name="procode">
+            </div>
+            <div class="discount-block">
+                <label for="point-red" class="discount-select">
+                    <input type="radio" name="discount" class="discount-radio" id="point-red"/>
+                    <span class="discount-name">Point Redeem</span>
+                </label>
+                <select class="discount-sel" name="point">
+                    <option value=""></option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                </select>
+                <label class="current-point">Current Point: 888 pt</label>
+            </div>
+            <div class="discount-block">
+                <label for="skip-this" class="discount-select">
+                    <input type="radio" name="discount" class="discount-radio" id="skip-this" checked/>
+                    <span class="discount-name">Skip This</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="order-space"></div>
+        <a href="confirmorder.html" class="order-add">Confirm Order</a>
+    </body>
+</html>

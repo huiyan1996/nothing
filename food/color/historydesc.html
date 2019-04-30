@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <style>
+            .weui_icon_warn:before{
+                font-size: 60px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="fixed-menu">
+            <a href="index.html" class="left">
+                <span id="company-name">Company Name</span>
+            </a>
+            <div class="right">
+                <div id="fixed-nav-item">
+                    <a href="usercenter.html" class="fixed-icon active" alt="Home" label="Home"></a>
+                    <a href="order.html" class="fixed-icon" alt="Order" label="Order"></a>
+                    <a href="category.html" class="fixed-icon" alt="Food" label="Food"></a>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <span class="page-title">O1 Order</span>
+
+        <div class="his-delete-area">
+            <a href="javascript:;" class="his-delete-btn" onclick="$('#confirm-dialog').show();">Delete Order</a>
+        </div>
+
+        <div class="his-block">
+            <span class="his-block-title">Customer’s Details</span>
+            <span class="his-block-desc">
+                <label class="his-block-left">Name</label>
+                <label class="his-block-right">Ms. Lim Siew Ling</label>
+            </span>
+            <span class="his-block-desc">
+                <label class="his-block-left">Phone.No</label>
+                <label class="his-block-right">016 388 1234</label>
+            </span>
+            <span class="his-block-desc">
+                <label class="his-block-left">Table.No</label>
+                <label class="his-block-right">B1</label>
+            </span>
+        </div>
+
+        <div class="his-block">
+            <span class="his-block-title">Order Details</span>
+            <span class="his-block-desc">
+                <label class="his-block-left">Model</label>
+                <label class="his-block-right">Dine In</label>
+            </span>
+            <span class="his-block-desc">
+                <label class="his-block-left">Order.No</label>
+                <label class="his-block-right">121800004449</label>
+            </span>
+            <span class="his-block-desc">
+                <label class="his-block-left">Order Time</label>
+                <label class="his-block-right">2017-12-18 12:17:07</label>
+            </span>
+            <span class="his-block-desc">
+                <label class="his-block-left">Payment Types</label>
+                <label class="his-block-right">Cash</label>
+            </span>
+            <span class="his-block-desc">
+                <label class="his-block-left">Payment Status</label>
+                <label class="his-block-right">Unpaid</label>
+            </span>
+            <span class="his-block-desc">
+                <label class="his-block-left">Promotion Code</label>
+                <label class="his-block-right">1234567891011</label>
+            </span>
+        </div>
+
+        <div class="his-block">
+            <span class="his-block-title">Order Status</span>
+            <div class="his-status-block">
+                <div class="his-status active">
+                    <i class="fa fa-check"></i>
+                    <span class="his-status-txt">Waiting List</span>
+                </div>
+                <div class="his-status active">
+                    <i class="fa fa-check"></i>
+                    <span class="his-status-txt">Confirmed</span>
+                </div>
+                <div class="his-status active">
+                    <i class="fa fa-check"></i>
+                    <span class="his-status-txt">Completed</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="his-block">
+            <span class="his-block-title"></span>
+
+            <div class="his-order-block">
+                <div class="his-order-row">
+                    <div class="column-left">
+                        <span class="order-food-cate">Meat <small>(RM 16.50)</small></span>
+                        <i class="order-food-desc">Chicken, less spicy (x1)</i>
+                    </div>
+                    <div class="column-right"><span>RM 16.50</span></div>
+                </div>
+                <div class="his-order-row">
+                    <div class="column-left">
+                        <span class="order-food-cate">Meal <small>(RM 12.90)</small></span>
+                        <i class="order-food-desc">Rice (x1)</i>
+                    </div>
+                    <div class="column-right"><span>RM 12.90</span></div>
+                </div>
+                <div class="his-order-row">
+                    <div class="column-left">
+                        <span class="order-food-cate">Beverage <small>(RM 7.90)</small></span>
+                        <i class="order-food-desc">Fruit Tea (x1)</i>
+                    </div>
+                    <div class="column-right"><span>RM 7.90</span></div>
+                </div>
+                <div class="his-order-row">
+                    <div class="column-left">
+                        <span class="order-food-cate">Beverage <small>(RM 5.90)</small></span>
+                        <i class="order-food-desc">Lemon tea, Hot , Less Sugar (x1)</i>
+                    </div>
+                    <div class="column-right"><span>RM 5.90</span></div>
+                </div>
+            </div>
+            <div class="his-order-total-row">
+                <div class="column-left"><span>Total: 4 Items</span></div>
+                <div class="column-right"><span>RM 43.20</span></div>
+            </div>
+
+            <span class="his-gst-tips">* Notice: The above price does not include GST and Service Charge!</span>
+        </div>
+
+        <!-- Dialog -->
+        <div class="weui_dialog_confirm" id="confirm-dialog" style="display:none;">
+            <div class="weui_mask"></div>
+            <div class="weui_dialog">
+                <div class="weui_dialog_hd"><strong class="weui_dialog_title"> <i class="weui_icon_warn"></i> </strong></div>
+                <div class="weui_dialog_bd" style="text-align:center;">Delete this order?</div>
+                <div class="weui_dialog_ft">
+                    <a href="javascript:;" class="weui_btn_dialog default" style="color:#777;" onclick="$('#confirm-dialog').hide();">Cancel</a>
+                    <a href="#" class="weui_btn_dialog primary" style="color:#000;">Okay</a>
+                </div>
+            </div>
+        </div>
+        <!-- End Dialog -->
+
+    </body>
+</html>

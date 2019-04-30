@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://ui.thevbloc.com/style/weui.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+      	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      	<script src="http://thevbloc.com/app/js/common_sol.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#favor-btn").click(function(){
+                    if($(this).children('.fa').hasClass('fa-heart-o')){
+                        $(this).children('.fa').removeClass('fa-heart-o').addClass('fa-heart');
+                    }else{
+                        $(this).children('.fa').removeClass('fa-heart').addClass('fa-heart-o');
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="fixed-menu">
+            <a href="storelist.html" class="left">
+                <span id="company-name">Company Name</span>
+            </a>
+            <div class="right">
+                <a href="usercenter.html" class="user-icon"> <i class="fa fa-user"></i> </a>
+            </div>
+        </div>
+        <div class="space"></div>
+        <img src="img/store.png" alt="" class="branch-img">
+        <span class="branch-rate">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </span>
+        <span class="branch-status">In Operation · Dine In · Delivery</span>
+        <a href="javascript:;" class="favor-btn" id="favor-btn"> <i class="fa fa-heart-o"></i> <span>Favourite</span> </a>
+
+        <span class="thick-line"></span>
+
+        <div class="branch-menu-block">
+            <a href="preorder.html" class="branch-menu">
+                <img src="img/preorder.png" alt="" class="branch-menu-icon">
+                <span class="branch-icon-txt">Pre-Order</span>
+            </a>
+
+            <a href="index.html" class="branch-menu">
+                <img src="img/dinein.png" alt="" class="branch-menu-icon">
+                <span class="branch-icon-txt">Dine-In</span>
+            </a>
+
+            <a href="deliveryorder.html" class="branch-menu">
+                <img src="img/delivery.png" alt="" class="branch-menu-icon">
+                <span class="branch-icon-txt">Delivery</span>
+            </a>
+
+            <a href="queuenow.html" class="branch-menu">
+                <img src="img/queue.png" alt="" class="branch-menu-icon">
+                <span class="branch-icon-txt">Queue</span>
+            </a>
+        </div>
+
+        <div class="branch-list-block">
+            <div class="branch-list">
+                <div class="left">
+                    <img class="branch-list-icon" src="img/contact.png" alt="icon">
+                    <span class="branch-list-txt">Contact</span>
+                </div>
+                <div class="right">
+                    <span class="branch-list-desc">603327770893</span>
+                </div>
+            </div>
+
+            <div class="branch-list">
+                <div class="left">
+                    <img class="branch-list-icon" src="img/location.png" alt="icon">
+                    <span class="branch-list-txt">Location</span>
+                </div>
+                <div class="right">
+                    <span class="branch-list-desc">Suite A, 5th Floor, Menara MBF, Jalan Sultan Ismail, 50250 KL.</span>
+                </div>
+            </div>
+
+            <div class="branch-list">
+                <div class="left">
+                    <img class="branch-list-icon" src="img/business.png" alt="icon">
+                    <span class="branch-list-txt">Business Hours</span>
+                </div>
+                <div class="right">
+                    <span class="branch-list-desc">
+                        Mon - Fri: <br>
+                        <i>12:00 am - 9:00pm</i><br>
+                        Sat - Sun: <br>
+                        <i>10:00 am - 10:00pm</i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="branch-list">
+                <a href="tel:0169456602" class="branch-cd">
+                    <span class="branch-cd-txt">Call now</span>
+                </a>
+                <a href="javascript:;" class="branch-cd" onclick="alert('This function is still in development, please stay tuned!');">
+                    <span class="branch-cd-txt">Direction</span>
+                </a>
+            </div>
+
+            <a href="aboutus.html" class="branch-list">
+                <span class="branch-link">
+                    About Us
+                    <span class="branch-arrow"></span>
+                </span>
+            </a>
+
+            <a href="info.html" class="branch-list">
+                <span class="branch-link">
+                    More Information
+                    <span class="branch-arrow"></span>
+                </span>
+            </a>
+
+            <a href="#" class="branch-list">
+                <span class="branch-link">
+                    Customer Feedback
+                    <span class="branch-arrow"></span>
+                </span>
+            </a>
+
+        </div>
+    </body>
+</html>
