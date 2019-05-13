@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <title>Document</title>
+  <style type="text/css">
+  	body {
+  		font-family: arial, sans-serif;
+  	}
+
+  	.machine {
+  		display: block;
+  		width: 1000px;
+      height: 300px;
+  		margin: 0 auto;
+  		overflow: auto;
+      background-image: url(img/machine.jpg);
+      background-position: center center;
+      background-size: 100% 100%;
+  	}
+
+  	.wrapper {
+  		position: relative;
+  		overflow: hidden;
+  		height: 200px;
+  		float: left;
+      margin-left: 100px;
+      margin-top: 50px;
+
+      margin-top: 0px;
+      height: 300px;
+  	}
+
+  	.wrapper .nums{
+  		position: relative;
+  		float: left;
+  		display: block;
+  		top: 0;
+	    width: 200px;
+	    text-align: center;
+	    line-height: 200px;
+	    font-size: 50px;
+      transform: translateY(-150px);
+  	}
+
+  	.wrapper .nums.active {
+  		-webkit-animation: startslot 1s ease-in forwards; /* Safari 4+ */
+  		-moz-animation:    startslot 1s ease-in forwards; /* Fx 5+ */
+  		-o-animation:      startslot 1s ease-in forwards; /* Opera 12+ */
+  		animation:         startslot 1s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums:nth-child(2).active {
+  		-webkit-animation: startslot 1.5s ease-in forwards; /* Safari 4+ */
+  		-moz-animation:    startslot 1.5s ease-in forwards; /* Fx 5+ */
+  		-o-animation:      startslot 1.5s ease-in forwards; /* Opera 12+ */
+  		animation:         startslot 1.5s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums:nth-child(3).active {
+  		-webkit-animation: startslot 2.5s ease-in forwards; /* Safari 4+ */
+  		-moz-animation:    startslot 2.5s ease-in forwards; /* Fx 5+ */
+  		-o-animation:      startslot 2.5s ease-in forwards; /* Opera 12+ */
+  		animation:         startslot 2.5s ease-in forwards; /* IE 10+, Fx 29+ */
+  	}
+
+  	.wrapper .nums b, .wrapper .nums img {
+  		display: block;
+  		margin: 0 auto;
+  		width: 100%;
+  		clear: both;
+  	}
+
+  	#spinbtn {
+  		display: block;
+  		float: left;
+  		cursor: pointer;
+  		font-size: 24px;
+  		line-height: 100px;
+  		width: 200px;
+      height: 200px;
+  		color: #fff;
+  		text-align: center;
+      margin-top: 50px;
+  	}
+
+  	/*@-webkit-keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 200px)); }
+	  100% { transform: translateY(0); }
+	}
+	@-moz-keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 200px)); }
+	  100% { transform: translateY(0); }
+	}
+	@-o-keyframes startslot {
+	  0%   { transform: translateY(calc(-100% + 200px)); }
+	  100% { transform: translateY(0); }
+	}*/
+	@keyframes startslot {
+	  /*0%   { transform: translateY(calc(-100% + 200px)); }
+	  100% { transform: translateY(0); }*/
+
+    0%   { transform: translateY(calc(-100% + 300px)); }
+    100% { transform: translateY(-150px); }
+	}
+
+	@media only screen and (max-width: 768px) {
+		.machine {
+			width: 250px;
+      height: 75px;
+		}
+
+		.wrapper {
+			height: 50px;
+      margin-left: 25px;
+      margin-top: 12.5px;
+		}
+
+    #spinbtn {
+      margin-top: 12.5px;
+    }
+
+		.wrapper .nums {
+			width: 50px;
+			line-height: 50px;
+			font-size: 35px;
+		}
+
+		#spinbtn {
+			line-height: 50px;
+			width: 50px;
+      height: 50px;
+			font-size: 18px;
+		}
+
+		@-webkit-keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 50px)); }
+		  100% { transform: translateY(0); }
+		}
+		@-moz-keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 50px)); }
+		  100% { transform: translateY(0); }
+		}
+		@-o-keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 50px)); }
+		  100% { transform: translateY(0); }
+		}
+		@keyframes startslot {
+		  0%   { transform: translateY(calc(-100% + 50px)); }
+		  100% { transform: translateY(0); }
+		}
+	}
+  </style>
+  <script type="text/javascript">
+  	var gnum = [];
+  	var clickable = true;
+  	const preresult = {'p78':[7,7,7],'p68':[6,6,6],'p58':[5,5,5],'p48':[4,4,4],'p38':[3,3,3],'p28':[2,2,2],'p18':[1,1,1],'p8':[4,1,1],'p2':[4,3,1],'p0':[5,5,3]};
+    const imgFolder = "img/icon/";
+
+  	document.addEventListener("DOMContentLoaded",function(){
+  		
+  		document.getElementById("spinbtn").addEventListener("click",function(){
+  			spinSlot();
+  		});
+
+      document.getElementById("result").addEventListener("change",function(){
+        spinSlot();
+      });
+
+      function spinSlot() {
+        if(clickable){
+          var numcontainer = document.getElementsByClassName("nums");
+          var finalResult = document.getElementById("result").value || 'p0';
+          // console.log(finalResult);
+          gnum = generateNum(finalResult);
+
+          var gethtml = generatehtml();
+          var results = result();
+
+          for(i=0; i<numcontainer.length; i++){
+            var ori = numcontainer[i].innerHTML;
+            numcontainer[i].innerHTML = gethtml[i].join("") + ori;
+            numcontainer[i].classList.add("active");
+          }
+          clickable = false;
+
+          var rclass = setTimeout(function(){
+            for(i=0; i<numcontainer.length; i++){
+              numcontainer[i].innerHTML = eachHtml(results[i][0])+eachHtml(results[i][1])+eachHtml(results[i][2]);
+              numcontainer[i].classList.remove("active");
+            }
+
+            // console.log(results);
+
+            document.getElementById("prize").innerHTML = finalResult;
+            clickable = true;
+
+            clearTimeout(rclass);
+          },2500);
+        }
+      }
+  	});
+
+    //ok
+    function generateLost() {
+      //Different Icon/number & discontinuous number
+      var lost = preresult['p0'];
+
+      for(i=lost.length-1; i>=0; i--){
+          var rdn = rdnNum();
+          while(lost.includes(rdn) || rdn == 1 || rdn == (lost[i+1]+1) || rdn == (lost[i+1]-1)){
+            rdn = rdnNum();
+          }
+
+          lost[i] = rdn;
+      }
+
+      return lost;
+    }
+
+    //ok
+  	function generateNormal() {
+      //Cherry x 1 / Number 1 x 1
+  		var lv7 = preresult['p2'];
+
+  		for(i=lv7.length-1; i>=0; i--){
+  			if(i == lv7.length-1){
+  				lv7[i] = 1;
+  			}
+  			else{
+  				var rdn = rdnNum();
+  				// lv7.includes(rdn)
+  				while(rdn==1){
+  					rdn = rdnNum();
+  				}
+
+  				lv7[i] = rdn;
+  			}
+  		}
+
+  		return lv7;
+  	}
+
+    //ok
+    function generateNormal2() {
+      //Cherry x 2 / Number 1 x 2
+      var lv7 = preresult['p8'];
+
+      var rdn = rdnNum();
+      while(rdn==1){
+        rdn = rdnNum();
+      }
+
+      lv7[0] = rdn;
+
+      return lv7;
+    }
+
+    //ok
+  	function result() {
+  		var getNum = gnum;
+  		var nums = [[],[],[]];
+
+  		for (i = 0; i < getNum.length; i++){
+        for (j = 0; j < 3; j++) {
+          nums[i].push(getNum[i][j]);
+        }
+  		}
+
+  		return(nums);
+  	}
+
+    //ok
+  	function eachHtml(num) {
+      return ("<img src='"+imgFolder+num+".png'>");
+  	}
+
+    //ok
+  	function generatehtml() {
+  		var getNum = gnum;
+  		var htmls = [[],[],[],];
+
+  		for(i=0; i<getNum.length; i++){
+  			for (j=0; j<getNum[i].length; j++) {
+  				htmls[i].push(eachHtml(getNum[i][j]));
+  			}
+  		}
+
+  		return(htmls);
+  	}
+
+    //ok
+  	function generateNum(fixedResult){
+      fixedResult='p'+fixedResult;
+  		var nums = [[],[],[]];
+  		var qty = [15, 25, 55];
+
+  		var setResult = [];
+      if(fixedResult == 'p0'){
+        // Different Icon/number & discontinuous number
+        setResult = generateLost();
+      }else if(fixedResult == 'p2'){
+        // Cherry x 1 / Number 1 x 1
+        setResult = generateNormal();
+      }else if(fixedResult == 'p8'){
+        // Cherry x 2 / Number 1 x 2
+        setResult = generateNormal2();
+      }else {
+        setResult = preresult[fixedResult];
+      }
+
+  		for(i=0; i<nums.length; i++){
+
+  			for (j=0; j<qty[i]; j++) {
+  				if(j==1){
+  					nums[i].push(setResult[i]);
+  				}else{
+  					nums[i].push(rdnNum());
+  				}
+  			}
+  		}
+
+  		return(nums);
+  	}
+
+    //ok
+  	function rdnNum(){
+      //generate number between 1-7
+  		return Math.floor((Math.random() * 7)+1);
+  	}
+  </script>
+</head>
+<body>
+	<div class="machine">
+		<div class="wrapper">
+			<span class="nums" id="num1"><img src='img/icon/4.png'><img src='img/icon/4.png'><img src='img/icon/4.png'></span>
+			<span class="nums" id="num2"><img src='img/icon/2.png'><img src='img/icon/2.png'><img src='img/icon/2.png'></span>
+			<span class="nums" id="num3"><img src='img/icon/5.png'><img src='img/icon/5.png'><img src='img/icon/5.png'></span>
+		</div>
+		<span id="spinbtn"></span>
+	</div>
+
+  <select id="result">
+    <option value="0">Lost</option>
+    <option value="2">Normal</option>
+    <option value="8">Normal 2</option>
+    <option value="18">111</option>
+    <option value="28">222</option>
+    <option value="38">333</option>
+    <option value="48">444</option>
+    <option value="58">555</option>
+    <option value="68">666</option>
+    <option value="78">777</option>
+  </select>
+
+  <span id="prize"></span>
+
+  <img src="img/table.jpg" style="margin: 0 auto; display: block;" alt="">
+</body>
+</html>

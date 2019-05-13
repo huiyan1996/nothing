@@ -1,0 +1,611 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hbet Minigame</title>
+        <style>
+        	* {
+        		box-sizing: border-box;
+        	}
+
+        	html, body {
+        		font-family: "Arial Black", Arial, sans-serif;
+        		margin: 0;
+        		padding: 0;
+        	}
+
+        	::-webkit-scrollbar {
+			  	width: 0px;
+			}
+
+        	.game-wrapper {
+        		display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 1035px;
+				height: 506.4466019417476px;
+				background-image: url('./img/bg.jpg');
+				background-size: 100% 100%;
+				background-position: center center;
+				margin: 15px auto 5px auto;
+				position: relative;
+        	}
+
+        	.info-btn {
+				position: absolute;
+				top: 0;
+				right: 305px;
+				width: 60px;
+				cursor: pointer;
+			}
+
+			.winner-btn {
+				position: absolute;
+				top: 115px;
+				right: 305px;
+				width: 60px;
+				cursor: pointer;
+				padding: 0 15px;
+			}
+
+			.button {
+				position: absolute;
+				left: 0;
+				top: 0;
+				cursor: pointer;
+				width: 90px;
+			}
+
+			.button img {
+				width: 100%;
+			}
+
+			.button img.pac {
+				position: absolute;
+				left: 0;
+				top: 0;
+				transform: rotateX(0deg);
+				transform-origin: top;
+				transition: .3s ease-in;
+			}
+
+			.button:hover img.pac {
+				transform: rotateX(-180deg);
+			}
+
+			.button.red1 {
+				left: 315px;
+				top: 60px;
+			}
+
+			.button.red2 {
+				left: 535px;
+				top: 60px;
+			}
+
+			.button.red3{
+				left: 425px;
+				top: 195px;
+			}
+
+			.button.red4 {
+				left: 315px;
+				top: 335px;
+			}
+
+			.button.red5 {
+				left: 535px;
+				top: 335px;
+			}
+
+			.numberimg { background:url('./img/number.png') no-repeat center; width:35px; height: 47px; }
+			.digit0 { background-position: 0px 0px; }
+			.digit1 { background-position: 0px 0px; }
+			.no0{ background-position: 0px 0px; }
+			.no1{ background-position: -35px 0px; }
+			.no2{ background-position: -70px 0px; }
+			.no3{ background-position: -105px 0px; }
+			.no4{ background-position: -140px 0px; }
+			.no5{ background-position: -175px 0px; }
+			.no6{ background-position: -210px 0px; }
+			.no7{ background-position: -245px 0px; }
+			.no8{ background-position: -280px 0px; }
+			.no9{ background-position: -315px 0px; }
+
+			/* Pop up */
+
+			.close-wrapper {
+				position: absolute;
+				left: 20px;
+				top: 45px;
+				width: 30px;
+				height: 30px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: #000;
+				border-radius: 50%;
+			}
+
+			.close-wrapper.info {
+				top: unset;
+				bottom: 20px;
+				left: 50%;
+			}
+
+			.close-wrapper span {
+				display: block;
+				width: 60%;
+				height: 5px;
+				background-color: transparent;
+				position: relative;
+			}
+
+			.close-wrapper span:before, .close-wrapper span:after {
+				content: "";
+				display: block;
+				position: absolute;
+				background-color: #fff;
+				top: 0;
+				left: 0;
+				height: inherit;
+				width: 100%;
+				transform: rotate(45deg);
+			}
+
+			.close-wrapper span:after {
+				transform: rotate(135deg);
+			}
+
+			.token-wrapper {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: absolute;
+				bottom: 20px;
+				right: 170px;
+				width: 200px;
+				height: 175px;
+				background-image: url('./img/tokenbg.png');
+				background-size: 100% 100%;
+				background-position: center center;
+				padding-top: 35px;
+			}
+
+			.token-wrapper span{
+				font-size: 40px;
+				color: #fff;
+				font-weight: bold;
+				cursor: default;
+				margin-top: 25px;
+				text-shadow: 2px 2px 3px #000, 2px 2px #000;
+			}
+
+			.info-wrapper, .result-wrapper, .winner-wrapper {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				display: none;
+				align-items: center;
+				justify-content: center;
+				background-color: rgba(0,0,0,.8);
+				z-index: 10;
+			}
+
+			.info-wrapper {
+				position: fixed;
+			}
+
+			.info-bg, .winner-bg {
+				display: block;
+				width: 1000px;
+				height: 535px;
+				position: relative;
+				padding: 25px 100px 67px 100px;
+				background-image: url(./img/infobg.png);
+				background-size: 100% 100%;
+				background-position: center center;
+				color: #000;
+				z-index: 11;
+				font-family: Arial, sans-serif;
+				overflow: auto;
+			}
+
+			.info-bg .info-desc {
+				display: block;
+				width: 100%;
+				height: 100%;
+				clear: both;
+				margin: 0 auto;
+				overflow: auto;
+				scrollbar-width: none;
+			}
+
+			.winner-bg {
+				background-image: url(./img/winnerbg.png);
+				width: 719px;
+				height: 420px;
+				padding: 60px;
+			}
+			.winner-list {
+				display: flex;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				flex-wrap: wrap;
+			}
+			.winner-list li {
+				width: 50%;
+				text-align: center;
+				margin: 10px 0;
+				font-size: 30px;
+			}
+
+			.result-wrapper .result {
+				display: flex;
+				width: 438px;
+				height: 384px;
+				background-image: url("./img/popout.png");
+				background-size: 100% 100%;
+				background-position: center center;
+				position: relative;
+				padding: 40px 25px;
+				align-items: center;
+				justify-content: center;
+				color: #fff;
+				z-index: 11;
+				border-radius: 10px;
+				flex-flow: column;
+				font-size: 40px;
+				/*text-shadow: 3px 3px 3px #000, 3px 3px #000;*/
+				text-align: center;
+				font-weight: bold;
+			}
+
+			.result-wrapper .result span {
+				font-family: "Arial Black", "SimHei", sans-serif;
+				margin: 50px auto;
+				color: #bc000c;
+			}
+
+			.result-wrapper .refresh {
+			    display: block;
+			    width: 40px;
+			    cursor: pointer;
+			}
+
+			/* Animations */
+
+			.slideTop {
+				animation: slideIn .3s ease-in forwards;
+			}
+
+			.openResult {
+				animation: openResult .3s ease-in-out forwards;
+			}
+
+			.turnOn {
+				animation: openPack .8s ease-in-out;
+			}
+
+			@keyframes openPack {
+				0%, 100% {
+					transform: rotateX(0deg);
+				}
+				50% {
+					transform: rotateX(-180deg);
+				}
+			}
+
+
+			@keyframes slideIn {
+				0% {
+					opacity: 0;
+					transform: translateY(-40px);
+				}
+				100% {
+					opacity: 1;
+					transform: translateY(0%);
+				}
+			}
+
+			@keyframes rotateX {
+				0%, 50%, 100% {
+					transform: rotateX(0deg);
+				}
+				25% {
+					transform: rotateX(13deg);
+				}
+				75% {
+					transform: rotateX(-13deg);
+				}
+			}
+
+			@keyframes rotateY {
+				0%, 50%, 100% {
+					transform: rotateY(0deg);
+				}
+				25% {
+					transform: rotateY(13deg);
+				}
+				75% {
+					transform: rotateY(-13deg);
+				}
+			}
+
+			@keyframes openResult {
+
+				0% {
+					transform: translateX(30px) rotateY(130deg);
+					opacity: .5;
+				}
+				100% {
+					transform: translateX(0px) rotateY(0deg);
+					opacity: 1;
+				}
+			}
+
+			@media only screen and (max-width:768px) {
+			    .game-wrapper {
+			        width: 370px;
+			        height: 640px;
+			        background-image: url('./img/m-bg.jpg');
+			    }
+			    .token-wrapper {
+			        display: flex;
+					align-items: center;
+					justify-content: center;
+					position: absolute;
+					top: unset;
+					left: unset;
+					right: 50%;
+					bottom: 5px;
+					transform: translateX(50%);
+					width: 150px;
+					height: 150px;
+					background-size: 100% 100%;
+					background-position: center center;
+			    }
+			    .info-btn {
+				    right: 20px;
+				    width: 45px;
+				    top: 125px;
+				}
+			    .info-bg {
+			        display: flex;
+			        width: 360px;
+			        height: 379px;
+			        position: relative;
+			        padding: 25px;
+			        align-items: center;
+			        justify-content: flex-start;
+			        color: #000;
+			        z-index: 11;
+			        border-radius: 10px;
+			        flex-flow: column;
+			        overflow: visible;
+			        background-image: url(./img/minfobg.png);
+			    }
+			    .info-bg .info-desc, .info-bg div {
+			        padding-bottom: 25px;
+			    }
+			    .button {
+			        position: absolute;
+			        left: 0;
+			        top: 0;
+			        cursor: pointer;
+			        width: 65px;
+			    }
+			    .button.red1 {left: 60px;top: 190px;}
+			    .button.red2 {left: 230px;top: 190px;}
+			    .button.red3 {left: 145px;top: 287px;}
+			    .button.red4 {left: 60px;top: 384px;}
+			    .button.red5 {left: 230px;top: 384px;}
+
+			    .numberimg { background:url('./img/number.png') no-repeat center; width:26px; height: 35px; background-size: auto 100%;}
+			    .digit0 { background-position: 0px 0px; }
+				.digit1 { background-position: 0px 0px; }
+				.no0{ background-position: 0px 0px; }
+				.no1{ background-position: -26px 0px; }
+				.no2{ background-position: -52px 0px; }
+				.no3{ background-position: -78px 0px; }
+				.no4{ background-position: -104px 0px; }
+				.no5{ background-position: -130px 0px; }
+				.no6{ background-position: -156px 0px; }
+				.no7{ background-position: -182px 0px; }
+				.no8{ background-position: -208px 0px; }
+				.no9{ background-position: -234px 0px; }
+
+			    .result {
+			        width: 340px;
+			        height: 298.0821917808219px;
+			        font-size: 45px;
+			    }
+			    .result span {
+				    margin: 30px auto;
+				}
+			    .refresh {
+			        width: 40px;
+			    }
+			    .winner-bg {
+			        display: block;
+			        width: 340px;
+			        height: 154.62102689486554px;
+			        background-image: url("./img/mframe.png");
+			        background-size: auto 100%;
+			        background-position: center center;
+			        margin: 0 auto;
+			        padding: 15px 25px 15px 40px;
+			        overflow: visible;
+			    }
+			    .winner-list {
+			        display: flex;
+			        flex-wrap: wrap;
+			        list-style: none;
+			        margin: 0;
+			        width: 100%;
+			        height: 100%;
+			        overflow: auto;
+			    }
+			    .winner-list li {
+			        display: inline-block;
+			        width: 50%;
+			        text-align: center;
+			        margin: 4px auto;
+			        font-size: 17px;
+			    }
+			    .winner-btn {
+				    top: 150px;
+				    right: 295px;
+				}
+				.close-wrapper {
+					left: 310px;
+					top: -15px;
+					border: 2px solid #fff;
+				}
+				.close-wrapper.info {
+					bottom: -40px;
+				}
+			}
+        </style>
+    </head>
+    <body>
+    	<div class="game-wrapper">
+    		<img src="./img/info.png" alt="" class="info-btn" onclick="openInfo()" >
+    		<img src="./img/winnerbtn.png" alt="" class="winner-btn" onclick="openWinner()" >
+
+    		<div class="button red1"><img src="./img/1.png" /><img class="pac" src="./img/pac.png" alt=""></div>
+			<div class="button red2"><img src="./img/2.png" /><img class="pac" src="./img/pac.png" alt=""></div>
+			<div class="button red3"><img src="./img/3.png" /><img class="pac" src="./img/pac.png" alt=""></div>
+			<div class="button red4"><img src="./img/4.png" /><img class="pac" src="./img/pac.png" alt=""></div>
+			<div class="button red5"><img src="./img/5.png" /><img class="pac" src="./img/pac.png" alt=""></div>
+
+			<div class="token-wrapper">
+				<!-- <span>08</span> -->
+				<div class="numberimg digit0"></div>
+				<div class="numberimg digit1"></div>
+			</div>
+
+			<div class="info-wrapper" id="info-wrapper">
+				<div class="info-bg" id="info-bg">
+					<div class="info-desc">
+						<a href="javascript:;" class="close-wrapper info" onclick="closeInfo()"><span></span></a>
+						<center><b class="info-title">Terms and Conditions</b></center>
+						<ol>
+						    <li>Promotion will start from 2019-01-07 00:00:01(GMT+8) until 2019-01-31 23:59:59(GMT+8), this promotion is open for all 7play11 members.</li>
+							<li>Every existed member and new registered member will get 1 free token to play 1 time of God of Wealth Ingots.</li>
+							<li>To claim more token, member must to deposit at least SGD 80 or above in one transaction. Please be noted that must deposit 80 in one time deposit transaction. Deposit amount for claim a token is SGD 80 and have a daily maximum limit 8 tickets can be claim by each member.</li>
+							<li>Please be noted that all claimed tickets will be reset before every Sunday 23:59:59(GMT+8), so member must spend all your claimed token before every Sunday 23:59:59(GMT+8).</li>
+							<li>Rollover requirement is 18x. To view more detail about this promotion, please refer to our promotion page on homepage menu list.</li>
+							<li>Every member only allowed to have one registered account in 7play11.com/sg/ , if we found any member own more than 1 account, we will treat those accounts as an organizational accounts. 7play11 has the right to terminate everything of the accounts.</li>
+							<li>7play11 reserved the right to alter, amend or pause any promotion, or any aspect of it at anytime without prior notice.</li>
+							<li>General promotional Terms & Conditions apply.</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+
+			<div class="winner-wrapper" id="winner-wrapper">
+				<div class="winner-bg">
+					<a href="javascript:;" class="close-wrapper" onclick="closeWinner()"><span></span></a>
+					<ul class="winner-list">
+					    <li>userxxx 8.00</li>
+					    <li>userxxx 8.00</li>
+					    <li>userxxx 18.00</li>
+					    <li>userxxx 8.00</li>
+					    <li>userxxx 18.00</li>
+					    <li>userxxx 8.00</li>
+					    <li>userxxx 8.00</li>
+					    <li>userxxx 18.00</li>
+					    <li>userxxx 48.00</li>
+					    <li>userxxx 28.00</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="result-wrapper" id="result-wrapper">
+				<div class="result"><span>You have win the prize<br>SGD 18.00</span><img class="refresh" src="./img/refresh.png" onclick="closeResult()" /></div>
+				
+			</div>
+    	</div>
+    	<script src="jquery.js"></script>
+        <script>
+        	const infoBtn = $("#info-btn");
+			const infoWrapper = $("#info-wrapper");
+			const infoBg = $("#info-bg");
+			const winnerWrapper = $("#winner-wrapper");
+			const winnerBg = $("#winner-wrapper .winner-bg");
+			const redpack = $(".button");
+			const resultWrapper = $("#result-wrapper");
+			const result = $("#result-wrapper .result");
+			const refresh = $(".refresh");
+
+			showResult();
+			rdnPack();
+
+			function rdnPack() {
+				setInterval(function(){
+					redpack.eq(rdnNumber()).children('.pac').addClass('turnOn');
+					setTimeout(function(){
+						redpack.children('.pac').removeClass('turnOn');
+					}, 1000);
+				},6000);
+			}
+
+			function showResult() {
+				redpack.click(function(){
+					resultWrapper.css("display",'flex');
+					result.addClass('openResult');
+				});
+			}
+
+			infoWrapper.click(function(e) {
+				if (!infoBg.is(e.target) && infoBg.has(e.target).length === 0) 
+			    {
+			        closeInfo();
+			    }
+			});
+
+			winnerWrapper.click(function(e) {
+				if (!winnerBg.is(e.target) && winnerBg.has(e.target).length === 0) 
+			    {
+			        closeWinner();
+			    }
+			});
+
+			function closeResult() {
+				resultWrapper.css("display","none");
+				result.removeClass("openResult");
+			}
+
+
+			function closeInfo() {
+				infoWrapper.css("display","none");
+				infoBg.removeClass("slideTop");
+			}
+
+			function openInfo() {
+				infoWrapper.css("display","flex");
+				infoBg.addClass("slideTop");
+			}
+
+			function openWinner() {
+				winnerWrapper.css("display","flex");
+				winnerBg.addClass("slideTop");
+			}
+
+			function closeWinner() {
+				winnerWrapper.css("display","none");
+				winnerBg.removeClass("slideTop");
+			}
+
+			function rdnNumber() {
+				return Math.floor(Math.random() * redpack.length);
+			}
+        </script>
+    </body>
+</html>

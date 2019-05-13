@@ -1,0 +1,598 @@
+{include file='part/html_start.html'}
+
+<div style="">
+	﻿{include file='part/html_header.html'} 
+</div>
+
+<div class="container" >
+{if 1}
+		
+	<div class="game-wrapper">
+		<div class="token-wrapper">
+			<div class="numberimg digit0"></div>
+			<div class="numberimg digit1"></div>
+		</div>
+		<img class="info-btn" id="info-btn" src="{$paths.assets}vendor/game/cnyear/info.png" />
+
+		<img class="button fish1" src="{$paths.assets}vendor/game/cnyear/fish1.png" />
+		<img class="button fish2" src="{$paths.assets}vendor/game/cnyear/fish2.png" />
+		<img class="button fish3" src="{$paths.assets}vendor/game/cnyear/fish3.png" />
+		<img class="button fish4" src="{$paths.assets}vendor/game/cnyear/fish4.png" />
+		<img class="button fish5" src="{$paths.assets}vendor/game/cnyear/fish5.png" />
+
+		<img class="refresh" src="{$paths.assets}vendor/game/cnyear/refresh.png" onclick="closeResult()" />
+
+		<div class="info-wrapper" id="info-wrapper">
+			<div class="info-bg" id="info-bg">
+				<a href="javascript:;" class="close-wrapper" onclick="closeInfo()"><span></span></a>
+				<div>{$pageDetail.content|escape:decode|only_content}</div>
+			</div>
+		</div>
+
+		<div class="result-wrapper" id="result-wrapper">
+			<div class="result"></div>
+		</div>
+	</div>
+	{if !empty($transaction)}
+	<div class="winner-bg">
+		<ul class="winner-list" id="winner-list">
+			{foreach from=$transaction item=row}
+			{if $row.total_amount eq 0}
+			<li>{$row.to_master_login|truncate:8} [{$lang.common_minigames.msg_lose_prize}]</li>
+			{else}
+			<li>{$row.to_master_login} [{$row.total_amount}]</li>
+			{/if}
+			{/foreach}
+		</ul>
+	</div>
+	{/if}
+
+{else}
+<center style="margin:80px 0px">
+	<img src="{$paths.assets}images/maintenance/maintenance-{$setting.config_language_id}.png" />
+</center>
+{/if}
+</div>
+
+<audio id="soundNotify" {if 0}controls autoplay{/if} preload="auto" loop>
+	<source src="{$paths.default}upload/file/cnyear.mp3" type="audio/mpeg">
+	Your browser does not support the audio element.
+</audio>
+
+<script src="{$paths.assets}vendor/countto/script.js"></script>
+<script>
+	var curBalance = 0;
+	var totalOption = 5;
+	var clickable = true;
+	
+	const infoBtn = document.getElementById("info-btn");
+	const infoWrapper = document.getElementById("info-wrapper");
+	const infoBg = document.getElementById("info-bg");
+	const fish = document.getElementsByClassName("button");
+	const resultWrapper = document.getElementById("result-wrapper");
+
+	$(function(){
+		$('#soundNotify').trigger("play");
+		curBalance = '{$currentBalance}';
+		splitnumber(curBalance);
+	});
+	
+	showResult();
+	function showResult() {
+		for (i=0; i < fish.length; i++) {
+			(function(index){
+				fish[i].addEventListener("click", function(){
+					openResult();
+				});
+			})(i);
+		}
+	}
+
+	function openResult() {
+		if(0 && totalOption<3){
+			resultWrapper.style.display = 'flex';
+			$('#result-wrapper .result').addClass('openResult');
+			$('#refresh').addClass('active');
+			$('#result-wrapper .result').html("<div>{$lang.common_minigamesbreak.msg_refreshpage}</div>");
+			return false;
+		}
+		
+		{if isset($display_account_job)}
+		if(clickable === true) {
+			clickable = false;
+			var postData = {'login':"{$display_login}"};
+			callAjax("index.php?route=common/minigames/DBdeduct", postData, function(data){
+				if(data){
+					var returnResult = jQuery.parseJSON(data);
+					
+					if (returnResult.valid) {
+						curBalance = curBalance - 1;
+						splitnumber(curBalance);
+						
+						totalOption -=1;
+						displayResult(returnResult);
+						clickable = true;
+					}else{
+						clickable = true;
+					}
+					
+					if (returnResult.returnMsg)
+						bootbox.alert(returnResult.returnMsg);
+				}else{
+					bootbox.alert("{$lang.error.error_ajax_connection}");
+				}
+				//$('.btn-submit').attr('disabled',false);
+				clickable = true;
+			}, 8000);
+		}
+		return false;
+		
+		{else}
+		openModalPage('{$href.direct_openpg_login}');
+		{/if}
+		return false;
+		
+	}
+
+	infoBtn.addEventListener("click", () => openInfo());
+
+	infoWrapper.addEventListener("click", function(e) {
+		if(!infoBg.contains(e.target)) {
+			closeInfo();
+		}
+	});
+	
+	function closeResult() {
+		resultWrapper.style.display = "none";
+		result.removeClass("openResult");
+		refresh.classList.remove('active');
+	}
+
+	function closeInfo() {
+		infoWrapper.style.display = "none";
+		infoBg.classList.remove("slide");
+	}
+
+	function openInfo() {
+		infoWrapper.style.display = "flex";
+		infoBg.classList.add("slide");
+	}
+	
+	function splitnumber(number){
+		var output = [],
+			sNumber = number.toString();
+		for (var i = 0, len = sNumber.length; i < len; i += 1) {
+			output.push(+sNumber.charAt(i));
+		}
+		$('.digit0').removeClass('no0 no1 no2 no3 no4 no5 no6 no7 no8 no9');
+		$('.digit1').removeClass('no0 no1 no2 no3 no4 no5 no6 no7 no8 no9');
+		if(typeof output[0] !== 'undefined'){
+			$('.digit0').addClass('no'+output[0]);
+		}
+		if(typeof output[1] !== 'undefined'){
+			$('.digit1').addClass('no'+output[1]);
+		}
+	}
+	
+	function displayResult(returnResult){
+		var result = $("#result-wrapper .result");
+		var refresh = $(".refresh");
+		
+		resultWrapper.style.display = 'flex';
+		result.addClass('openResult');
+		refresh.addClass('active');
+		
+		if(returnResult.spinPrize>0){
+				
+			result.html("{$lang.common_minigames.msg_win_prize} <div class='pJackpotBtn' >SGD "+returnResult.spinPrize+"</div>");
+			var spinWinnerList = '<li>'+returnResult.spinWinner+' ['+returnResult.spinPrize+']</li>';
+			$('#winner-list').prepend(spinWinnerList);
+			$('#winner-list li:last-child').remove();
+			
+			$('.pJackpotBtn').countTo({
+				format: 'money',
+				from: 0,
+				to: returnResult.spinPrize,
+				speed: 1000,
+				refresh_interval: 5,
+				on_complete: function(value) {
+					$(this).hide().fadeIn(1000);
+				}
+			});
+				
+		}else{
+			result.html("<div>"+returnResult.spinPrize+"</div>");
+		}
+	}
+	
+</script>
+
+<style>
+	/* Game area */
+	.game-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 587.1844660194175px;
+		background-image: url('{$paths.assets}vendor/game/cnyear/bg.jpg');
+		background-size: 100% 100%;
+		background-position: center center;
+		margin: 15px auto 5px auto;
+		position: relative;
+	}
+
+	.winner-btn {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 150px;
+		height: 150px;
+	}
+
+	.token-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		top: 15px;
+		left: 215px;
+		width: 144px;
+		height: 144px;
+		background-image: url('{$paths.assets}vendor/game/cnyear/ticket.png');
+		background-size: 100% 100%;
+		background-position: center center;
+	}
+
+	.token-wrapper span{
+		font-size: 60px;
+		color: #fff;
+		font-weight: bold;
+		cursor: default;
+	}
+
+	.numberimg { background:url('{$paths.assets}vendor/game/cnyear/number.png') no-repeat center; width:35px; height: 47px; }
+	.digit0 { background-position: 0px 0px; }
+	.digit1 { background-position: 0px 0px; }
+	.no0{ background-position: 0px 0px; }
+	.no1{ background-position: -35px 0px; }
+	.no2{ background-position: -70px 0px; }
+	.no3{ background-position: -105px 0px; }
+	.no4{ background-position: -140px 0px; }
+	.no5{ background-position: -175px 0px; }
+	.no6{ background-position: -210px 0px; }
+	.no7{ background-position: -245px 0px; }
+	.no8{ background-position: -280px 0px; }
+	.no9{ background-position: -315px 0px; }
+
+	.info-btn {
+		position: absolute;
+		top: 0;
+		right: 215px;
+		width: 55px;
+		cursor: pointer;
+	}
+
+	.button {
+		position: absolute;
+		left: 0;
+		top: 0;
+		cursor: pointer;
+		width: 210px;
+	}
+
+	.button.fish1 {
+		left: 480px;
+		top: 100px;
+	}
+
+	.button.fish2 {
+		left: 275px;
+		top: 285px;
+		width: 120px;
+	}
+
+	.button.fish3{
+		left: 460px;
+		top: 370px;
+		width: 235px;
+	}
+
+	.button.fish4 {
+		left: 745px;
+		top: 130px;
+		width: 175px;
+	}
+
+	.button.fish5 {
+		left: 780px;
+		top: 300px;
+		width: 95px;
+	}
+
+	.button.fish1:hover, .button.fish3:hover {
+		animation: rotateY 1s linear infinite;
+	}
+
+	.button.fish2:hover, .button.fish4:hover, .button.fish5:hover {
+		animation: rotateX 1s linear infinite;
+	}
+
+	.refresh {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 205px;
+		cursor: pointer;
+	}
+
+	.refresh.active {
+		z-index: 12;
+	}
+
+	/* Pop up */
+
+	.close-wrapper {
+		position: absolute;
+		right: 15px;
+		top: 15px;
+		width: 30px;
+		height: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.close-wrapper span {
+		display: block;
+		width: 80%;
+		height: 5px;
+		background-color: transparent;
+		position: relative;
+	}
+
+	.close-wrapper span:before, .close-wrapper span:after {
+		content: "";
+		display: block;
+		position: absolute;
+		background-color: #fff;
+		top: 0;
+		left: 0;
+		height: inherit;
+		width: inherit;
+		transform: rotate(45deg);
+	}
+
+	.close-wrapper span:after {
+		transform: rotate(135deg);
+	}
+
+	.info-wrapper, .result-wrapper {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		background-color: rgba(0,0,0,.8);
+		z-index: 10;
+	}
+
+	.info-bg {
+		display: flex;
+		width: 1030px;
+		height: 400px;
+		position: relative;
+		padding: 25px;
+		align-items: center;
+		justify-content: center;
+		background-color: #b41026;
+		color: #fff;
+		z-index: 11;
+		border-radius: 10px;
+		flex-flow: column;
+	}
+
+	.winner-bg {
+		display: block;
+		width: 100%;
+		height: 186.40776699029126px;
+		background-image: url("{$paths.assets}vendor/game/cnyear/frame.png");
+		background-size: auto 100%;
+		background-position: center center;
+		margin: 0 auto;
+	}
+
+	.winner-list {
+		display: flex;
+		flex-wrap: wrap;
+		list-style: none;
+		margin: 0;
+		padding: 50px;
+		color: #000;
+	}
+
+	.winner-list li {
+		display: inline-block;
+		width: 20%;
+		text-align: center;
+		margin: 10px auto;
+		font-size: 20px;
+	}
+
+	.result {
+		display: flex;
+		width: 800px;
+		height: 300px;
+		background-image: url("{$paths.assets}vendor/game/cnyear/popout.png");
+		background-size: 100% 100%;
+		background-position: center center;
+		position: relative;
+		padding: 25px 265px 25px 215px;
+		align-items: center;
+		justify-content: center;
+		color: #fff;
+		z-index: 11;
+		border-radius: 10px;
+		flex-flow: column;
+		font-size: 50px;
+		text-shadow: 3px 3px 3px #000, 3px 3px #000;
+		text-align: center;
+		font-weight: bold;
+	}
+
+	/* Animations */
+
+	.slide { animation: slideIn .3s ease-in forwards; }
+	.openResult { animation: openResult .3s ease-in forwards; }
+
+	@keyframes slideIn {
+		0% { opacity: 0; transform: translateY(-40px); }
+		100% { opacity: 1; transform: translateY(0%); }
+	}
+	@keyframes rotateX {
+		0%, 50%, 100% { transform: rotateX(0deg); }
+		25% { transform: rotateX(13deg); }
+		75% { transform: rotateX(-13deg); }
+	}
+	@keyframes rotateY {
+		0%, 50%, 100% { transform: rotateY(0deg); }
+		25% { transform: rotateY(13deg); }
+		75% { transform: rotateY(-13deg); }
+	}
+	@keyframes openResult {
+		0%, 50%, 100% { transform: translateX(0px); }
+		25% { transform: translateX(-15px); }
+		75% { transform: translateX(15px); }
+	}
+	
+	{if 0}
+	@media only screen and (max-width:768px){
+		.game-wrapper {
+			width: 370px;
+			height: 640px;
+			background-image: url('{$paths.assets}vendor/game/cnyear/m-bg.jpg');
+		}
+
+		.token-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			top: 0;
+			left: unset;
+			right: 0;
+			width: 135px;
+			height: 135px;
+			background-image: url('{$paths.assets}vendor/game/cnyear/ticket.png');
+			background-size: 100% 100%;
+			background-position: center center;
+		}
+
+		.info-btn {
+			right: 180px;
+			width: 45px;
+		}
+
+		.info-bg {
+			display: flex;
+			width: 325px;
+			height: 600px;
+			position: relative;
+			padding: 25px;
+			align-items: center;
+			justify-content: flex-start;
+			background-color: #b41026;
+			color: #fff;
+			z-index: 11;
+			border-radius: 10px;
+			flex-flow: column;
+			overflow: auto;
+		}
+
+		.info-desc {
+			padding-bottom: 25px;
+		}
+
+		.button {
+			position: absolute;
+			left: 0;
+			top: 0;
+			cursor: pointer;
+			width: 140px;
+		}
+
+		.button.fish1 {
+			left: 100px;
+			top: 165px;
+		}
+
+		.button.fish2 {
+			left: 0;
+			top: 285px;
+			width: 80px;
+		}
+
+		.button.fish3{
+			left: 100px;
+			top: 410px;
+			width: 140px;
+		}
+
+		.button.fish4 {
+			left: 5px;
+			top: 465px;
+			width: 100px;
+		}
+
+		.button.fish5 {
+			left: 260px;
+			top: 275px;
+			width: 75px;
+		}
+
+		.refresh {
+			width: 140px;
+		}
+
+		.result {
+			width: 340px;
+			height: 275.6756756756757px;
+			background-image: url("{$paths.assets}vendor/game/cnyear/mpopout.png");
+			padding: 25px 60px 25px 50px;
+			font-size: 45px;
+		}
+
+		.winner-bg {
+			display: block;
+			width: 370px;
+			height: 222px;
+			background-image: url("{$paths.assets}vendor/game/cnyear/mframe.png");
+			background-size: auto 100%;
+			background-position: center center;
+			margin: 0 auto;
+		}
+
+		.winner-list {
+			display: flex;
+			flex-wrap: wrap;
+			list-style: none;
+			margin: 0;
+			padding: 40px;
+		}
+
+		.winner-list li {
+			display: inline-block;
+			width: 50%;
+			text-align: center;
+			margin: 4px auto;
+			font-size: 17px;
+		}
+		
+	}
+	{/if}
+</style>
+
+﻿{include file='part/html_end.html'} 

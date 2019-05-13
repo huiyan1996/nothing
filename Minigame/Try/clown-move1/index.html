@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<meta name=description content="emmmm">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+		.crown{
+			display: block;
+			width: 187px;
+			height: 320px;
+			clear:both;
+			background-image: url('move.png');
+			background-size: auto 100%;
+			background-position: -187px 0;
+			background-repeat: no-repeat;
+			position: relative;
+			animation: .3s move infinite steps(3);
+		}
+		.crown:after {
+			content: "";
+			width: inherit;
+			height: inherit;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background-image: inherit;
+			background-position: left center;
+		}
+		@keyframes move {
+			0% {
+				background-position: -187px 0;
+			}
+			100% {
+				background-position: -748px 0;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="crown"></div>
+</body>
+</html>

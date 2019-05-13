@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<meta name=description content="Change Background">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title></title>
+	<script src="jquery.js"></script>
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+		}
+
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: cursive;
+		}
+
+		/* width */
+
+		.game-wrapper {
+			display: block;
+			clear: both;
+			width: 1030px;
+			height: 504px;
+			margin: 0 auto;
+			position: relative;
+			background-color: #333;
+			overflow: hidden;
+		}
+
+		.roulette-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40%;
+			margin-left: auto;
+			margin-right: auto;
+			background-color: #666;
+			border-radius: 50%;
+			position: absolute;
+			left: 30%;
+			bottom: 0;
+			transform: translateY(50%);
+			padding: 15px;
+		}
+
+		.roulette-wrapper .needle {
+			position: absolute;
+			top: 0;
+			width: 16px;
+			height: 45px;
+			z-index: 2;
+		}
+
+		.roulette-wrapper .needle:after {
+			content: "";
+			border-color: #ffabab transparent transparent transparent;
+			position: absolute;
+			top: 0;
+			left: 0;
+			box-sizing: border-box;
+			border-width: 60px 8px;
+			border-style: solid;
+		}
+
+		.roulette-wrapper img {
+			width: 100%;
+			/*transition: 1s cubic-bezier(0,.01,0,1.01) transform;*/
+			position: relative;
+			z-index: 1;
+		}
+
+		.transition {
+			transition: 2s cubic-bezier(0,.01,0,1.01) transform;
+		}
+
+		.content-wrapper {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			background-color: rgba(0,0,0,.2);
+			display: none;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.close-result {
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			width: 30px;
+			height: 30px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.close-result span {
+			display: block;
+			width: 80%;
+			height: 5px;
+			background-color: transparent;
+			position: relative;
+		}
+
+		.close-result span:before, .close-result span:after {
+			content: "";
+			display: block;
+			position: absolute;
+			background-color: #000;
+			top: 0;
+			left: 0;
+			height: inherit;
+			width: inherit;
+			transform: rotate(45deg);
+		}
+
+		.close-result span:after {
+			transform: rotate(135deg);
+		}
+
+		.result {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 600px;
+			height: 300px;
+			background-color: #fff;
+			font-size: 24px;
+			border-radius: 10px;
+			position: relative;
+			max-width: 90%;
+			text-align: center;
+		}
+
+		.play-btn {
+			display: block;
+			border: 2px solid #fff;
+			color: #fff;
+			text-decoration: none;
+			cursor: pointer;
+			font-weight: bold;
+			width: 90px;
+			padding: 0 5px;
+			text-align: center;
+			margin: 5px 0 0 5px;
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div class="game-wrapper">
+
+		<span class="play-btn" id="play-btn">Play</span>
+
+		<div class="roulette-wrapper">
+			<div class="needle"></div>
+			<img src="./img/roulette.png" alt="" id="toSpin">
+		</div>
+
+		<div class="content-wrapper" id="result-wrapper">
+			<div class="result">
+				<a href="javascript:;" class="close-result" id="close-result"><span></span></a>
+				<span>Congratulation, You win x.xx!</span>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const roulette = $('#toSpin');
+		const play = $('#play-btn');
+		const reset = $('#reset-btn');
+		const resultWrapper = $('#result-wrapper');
+		const result = $('.result');
+		const closeResult = $('#close-result');
+		const degree = {'p0':95,'p8':15, 'p18':335, 'p28':297, 'p38':258, 'p48':215, 'p58':174, 'p68':134, 'p78':55};
+		let clickable = true;
+
+		play.click(function(){
+			if (clickable) {
+				clickable = false;
+				spin(48);
+
+				setTimeout(function(){
+					resultWrapper.css('display', 'flex');
+					resetSpin();
+					clickable = true;
+				}, 2500);
+			}
+		});
+
+		closeResult.click(function(){
+			resultWrapper.css('display', 'none');
+		});
+
+		function resetSpin(){
+			roulette.removeClass('transition');
+			roulette.removeAttr('style');
+		}
+
+		function spin(p) {
+			let d = degree['p'+(p || 0)]+1080;
+
+			roulette.addClass('transition');
+			roulette.css('transform','rotate('+d+'deg)');
+		}
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<meta name=description content="Step">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		* { box-sizing: border-box; }
+		html, body {
+			font-family: "Courier New", cursive;
+			margin: 0;
+			padding: 0;
+		}
+		.game-wrapper {
+			display: block;
+			clear: both;
+			width: 100vw;
+			height: 100vh;
+			margin: 0 auto;
+			position: relative;
+		}
+
+		.step-wrapper {
+			display: block;
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 266px;
+			height: 282px;
+		}
+
+		.steps {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		.game-step {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 70px;
+			height: 70px;
+			border: 2px solid #000;
+			margin: 15px 7.5px;
+			color: #000;
+			text-decoration: none;
+			font-size: 20px;
+			font-weight: bold;
+			background-color: #fff;
+			transition: .3s linear;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		.game-step:nth-child(1){top: 0; left: 0;}
+		.game-step:nth-child(2){top: 0; left: 90px;}
+		.game-step:nth-child(3){top: 0; left: 180px;}
+		.game-step:nth-child(4){top: 90px; left: 180px;}
+		.game-step:nth-child(5){top: 180px; left: 180px;}
+		.game-step:nth-child(6){top: 180px; left: 90px;}
+		.game-step:nth-child(7){top: 180px; left: 0px;}
+		.game-step:nth-child(8){top: 90px; left: 0px;}
+
+		.game-step.active {
+			background-color: #52e544;
+		}
+
+		.dice-wrapper {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+		}
+		.dice {
+			width: 60px;
+			height: 60px;
+			perspective: 600px;
+			position: relative;
+			left: 40px;
+			bottom: 40px;
+			float: left;
+		}
+		.dice-faces {
+		    width: 100%;
+		    height: 100%;
+		    position: relative;
+		    transform-style: preserve-3d;
+		}
+
+		.dice-faces.no1 { transform: rotate3d(0,0,0,90deg); }
+		.dice-faces.no2 { transform: rotate3d(0,1,0,-90deg); }
+		.dice-faces.no3 { transform: rotate3d(0,1,0,180deg); }
+		.dice-faces.no4 { transform: rotate3d(0,1,0,90deg); }
+		.dice-faces.no5 { transform: rotate3d(1,0,0,-90deg); }
+		.dice-faces.no6 { transform: rotate3d(1,0,0,90deg); }
+
+		.dice-face{
+		   position: absolute;
+		   width: 60px;
+		   height: 60px;
+		   display: flex;
+		   align-items: center;
+		   justify-content: center;
+		   color: #fff;
+		   text-decoration: none;
+		   font-size: 45px;
+		   font-weight: bold;
+		   border: 1px solid #fff;
+		   background-color: transparent;
+		   background-size: 100% 100%;
+		   background-repeat: no-repeat;
+		}
+
+		.front-face { transform: rotateY(0deg) translateZ(30px); background-image: url('./img/1.png');}
+		.right-face { transform: rotateY(90deg) translateZ(30px); background-image: url('./img/2.png'); }
+		.back-face { transform: rotateY(180deg) translateZ(30px); background-image: url('./img/3.png'); }
+		.left-face { transform: rotateY(-90deg) translateZ(30px); background-image: url('./img/4.png'); }
+		.top-face { transform: rotateX(90deg) translateZ(30px); background-image: url('./img/5.png'); }
+		.bottom-face { transform: rotateX(-90deg) translateZ(30px); background-image: url('./img/6.png'); }
+
+		.roll-btn {
+			position: relative;
+			display: block;
+			float: left;
+			left: 100px;
+			border: 2px solid #000;
+			padding: 3px 5px;
+			color: #000;
+			text-decoration: none;
+		}
+
+		.roll-btn:hover {
+			background-color: #000;
+			color: #fff;
+		}
+
+		.content-wrapper {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			background-color: rgba(0,0,0,.2);
+			display: none;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.close-result {
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			width: 30px;
+			height: 30px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.close-result span {
+			display: block;
+			width: 80%;
+			height: 5px;
+			background-color: transparent;
+			position: relative;
+		}
+
+		.close-result span:before, .close-result span:after {
+			content: "";
+			display: block;
+			position: absolute;
+			background-color: #000;
+			top: 0;
+			left: 0;
+			height: inherit;
+			width: inherit;
+			transform: rotate(45deg);
+		}
+
+		.close-result span:after {
+			transform: rotate(135deg);
+		}
+
+		.result {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 600px;
+			height: 300px;
+			background-color: #fff;
+			font-size: 24px;
+			border-radius: 10px;
+			position: relative;
+			max-width: 90%;
+			text-align: center;
+		}
+
+		.rotate-dice {
+			animation: rotate .8s ease-in-out infinite;
+		}
+
+		@keyframes rotate {
+			0% { transform: translateZ(-100px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+		    16% { transform: translateZ(-100px) rotateX(180deg) rotateY(180deg) rotateZ(0deg); }
+		    33% { transform: translateZ(-100px) rotateX(360deg) rotateY(90deg) rotateZ(180deg); }
+		    50% { transform: translateZ(-100px) rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+		    66% { transform: translateZ(-100px) rotateX(180deg) rotateY(360deg) rotateZ(270deg); }
+		    83% { transform: translateZ(-100px) rotateX(270deg) rotateY(180deg) rotateZ(180deg); }
+		    100% { transform: translateZ(-100px) rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+		}
+
+	</style>
+</head>
+<body>
+	<div class="game-wrapper">
+		<div class="step-wrapper">
+			<div class="steps">
+				<a href="javascript:;" class="game-step active">1</a>
+				<a href="javascript:;" class="game-step">2</a>
+				<a href="javascript:;" class="game-step">3</a>
+				<a href="javascript:;" class="game-step">4</a>
+				<a href="javascript:;" class="game-step">5</a>
+				<a href="javascript:;" class="game-step">6</a>
+				<a href="javascript:;" class="game-step">7</a>
+				<a href="javascript:;" class="game-step">8</a>
+			</div>
+			
+		</div>
+
+		<div class="dice-wrapper">
+			<div class="dice">
+				<div class="dice-faces" id="roll-wrapper">
+					<div class="dice-face front-face"></div>
+					<div class="dice-face back-face"></div>
+					<div class="dice-face right-face"></div>
+					<div class="dice-face left-face"></div>
+					<div class="dice-face top-face"></div>
+					<div class="dice-face bottom-face"></div>
+				</div>
+			</div>
+
+			<a href="javascript:;" class="roll-btn">Roll</a>
+		</div>
+
+		<div class="content-wrapper" id="result-wrapper">
+			<div class="result">
+				<a href="javascript:;" class="close-result" id="close-result"><span></span></a>
+				<span>Congratulation, You win x.xx!</span>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="jquery.js"></script>
+	<script type="text/javascript">
+		let timer = null;
+		const dice = $("#roll-wrapper");
+		const rollBtn = $(".roll-btn");
+		const gameStep = $(".game-step");
+		let finalNo = 0;
+		let click = true;
+		let currentStep = 0;
+		const resultWrapper = $('#result-wrapper');
+		const closeResult = $('#close-result');
+
+
+		rollBtn.click(function(){
+			if(click) {
+				dice.removeClass('no'+finalNo);
+				finalNo=getRdn();
+				dice.addClass('rotate-dice');
+				click = false;
+
+				setTimeout(function(){
+					dice.removeClass("rotate-dice");
+					dice.addClass('no'+finalNo);
+					stepOn(finalNo);
+				}, 2000);
+			}
+			
+		});
+
+		closeResult.click(() => {resultWrapper.css('display', 'none');});
+		
+		function stepOn(step){
+			let ind = 0;
+			timer = setInterval(function(){
+				if(ind>=step){
+					clearInterval(timer);
+					resultWrapper.css('display', 'flex');
+					click = true;
+					return false;
+				}
+
+				gameStep.eq(currentStep).removeClass('active');
+				currentStep+=1;
+				if(currentStep>=gameStep.length){
+					currentStep=0;
+				}
+				gameStep.eq(currentStep).addClass('active');
+
+				ind+=1;
+			},600);
+		}
+
+		function getRdn(){
+			return Math.floor(Math.random()*6+1);
+		}
+	</script>
+</body>
+</html>
