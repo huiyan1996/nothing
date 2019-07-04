@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <style type="text/css">
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: block;
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .searchSection {
+            display: block;
+            width: 100%;
+            margin: 30px auto;
+        }
+
+        .searchSection #insertTodo {
+            display: block;
+            width: 100%;
+            height: 40px;
+            border: 1px solid #333;
+            font-size: 18px;
+            padding: 0 15px;
+        }
+
+        .searchSection #insertTodo:focus, .todoText .editTxt:focus {
+            border: 1px solid rgb(10, 209, 176);
+            outline: none;
+        }
+
+        .todoSection {
+            display: block;
+            width: 100%;
+            clear: both;
+            margin: 0 auto;
+        }
+
+        .todoSection .todoItem {
+            display: flex;
+            width: 100%;
+            background: #efefef;
+            color: #333;
+            clear: both;
+            padding: 10px 5px;
+            border-bottom: 1px solid rgb(155, 155, 155);
+            opacity: 0;
+            animation: slideUp .3s ease-in forwards;
+        }
+
+        .todoItem input.checkbox {
+            -webkit-appearance: none;
+            appearance: none;
+            display: block;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #333;
+            position: relative;
+            border-radius: 50%;
+            outline: none;
+            margin: 0;
+        }
+
+        .todoItem input.checkbox:checked:after {
+            content: '\2713';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .todoItem input.checkbox:checked ~ .todoText .txt {
+            text-decoration: line-through;
+        }
+
+        .todoText {
+            display: block;
+            width: calc(100% - 80px);
+            height: 40px;
+            line-height: 40px;
+            padding: 0 15px;
+            position: relative;
+        }
+
+        .todoText .txt {
+            display: block;
+            width: 100%;
+            line-height: 40px;
+            height: 40px;
+            font-size: 18px;
+        }
+
+        .todoText .editTxt {
+            position: absolute;
+            top: 0;
+            left: 15px;
+            width: calc(100% - 30px);
+            display: none;
+            line-height: 38px;
+            height: 40px;
+            font-size: 18px;
+            padding: 0 15px;
+            border: 1px solid #000;
+        }
+
+        .del {
+            float: right;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
+
+        @keyframes slideUp {
+            from {opacity: 0; transform: translateY(10px);}
+            to {opacity: 1; transform: translateY(0px);}
+        }
+    </style>
+    <script>
+
+        $(document).ready(function(){
+            var saved = JSON.parse(localStorage.getItem('todoStatus'));
+
+            if(saved && saved.length > 0){
+                $.each(saved, function(i, obj){
+                    $('#todoSection').append(getHtml(obj.status, obj.txt));
+                    console.log(obj);
+                });
+
+                // console.log(saved);
+            }
+        });
+
+        function saveStorage() {
+            var arr = [];
+            $('.todoItem').each(function(i, obj){
+                arr.push({status:$('.checkbox').eq(i).is(":checked"), txt:$('.txt').eq(i).text()});
+            });
+            
+            localStorage.setItem('todoStatus',JSON.stringify(arr));
+        }
+
+        function insertNew(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                if($('#insertTodo').val().trim().length > 0){
+                    $('#todoSection').append(getHtml(false, $('#insertTodo').val())); 
+                    $('#insertTodo').val('');
+
+                    saveStorage();
+                }else {
+                    alert('Please insert');
+                }
+            }
+        }
+
+        function editTodo(n) {
+            var index = $('.txt').index(n);
+            $(n).hide();
+            $('.editTxt').eq(index).show().focus();
+
+            saveStorage();
+        }
+
+        function edited(n, event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                var index = $('.editTxt').index(n);
+                $(n).hide();
+                $('.txt').eq(index).text($(n).val()).show();
+
+                saveStorage();
+            }
+        }
+
+        function deleteTodo(n){
+            var index = $('.del').index(n);
+            $('.todoItem').eq(index).remove();
+            // alert(index);
+
+            saveStorage();
+        }
+
+        function getHtml(status, txt){
+            var h = `
+                <section class="todoItem">
+                    <input type="checkbox" class="checkbox" ${status?'checked':'' } >
+                    <section class="todoText">
+                        <span class="txt" ondblclick="editTodo(this)">${txt}</span>
+                        <input type="text" class="editTxt" value="${txt}" onkeyup="edited(this, event)">
+                    </section>
+                    <a class="del" onclick="deleteTodo(this)">&#10060;</a>
+                </section>
+            `;
+
+            return h;
+        }
+    </script>
+</head>
+<body>
+    <section class="container">
+        <section class="searchSection">
+            <center><h2>What needs to be done?</h2></center>
+            <input type="text" name="" id="insertTodo" onkeyup="insertNew(event)" >
+        </section>
+
+        <section class="todoSection" id="todoSection"></section>
+
+    </section>
+</body>
+</html>
