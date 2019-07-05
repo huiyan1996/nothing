@@ -49,7 +49,7 @@
             color: #333;
             clear: both;
             padding: 10px 5px;
-            border-bottom: 1px solid rgb(155, 155, 155);
+            box-shadow:0 1px 3px rgba(0, 0, 0, .3);
             opacity: 0;
             animation: slideUp .3s ease-in forwards;
         }
@@ -196,7 +196,7 @@
                     <input type="checkbox" class="checkbox" ${status?'checked':'' } >
                     <section class="todoText">
                         <span class="txt" ondblclick="editTodo(this)">${txt}</span>
-                        <input type="text" class="editTxt" value="${txt}" onkeyup="edited(this, event)" maxlength="50">
+                        <input type="text" class="editTxt" value="${txt}" onkeyup="edited(this, event)">
                     </section>
                     <a class="del" onclick="deleteTodo(this)">&#10060;</a>
                 </section>
@@ -210,7 +210,7 @@
     <section class="container">
         <section class="searchSection">
             <center><h2>What needs to be done?</h2></center>
-            <input type="text" name="" id="insertTodo" onkeyup="insertNew(event)" maxlength="50" >
+            <input type="text" name="" id="insertTodo" onkeyup="insertNew(event)" >
         </section>
 
         <section class="todoSection" id="todoSection"></section>
