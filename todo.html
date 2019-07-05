@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Todo List</title>
+    <title></title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <style type="text/css">
 
@@ -120,12 +120,23 @@
             cursor: pointer;
         }
 
+        .clearBtn {
+            display: block;
+            clear: both;
+            width: 200px;
+            background-color: rgb(10, 209, 176);
+            color: #333;
+            padding: 10px 0;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 25px;
+        }
+
         @keyframes slideUp {
             from {opacity: 0; transform: translateY(10px);}
             to {opacity: 1; transform: translateY(0px);}
         }
-        
-        
 
         @media only screen and (max-width: 768px) {
             .container {
@@ -148,20 +159,21 @@
             if(saved && saved.length > 0){
                 $.each(saved, function(i, obj){
                     $('#todoSection').append(getHtml(obj.status, obj.txt));
-                    console.log(obj);
                 });
-
-                // console.log(saved);
             }
         });
 
         function saveStorage() {
+           localStorage.setItem('todoStatus',JSON.stringify(getCurrentList()));
+        }
+
+        function getCurrentList() {
             var arr = [];
             $('.todoItem').each(function(i, obj){
                 arr.push({status:$('.checkbox').eq(i).is(":checked"), txt:$('.txt').eq(i).text()});
             });
-            
-            localStorage.setItem('todoStatus',JSON.stringify(arr));
+
+            return arr;
         }
 
         function insertNew(event){
@@ -173,7 +185,7 @@
 
                     saveStorage();
                 }else {
-                    alert('Please insert');
+                    return false;
                 }
             }
         }
@@ -205,10 +217,25 @@
             saveStorage();
         }
 
+        function clearDone() {
+            var current = getCurrentList();
+            var notCompleted = current.filter(task => !task.status);
+
+            if(notCompleted && notCompleted.length > 0){
+                $('#todoSection').empty();
+                $.each(notCompleted, function(i, obj){
+                    $('#todoSection').append(getHtml(obj.status, obj.txt));
+                });
+            }
+
+            saveStorage();
+
+        }
+
         function getHtml(status, txt){
             var h = `
                 <section class="todoItem">
-                    <input type="checkbox" class="checkbox" ${status?'checked':'' } >
+                    <input type="checkbox" onclick="saveStorage()" class="checkbox" ${status?'checked':'' } >
                     <section class="todoText">
                         <span class="txt" ondblclick="editTodo(this)">${txt}</span>
                         <input type="text" class="editTxt" value="${txt}" onkeyup="edited(this, event)">
@@ -229,6 +256,7 @@
         </section>
 
         <section class="todoSection" id="todoSection"></section>
+        <a class="clearBtn" href="javascript:;" onclick="clearDone()">Clear Completed Task</a>
 
     </section>
 </body>
