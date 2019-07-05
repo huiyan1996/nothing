@@ -221,12 +221,10 @@
             var current = getCurrentList();
             var notCompleted = current.filter(task => !task.status);
 
-            if(notCompleted && notCompleted.length > 0){
-                $('#todoSection').empty();
-                $.each(notCompleted, function(i, obj){
-                    $('#todoSection').append(getHtml(obj.status, obj.txt));
-                });
-            }
+            $('#todoSection').empty();
+            $.each(notCompleted, function(i, obj){
+                $('#todoSection').append(getHtml(obj.status, obj.txt));
+            });
 
             saveStorage();
 
