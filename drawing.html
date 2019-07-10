@@ -95,12 +95,14 @@
         }
 
         @media only screen and (max-width: 768px){
+            body {
+                overflow: hidden;
+            }
+
             .container {
                 flex-flow: column;
                 justify-content: flex-start;
                 justify-items: flex-start;
-                max-height: 100vh;
-                overflow: hidden;
             }
 
             .left {
