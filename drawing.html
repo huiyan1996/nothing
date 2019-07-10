@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Drawing Pad</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -187,7 +187,7 @@
             curColor = $(".color:checked").parent().attr("data-color") || "#000000";
             console.log(curColor);
             context.lineJoin = "round";
-            context.lineWidth = 5;
+            context.lineWidth = 10;
                         
             for(var i=0; i < clickX.length; i++) {		
                 context.beginPath();
@@ -237,6 +237,29 @@
         });
 
         $('#canvas').mouseleave(function(e){
+            paint = false;
+        });
+
+        cvs.addEventListener('touchstart', function(e){
+            var touchX = (e.touches[0].clientX - this.offsetLeft);
+            var touchY = (e.touches[0].clientY - this.offsetTop);
+
+            paint = true;
+            addClick(touchX, touchY);
+            redraw();
+        });
+
+        cvs.addEventListener('touchmove', function(e){
+            var touchX = (e.touches[0].clientX - this.offsetLeft);
+            var touchY = (e.touches[0].clientY - this.offsetTop);
+
+            if(paint){
+                addClick(touchX, touchY, true);
+                redraw();
+            }
+        });
+
+        cvs.addEventListener('touchend', function(e){
             paint = false;
         });
 
