@@ -195,6 +195,10 @@
             console.log(curColor);
             context.lineJoin = "round";
             context.lineWidth = 10;
+
+            if($( window ).width() < 768){
+                context.lineWidth = 5;
+            }
                         
             for(var i=0; i < clickX.length; i++) {		
                 context.beginPath();
