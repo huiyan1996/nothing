@@ -120,6 +120,7 @@
         </section>
         <section class="right">
             <a href="javascript:;" class="clearCanvas" onclick="clearCanvas()">Clear</a>
+            <a href="javascript:;" id="downloader" class="clearCanvas" onclick="downloadCanvas();" download="image.png">Download</a>
 
             <label data-color="#000000"><input type="radio" name="color" class="color" checked></label>
 
@@ -208,6 +209,11 @@
             clickY = [];
             clickDrag = [];
             clickColor = [];
+        }
+
+        function downloadCanvas() {
+            document.getElementById("downloader").download = "image.png";
+            document.getElementById("downloader").href = document.getElementById("canvas").toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
         }
 
         $('#canvas').mousedown(function(e){
