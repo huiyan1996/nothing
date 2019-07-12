@@ -9,22 +9,22 @@
 
         /* width */
         ::-webkit-scrollbar {
-            width: 4px;    
+            width: 4px;
         }
 
         /* Track */
         ::-webkit-scrollbar-track {
-            background: #999;    
+            background: #999;
         }
 
         /* Handle */
         ::-webkit-scrollbar-thumb {
-            background: #ccc;   
+            background: #ccc;
         }
 
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
-            background: #ccc;   
+            background: #ccc;
         }
 
         * {
@@ -168,7 +168,7 @@
             <label data-color="#ff9d9d"><input type="radio" name="color" class="color"></label>
         </section>
     </div>
-    
+
     <script>
         var cvs = document.getElementById('canvas');
         var context = cvs.getContext("2d");
@@ -191,7 +191,8 @@
 
         function redraw(){
             context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-            curColor = $(".color:checked").parent().attr("data-color") || "#000000";
+            let c = $(".color:checked").parent().attr("data-color") || "#000000";
+            curColor = c;
             console.log(curColor);
             context.lineJoin = "round";
             context.lineWidth = 10;
@@ -199,8 +200,8 @@
             if($( window ).width() < 768){
                 context.lineWidth = 5;
             }
-                        
-            for(var i=0; i < clickX.length; i++) {		
+
+            for(var i=0; i < clickX.length; i++) {
                 context.beginPath();
                 if(clickDrag[i] && i){
                 context.moveTo(clickX[i-1], clickY[i-1]);
@@ -230,7 +231,7 @@
         $('#canvas').mousedown(function(e){
             var mouseX = e.pageX - this.offsetLeft;
             var mouseY = e.pageY - this.offsetTop;
-                    
+
             paint = true;
             addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
             redraw();
