@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Accordian</title>
+    <link rel="stylesheet" href="css/main.css">
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
+    <style>
+        .accordian {
+            height: 400px;
+        }
+
+        .accordian .accordian-item {
+            transition: .5s linear;
+            flex: 1;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        .accordian .accordian-item .tag {
+            position: absolute;
+            right: 0;
+            top: 30px;
+            background-color: rgba(255, 255, 255, .8);
+            border-radius: 5px 5px 0 0;
+            z-index: 2;
+            line-height: 35px;
+            width: 130px;
+            padding: 0 10px;
+            transform-origin: bottom right;
+            transform: rotate(-90deg);
+            text-align: center;
+        }
+
+        .accordian .accordian-item .desc {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 300px;
+            height: 160px;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #000;
+            color: #fff;
+            visibility: hidden;
+            opacity: 0; 
+        }
+
+        .accordian .accordian-item:first-child {
+            flex: 6;
+        }
+
+        .accordian .accordian-item:first-child .desc {
+            visibility: visible;
+            opacity: 1;
+            transition: .5s ease-out;
+        }
+
+        .accordian:hover .accordian-item {
+            flex: 1;
+        }
+
+        .accordian:hover .accordian-item .desc {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .accordian:hover .accordian-item:hover {
+            flex: 6;
+        }
+
+        .accordian:hover .accordian-item:hover .desc {
+            transition: .5s ease-out;
+            transition-delay: .5s;
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row p-15">
+            <div class="accordian w-100 d-flex">
+                <div class="accordian-item" style="background-image: url('img/accordian/1.jpg')">
+                    <span class="tag">Slide 1</span>
+                    <span class="desc">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                        Molestiae ducimus libero, error iure dolores vel ullam. 
+                        Illum earum voluptas in dolores aperiam, 
+                        praesentium inventore odio rem suscipit at ducimus quo?
+                    </span>
+                </div>
+                <div class="accordian-item" style="background-image: url('img/accordian/2.jpg')">
+                    <span class="tag">Slide 2</span>
+                    <span class="desc">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                        Molestiae ducimus libero, error iure dolores vel ullam. 
+                        Illum earum voluptas in dolores aperiam, 
+                        praesentium inventore odio rem suscipit at ducimus quo?
+                    </span>
+                </div>
+                <div class="accordian-item" style="background-image: url('img/accordian/3.jpg')">
+                    <span class="tag">Slide 3</span>
+                    <span class="desc">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                        Molestiae ducimus libero, error iure dolores vel ullam. 
+                        Illum earum voluptas in dolores aperiam, 
+                        praesentium inventore odio rem suscipit at ducimus quo?
+                    </span>
+                </div>
+                <div class="accordian-item" style="background-image: url('img/accordian/4.jpg')">
+                    <span class="tag">Slide 4</span>
+                    <span class="desc">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                        Molestiae ducimus libero, error iure dolores vel ullam. 
+                        Illum earum voluptas in dolores aperiam, 
+                        praesentium inventore odio rem suscipit at ducimus quo?
+                    </span>
+                </div>
+                <div class="accordian-item" style="background-image: url('img/accordian/5.jpg')">
+                    <span class="tag">Slide 5</span>
+                    <span class="desc">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                        Molestiae ducimus libero, error iure dolores vel ullam. 
+                        Illum earum voluptas in dolores aperiam, 
+                        praesentium inventore odio rem suscipit at ducimus quo?
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
