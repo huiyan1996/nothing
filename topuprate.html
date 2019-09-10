@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>今日汇率</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 15px;
+        }
+
+        .grid {
+            width: 300px;
+            display: grid;
+            grid-template-columns: auto auto;
+            padding: 10px;
+            column-gap: 10px;
+            row-gap: 10px;
+            background: #efefef;
+        }
+
+        span {
+            line-height: 40px;
+        }
+
+        input {
+            height: 40px;
+            padding-left: 15px;
+            outline: none;
+            border: 0;
+            border-radius: 50px;
+            background-color: darkslateblue;
+            color: #fff;
+        }
+
+        input.display {
+            pointer-events: none;
+            background-color: #fff;
+            color: #000;
+        }
+
+        button {
+            border-radius: 50px;
+            border: none;
+            background-color: darkblue;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+
+    <script>
+        
+        
+        function getRate() {
+            var arr = [6, 30, 88, 98, 198, 328, 648];
+            var html = '';
+            var rate = $("#rate").val();
+
+            if(rate){
+                $.each(arr, function(i, obj) {
+                    var result = (obj/rate).toFixed(2);
+                    result = (Math.round(result / 0.05) * 0.05).toFixed(2);
+                    html += `
+                        <span>${obj}￥</span>
+                        <input class="display" type="text" value="${result}">
+                    `;
+                });
+                $("#displayRate").html(html);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="grid">
+            <input type="number" id="rate">
+            <button id="getRate" onclick="getRate()">Calculate</button>
+        </div>
+        <div class="grid" id="displayRate">
+            <span>6￥</span>
+            <input class="display" type="text" value="">
+
+            <span>30￥</span>
+            <input class="display" type="text" value="">
+
+            <span>88￥</span>
+            <input class="display" type="text" value="">
+
+            <span>98￥</span>
+            <input class="display" type="text" value="">
+
+            <span>198￥</span>
+            <input class="display" type="text" value="">
+
+            <span>328￥</span>
+            <input class="display" type="text" value="">
+
+            <span>648￥</span>
+            <input class="display" type="text" value="">
+        </div>
+    </div>
+</body>
+</html>

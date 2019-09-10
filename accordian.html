@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Accordian</title>
     <link rel="stylesheet" href="css/main.css">
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
     <style>
         .accordian {
             height: 400px;
@@ -25,7 +24,8 @@
             position: absolute;
             right: 0;
             top: 30px;
-            background-color: rgba(255, 255, 255, .8);
+            background-color: rgba(0, 0, 0, .5);
+            color: #fff;
             border-radius: 5px 5px 0 0;
             z-index: 2;
             line-height: 35px;
@@ -48,6 +48,7 @@
             color: #fff;
             visibility: hidden;
             opacity: 0; 
+            transition: .3s ease-out;
         }
 
         .accordian .accordian-item:first-child {
@@ -57,7 +58,6 @@
         .accordian .accordian-item:first-child .desc {
             visibility: visible;
             opacity: 1;
-            transition: .5s ease-out;
         }
 
         .accordian:hover .accordian-item {
@@ -74,10 +74,19 @@
         }
 
         .accordian:hover .accordian-item:hover .desc {
-            transition: .5s ease-out;
             transition-delay: .5s;
             visibility: visible;
             opacity: 1;
+        }
+
+        @media screen and (max-width: 768px) {
+            .accordian {
+                height: 200px;
+            }
+
+            .desc {
+                display: none;
+            }
         }
     </style>
 </head>
