@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pure CSS Slider</title>
+    <style>
+        .container{
+            display: block;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slider {
+            display: block;
+            position: relative;
+            left: 0;
+            width: 500%;
+            height: 600px;
+            animation: slide 15s linear infinite;
+        }
+
+        .slider .slide-items {
+            width: 20%;
+            float: left;
+            border: .5px solid #ccc;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-size: 35px;
+            font-family: "Georgia","Courier New",serif;
+        }
+
+        .slider .slide-items h1 {
+            background: rgba(0,0,0,.1);
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        @keyframes slide {
+            0%, 16% { left: 0; }
+            20%, 36% { left: -100%; }
+            40%, 56% { left: -200%; }
+            60%, 76% { left: -300%; }
+            80%, 96% { left: -400%; }
+            100% { left: 0; }
+        }
+
+        .slider .slide-items:nth-child(1) {background: #ffaabb;}
+        .slider .slide-items:nth-child(2) {background: #ffccdd;}
+        .slider .slide-items:nth-child(3) {background: #ffeeff;}
+        .slider .slide-items:nth-child(4) {background: #ffabab;}
+        .slider .slide-items:nth-child(5) {background: #ff7878;}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="slider">
+            <div class="slide-items"><h1>Slide 1</h1></div>
+            <div class="slide-items"><h1>Slide 2</h1></div>
+            <div class="slide-items"><h1>Slide 3</h1></div>
+            <div class="slide-items"><h1>Slide 4</h1></div>
+            <div class="slide-items"><h1>Slide 5</h1></div>
+        </div>
+    </div>
+</body>
+</html>
