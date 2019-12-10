@@ -17,8 +17,8 @@
             position: relative;
             left: 0;
             width: 500%;
-            height: 600px;
-            animation: slide 15s linear infinite;
+            height: 550px;
+            animation: slide 15s steps(5, end) infinite;
         }
 
         .slider .slide-items {
@@ -42,12 +42,7 @@
         }
 
         @keyframes slide {
-            0%, 16% { left: 0; }
-            20%, 36% { left: -100%; }
-            40%, 56% { left: -200%; }
-            60%, 76% { left: -300%; }
-            80%, 96% { left: -400%; }
-            100% { left: 0; }
+            to { left: -500%; }
         }
 
         .slider .slide-items:nth-child(1) {background: #ffaabb;}
