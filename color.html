@@ -1,0 +1,433 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Color Code</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        h1 {
+            clear: both;
+            padding-top: 15px;
+            padding-bottom: 5px;
+            margin: 0;
+        }
+
+        h1:first-child {
+            padding-top: 0;
+        }
+
+        html, body {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .colorWrapper {
+            display: block;
+            width: 20%;
+            float: left;
+            margin-bottom: 15px;
+        }
+
+        .colorWrapper .colorBlock {
+            display: block;
+            width: 40px;
+            height: 40px;
+            border: dashed #000;
+            border-width: 1px 0 1px 1px;
+            float: left;
+            overflow: visible;
+        }
+
+        .colorWrapper .copyBtn {
+            display: block;
+            border: dashed #000;
+            border-width: 1px;
+            line-height: 38px;
+            padding: 0 10px;
+            float: left;
+            color: #000;
+            text-decoration: none;
+            position: relative;
+            overflow: visible;
+        }
+
+        .colorWrapper .copyBtn:after {
+            content: '\2713';
+            width: 20px;
+            height: 20px;
+            background-color: #589275;
+            color: #fff;
+            position: absolute;
+            left: calc(100% + 10px);
+            top: 10px;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 50%;
+            font-size: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            opacity: 0;
+            transition: .5s ease-in-out;
+        }
+
+        .colorWrapper .copyBtn.active:after {
+            opacity: 1;
+        }
+
+        .colorWrapper .remark {
+            display: block;
+            clear: both;
+            width: 100%;
+            font-size: 11px;
+            padding-top: 5px;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $('.copyBtn').click(function(){
+                var index = $(".copyBtn").index(this);
+                var text = rgb2hex($('.colorBlock').eq(index).css('background-color'));
+
+                copyToClipboard(text);
+                
+                $(".copyBtn").eq(index).addClass('active');
+                setTimeout(function(){
+                    $(".copyBtn").removeClass('active');
+                },500);
+            });
+        });
+
+        function rgb2hex(rgb) {
+            rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+            function hex(x) {
+                return ("0" + parseInt(x).toString(16)).slice(-2);
+            }
+            return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+        }
+
+        function copyToClipboard(text) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(text).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+    </script>
+</head>
+<body>
+    <h1>GBA</h1>
+
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #F5A623"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Yellow</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #161616;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Black</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #262626;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Dark Grey</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #a8a8a8;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Table Body</span>
+    </div>
+
+    <h1>GSI</h1>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #ffc81a;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Yellow</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #f5042d;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Red</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #7f1c23;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">eMall Red</span>
+    </div>
+	
+	<!-- <h1>Duper Mart</h1>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #662D91;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Purple</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #ED1C24;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Red</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #F1592A;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Dark Orange</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #F7941E;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Light Orange</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #8DC641;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Light Green</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #119548;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Dark Green</span>
+    </div> -->
+	
+	<h1>Project X</h1>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #f7931e;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Login Yellow</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #0071bc;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Dark Blue</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #689cff;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Input left</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #29abe2;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Light Blue / Input right</span>
+    </div>
+	
+	<h1>IBG</h1>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #ebbf8b;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Light Yellow</span>
+    </div>
+	
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #c69c6d;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Dashboard Yellow</span>
+    </div>
+	
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #8c6239;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Dashboard Choco text</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #777777;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Dark Grey</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #cccccc;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Light Grey</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #487bc6;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">A hover blue</span>
+    </div>
+    
+    <div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #394580;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Logo/Dashboard blue</span>
+    </div>
+	
+	
+	<h1>DAPP</h1>
+
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #f59120;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Orange</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #d0d2d3;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Light2 Grey</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #a6a8ab;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Light Grey</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #e6e7e8;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Light Grey (2 blocks bg)</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #4871b7;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Blue (Light theme)</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #140034;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Blue (Dark theme color 1)</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #3b007f;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Blue (Dark theme color 2)</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #bbceef;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Blue (Dark theme font light blue)</span>
+    </div>
+	
+	<h1>Nux Pay</h1>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #12326b;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Homepage Font Blue</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #ce3497;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Homepage Font Purple</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #1a1c35;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Homepage Intro Head Blue</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #808184;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Homepage Intro Grey</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #2f56f7;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Homepage Intro Button Blue</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #eff7ff;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Homepage background Light Blue</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #2f4896;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Homepage gradient Light Blue</span>
+    </div>
+	
+	<h1>Super Game</h1>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #d7a836;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Theme Yellow</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #1d231e;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Theme Black</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #f57a00;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">BTC</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #2264c0;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">ETH</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #26a17b;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">USDT</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #9131a9;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">MYR</span>
+    </div>
+	
+	<h1>Fusion</h1>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #e7f3fd;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Setting light blue</span>
+    </div>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #21a0f4;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Setting a tag blue</span>
+    </div>
+	
+	<h1>VT</h1>
+	
+	<div class="colorWrapper">
+        <span class="colorBlock" style="background-color: #c1272d;"></span>
+        <a href="javascript:;" class="copyBtn">Copy</a>
+        <span class="remark">Login btn red</span>
+    </div>
+	
+	
+	
+</body>
+</html>
