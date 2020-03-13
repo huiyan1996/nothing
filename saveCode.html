@@ -63,6 +63,14 @@
                                 <code>var newList = [];</code><code>var arr = data.<span contenteditable="true"></span>;</code><code>if(arr) {</code><code>	$.each(arr, function(k, v){</code><code>		var rebuildData = {</code><code>			<span contenteditable="true"></span>: v.<span contenteditable="true"></span>,</code><code>		}</code><code>		newList.push(rebuildData);</code><code>	});</code><code>	buildTable(newList, tableId, divId, thArray, btnArray, message, tableNo);</code><code>    pagination(pagerId, data.pageNumber, data.totalPage, data.totalRecord, data.numRecord);</code><code>}</code>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <b class="d-block">Only Allow Numeric Input</b>
+                            </td>
+                            <td>
+                                <code>oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"</code>
+                            </td>
+                        </tr>
                         
                     </tbody>
                 </table>
