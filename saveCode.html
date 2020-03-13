@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        code {
+            display: block;
+            white-space: pre;
+        }
+
+        tr th:first-child {
+            width: 37%;
+        }
+
+        span[contenteditable="true"] {
+            display: inline-block;
+            width: 100px;
+            border-bottom: .5px solid #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-stripe" id="table">
+                    <thead>
+                        <tr>
+                            <th>Usage</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <b class="d-block">Add Comma to number</b>
+                                <span class="d-block">
+                                    addCormer(number, decimal, round, fixedDecimal);<br><br>
+                
+                                    round = true / false (is it need to round up?)<br>
+                                    fixedDecimal = true / false (if number's decimal is less than the decimal you want, is it need to fixed it to the decimal places you want?)
+                                </span>
+                            </td>
+                            <td>
+                                <code>function addCormer(number, decimal, round, fixedDecimal) {</code><code>    if(isNaN(number))</code><code>        return number;</code><code>    if(round) {</code><code>        number = parseFloat(number).toFixed(decimal);</code><code>    }</code><code>    var parts = number.toString().split(".");</code><code>    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");</code><code>    if(parts[1]) {</code><code>        parts[1] = parts[1].substr(0, decimal);</code><code>        if(fixedDecimal) {</code><code>            if(parts[1].length < decimal) {</code><code>                var left = decimal - parts[1].length;</code><code>                for(i = 0; i<left; i++) {</code><code>                    parts[1]+=0;</code><code>                }</code><code>            }</code><code>        }</code><code>    }</code><code>    return parts.join(".");</code><code>}</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b class="d-block">Loop table data</b>
+                                <span class="d-block">
+                                    <span class="text-danger">*</span> This code is editable
+                                </span>
+                            </td>
+                            <td>
+                                <code>var newList = [];</code><code>var arr = data.<span contenteditable="true"></span>;</code><code>if(arr) {</code><code>	$.each(arr, function(k, v){</code><code>		var rebuildData = {</code><code>			<span contenteditable="true"></span>: v.<span contenteditable="true"></span>,</code><code>		}</code><code>		newList.push(rebuildData);</code><code>	});</code><code>	buildTable(newList, tableId, divId, thArray, btnArray, message, tableNo);</code><code>    pagination(pagerId, data.pageNumber, data.totalPage, data.totalRecord, data.numRecord);</code><code>}</code>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
