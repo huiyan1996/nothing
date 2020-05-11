@@ -23,6 +23,7 @@
             display: inline-block;
             width: 100px;
             border-bottom: .5px solid #777;
+			padding-left: 5px;
         }
     </style>
 </head>
@@ -49,7 +50,7 @@
                                 </span>
                             </td>
                             <td>
-                                <code>function addCormer(number, decimal, round, fixedDecimal) {</code><code>    if(isNaN(number))</code><code>        return number;</code><code>    if(round) {</code><code>        number = parseFloat(number).toFixed(decimal);</code><code>    }</code><code>    var parts = number.toString().split(".");</code><code>    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");</code><code>    if(parts[1]) {</code><code>        parts[1] = parts[1].substr(0, decimal);</code><code>        if(fixedDecimal) {</code><code>            if(parts[1].length < decimal) {</code><code>                var left = decimal - parts[1].length;</code><code>                for(i = 0; i<left; i++) {</code><code>                    parts[1]+=0;</code><code>                }</code><code>            }</code><code>        }</code><code>    }</code><code>    return parts.join(".");</code><code>}</code>
+                                <code>function addCormer(number, decimal, round, fixedDecimal) {</code><code>    if(isNaN(number))</code><code>        return number;</code><code>    if(round) {</code><code>        number = parseFloat(number).toFixed(decimal);</code><code>    }</code><code>    var parts = number.toString().split(".");</code><code>    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");</code><code>    if(parts[1]) {</code><code>        parts[1] = parts[1].substr(0, decimal);</code><code>        if(fixedDecimal) {</code><code>            if(parts[1].length < decimal) {</code><code>                var left = decimal - parts[1].length;</code><code>                for(i = 0; i &lt; left; i++) {</code><code>                    parts[1]+=0;</code><code>                }</code><code>            }</code><code>        }</code><code>    }</code><code>    return parts.join(".");</code><code>}</code>
                             </td>
                         </tr>
                         <tr>
@@ -69,6 +70,14 @@
                             </td>
                             <td>
                                 <code>oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b class="d-block">Limit decimal input</b>
+                            </td>
+                            <td>
+                                <code>oninput="this.value = this.value.match(/^[0-9]+\.?[0-9]{0,<span contenteditable="true">2</span>}/);"</code>
                             </td>
                         </tr>
                         
