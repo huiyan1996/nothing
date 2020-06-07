@@ -173,10 +173,12 @@ body {
 
 .btn.btn.btn-icon span {
     font-family: 'Open Sans';
+    display: inline-block;
+    transition: .4s ease-in-out;
 }
 
-.btn.btn-icon:hover {
-    padding-left: 32px;
+.btn.btn-icon:hover span {
+    padding-left: 25px;
 }
 
 .btn.btn-icon:hover:before {
@@ -206,4 +208,31 @@ body {
 .btn.btn-highlight:hover:before {
     left: 150px;
     transition: .4s ease-in-out;
+}
+
+
+
+.btn.btn-flip-up {
+    color: #fff;
+    overflow: hidden;
+    border: 1px solid #fff;
+}
+
+.btn.btn-flip-up:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background: #8f1818;
+    z-index: -1;
+    transform: rotateX(90deg);
+    transform-origin: bottom;
+    transition: .4s ease-in-out;
+}
+
+.btn.btn-flip-up:hover:before {
+    transform: rotateX(0deg);
 }
