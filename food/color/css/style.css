@@ -5,12 +5,17 @@
 html {
     margin: 0;
     padding: 0;
+    font-size: 5vw;
 }
 
 body {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
     margin: 0;
     padding: 0;
+}
+
+a {
+    text-decoration: none;
 }
 
 div#fixed-menu {
@@ -1274,7 +1279,7 @@ div#fixed-menu {
     clear: none;
     float: left;
     width: 50%;
-    height: 2.5rem;
+    height: 3rem;
     overflow: hidden;
     padding: 3%;
     line-height: 0.7rem;
