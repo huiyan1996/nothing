@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Language</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <style>
+        div {
+            margin-top: 15px;
+        }
+
+        label {
+            display: inline-block;
+            width: 120px;
+        }
+
+        #copy {
+            display: inline-block;
+            padding: 4px 20px;
+            line-height: 30px;
+            border: none;
+            border-radius: 5px;
+            background-color: steelblue;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label for="">Language Code</label>
+        <input type="text" id="code">
+    </div>
+    <div>
+        <label for="">Language Text</label>
+        <input type="text" id="text">
+    </div>
+    <div>
+        <a href="javascript:;" id="copy" onclick="copyToClipboard()">Copy</a>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            var code = $("#code").val();
+            var txt = $("#text").val();
+
+            var copied = `<?php echo $translations['${code}'][$language]; \/* ${txt} *\/ ?>`;
+
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(copied).select();
+            document.execCommand("copy");
+            $temp.remove();
+
+            $("#code").val("");
+            $("#text").val("");
+
+        }
+    </script>
+</body>
+</html>
