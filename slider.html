@@ -18,7 +18,7 @@
             left: 0;
             width: 500%;
             height: 550px;
-            animation: slide 15s steps(5, end) infinite;
+            animation: slide 10s infinite;
         }
 
         .slider .slide-items {
@@ -42,14 +42,28 @@
         }
 
         @keyframes slide {
-            to { left: -500%; }
+            0%, 25% {
+                left: 0%;
+            }
+            26%, 50% {
+                left: -100%;
+            }
+            51%, 75% {
+                left: -200%;
+            }
+            76%, 98% {
+                left: -300%;
+            }
+            99%, 100% {
+                left: -400%;
+            }
         }
 
         .slider .slide-items:nth-child(1) {background: #ffaabb;}
         .slider .slide-items:nth-child(2) {background: #ffccdd;}
         .slider .slide-items:nth-child(3) {background: #ffeeff;}
-        .slider .slide-items:nth-child(4) {background: #ffabab;}
-        .slider .slide-items:nth-child(5) {background: #ff7878;}
+        .slider .slide-items:nth-child(4) {background: #cea5a5;}
+        .slider .slide-items:nth-child(5) {background: #ffaabb;}
 
     </style>
 </head>
@@ -60,7 +74,7 @@
             <div class="slide-items"><h1>Slide 2</h1></div>
             <div class="slide-items"><h1>Slide 3</h1></div>
             <div class="slide-items"><h1>Slide 4</h1></div>
-            <div class="slide-items"><h1>Slide 5</h1></div>
+            <div class="slide-items"><h1>Slide 1</h1></div>
         </div>
     </div>
 </body>
