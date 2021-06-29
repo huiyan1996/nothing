@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .sidebarWrapper {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 150px;
+            background: #308fce;
+        }
+
+        .menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+            color: #fff;
+        }
+
+        .menu li {
+            display: block;
+            position: relative;
+            padding: 10px 0;
+            cursor: pointer;
+        }
+
+        .menu li.active, .menu li:hover {
+            background: #fff;
+        }
+
+        .menu li span {
+            position: relative;
+            z-index: 1;
+            display: block;
+            height: 100%;
+            width: 100%;
+            padding: 10px 20px;
+        }
+
+        .menu li.active span, .menu li:hover span {
+            color: #000;
+            background: #308fce;
+        }
+
+        .menu li.active span:before, .menu li:hover span:before {
+            content: "";
+            background-color: #fff;
+            position: absolute;
+            left: 5px;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            border-radius: 6px 0 0 6px;
+            z-index: -1;
+        }
+
+        .menu li.active:before, .menu li.active:after, .menu li:hover:before, .menu li:hover:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            left: 0;
+            background: #308fce;
+        }
+
+        .menu li:before {
+            top: 0;
+            border-radius: 0 0 10px 0;
+        }
+
+        .menu li:after {
+            bottom: 0;
+            border-radius: 0 10px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebarWrapper">
+        <ul class="menu">
+            <li class="active"><span>Menu Item</span></li>
+            <li><span>Menu Item</span></li>
+            <li><span>Menu Item</span></li>
+            <li><span>Menu Item</span></li>
+            <li><span>Menu Item</span></li>
+            <li><span>Menu Item</span></li>
+            <li><span>Menu Item</span></li>
+            <li><span>Menu Item</span></li>
+            <li><span>Menu Item</span></li>
+            <li><span>Menu Item</span></li>
+            <li><span>Menu Item</span></li>
+        </ul>
+    </div>
+</body>
+</html>
