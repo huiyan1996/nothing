@@ -44,8 +44,9 @@
                     </div>
                 </div>
                 <!-- <input type="text" placeholder="key" name="" onchange="filterData()"> -->
-                <div class="mt-4 text-right">
-                    <button class="btn btn-primary" onclick="copyToClipboard()">Copy</button>
+                <div class="mt-4 d-flex align-items-center justify-content-end">
+                    <input type="text" class="form-control d-inline-block mr-3" id="filename" placeholder="Download Filename" name="" style="width: 200px;">
+                    <button class="btn btn-primary" onclick="downloadAsJSON()">Download As JSON</button>
                 </div>
 <pre id="jsondata"></pre>
             </div>

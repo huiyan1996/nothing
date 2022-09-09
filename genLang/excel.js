@@ -70,16 +70,23 @@ function fallbackCopyTextToClipboard(text) {
   document.body.removeChild(textArea);
 }
 
-function copyToClipboard() {
+function downloadAsJSON() {
     var text = document.getElementById("jsondata").innerText
+    var filename = document.getElementById('filename').value
 
-  if (!navigator.clipboard) {
-    fallbackCopyTextToClipboard(text);
-    return;
-  }
-  navigator.clipboard.writeText(text).then(function() {
-    alert('Async: Copying to clipboard was successful!');
-  }, function(err) {
-    console.error('Async: Could not copy text: ', err);
-  });
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(text);
+    var dlAnchorElem = document.createElement('a');
+    dlAnchorElem.setAttribute("href",     dataStr     );
+    dlAnchorElem.setAttribute("download", (filename || 'language')+".json");
+    dlAnchorElem.click();
+
+  // if (!navigator.clipboard) {
+  //   fallbackCopyTextToClipboard(text);
+  //   return;
+  // }
+  // navigator.clipboard.writeText(text).then(function() {
+  //   alert('Async: Copying to clipboard was successful!');
+  // }, function(err) {
+  //   console.error('Async: Could not copy text: ', err);
+  // });
 }
