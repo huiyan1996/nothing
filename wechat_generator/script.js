@@ -82,3 +82,19 @@ function addImgChat() {
     $("#messageList").append(msg)
     $("#imgMsg").val("")
 }
+
+function addTime() {
+    const time = $("#timeContent").val()
+
+    var msg = `
+        <div class="message-list" id="messageList">
+            <div class="badge-block">
+                <span class="time-badge">${time}</span>
+                <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
+            </div>
+        </div>
+    `;
+
+    $("#messageList").append(msg)
+    $("#timeContent").val("")
+}
