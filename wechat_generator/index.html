@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>微信聊天</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-lg-8 py-3">
+                    <div class="card p-4">
+                        <h4 class="mb-4">初始设定</h4>
+                        <div class="row">
+                            <div class="col-lg-8 col-xl-6">
+                                <div class="form-group">
+                                    <label>用户名</label>
+                                    <input type="text" class="form-control" id="username" placeholder="First Kanaphan">
+                                </div>
+                                <div class="form-group">
+                                    <label>对方的头像</label>
+                                    <input type="file" accept="image/*" class="form-control" id="left-chathead">
+                                </div>
+                                <div class="form-group">
+                                    <label>自己的头像</label>
+                                    <input type="file" accept="image/*" class="form-control" id="right-chathead">
+                                </div>
+                                <div class="form-group">
+                                    <label>自定义头像</label>
+                                    <input type="file" accept="image/*" class="form-control" id="custom-chathead">
+                                </div>
+                                <button type="button" class="btn btn-primary" id="generateBtn" onclick="generate()">生成</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card p-4 mt-4">
+                        <h4 class="mb-4">添加对话</h4>
+                        <div class="row">
+                            <div class="col-lg-8 col-xl-6">
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input userOpt" type="radio" name="userOpt" value="left" checked>
+                                            <span>对方</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input userOpt" type="radio" name="userOpt" value="right">
+                                            <span>自己</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input userOpt" type="radio" name="userOpt" value="custom">
+                                            <span>自定义</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>信息</label>
+                                    <input class="form-control" type="text" id="chatContent" placeholder="输入信息">
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="addChat()">添加文字信息</button>
+
+                                <div class="form-group mt-4">
+                                    <label>图片信息</label>
+                                    <input type="file" accept="image/*" class="form-control" id="imgMsg">
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="addImgChat()">添加图片信息</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 py-3">
+                    <section class="chat-page" id="chatPage">
+                        <header>
+                            <div class="nav-back">
+                                <i class="icon icon-back"></i>
+                                <span>微信</span>
+                            </div>
+                            <h1 id="usernameDisplay">First Kanaphan</h1>
+                            <div class="nav-person">
+                                <i class="icon icon-person"></i>
+                            </div>
+                        </header>
+                        <main>
+                            <div class="message-list" id="messageList"></div>
+                        </main>
+                        <footer>
+                            <i class="icon icon-voice"></i>
+                            <input type="text" class="text-input" readonly>
+                            <i class="icon icon-face"></i>
+                            <i class="icon icon-plus"></i>
+                        </footer>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">生成图片</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="generatedImg">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
