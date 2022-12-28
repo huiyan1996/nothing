@@ -34,7 +34,10 @@ function deleteChat(n) {
 function generate() {
     html2canvas(document.querySelector("#chatPage")).then(canvas => {
         document.getElementById("generatedImg").innerHTML = ""
-        document.getElementById("generatedImg").appendChild(canvas)
+        var imgUrl = canvas.toDataURL("image/png")
+        var img = document.createElement("img")
+        img.src = imgUrl
+        document.getElementById("generatedImg").appendChild(img)
         $("#imageModal").modal('show')
     });
 }
