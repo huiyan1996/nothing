@@ -53,7 +53,7 @@ function addChat() {
     var msg = `
         <div class="message-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-            <img class="avatar ${user}" src="${img}" alt="头像">
+            <div class="avatar ${user}" style="background-image: url(${img})" alt="头像"></div>
             <div class="message-bubble">${chat}</div>
         </div>
     `;
@@ -75,7 +75,7 @@ function addImgChat() {
     var msg = `
         <div class="message-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-            <img class="avatar ${user}" src="${img}" alt="头像">
+            <div class="avatar ${user}" style="background-image: url(${img})" alt="头像"></div>
             <div class="message-bubble img">
                 <img src="${msgImg}" alt="">
             </div>
