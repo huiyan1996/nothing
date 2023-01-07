@@ -25,6 +25,15 @@ $(document).ready(function(){
     $("#imgMsg").on("change", (e) => {
         msgImg = URL.createObjectURL(e.target.files[0]);
     })
+
+    $("#switchGroupDm").on("change", () => {
+        let checked = $("#switchGroupDm").is(":checked");
+        if(checked) {
+            $(".leftName").hide()
+        }else{
+            $(".leftName").show()
+        }
+    })
 })
 
 function deleteChat(n) {
@@ -45,16 +54,25 @@ function generate() {
 function addChat() {
     var user = $(".userOpt:checked").val()
     const chat = $("#chatContent").val()
+    const userName = $("#userName").val()
     const img = user=='custom'?customImg:user=='left'?leftImg:rightImg
     if(user=='custom') {
         user = 'left'
+    }
+
+    var chatName = "";
+    if(user == 'left') {
+        chatName = `<div class="text-start leftName">${userName || 'First Kanaphan'}</div>`;
     }
 
     var msg = `
         <div class="message-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
             <img class="avatar ${user}" src="${img}" alt="头像">
-            <div class="message-bubble">${chat}</div>
+            <div>
+                ${chatName}
+                <div class="message-bubble">${chat}</div>
+            </div>
         </div>
     `;
 

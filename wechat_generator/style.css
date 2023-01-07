@@ -399,3 +399,10 @@ main,
 .modal-img img {
     max-width: 100%;
 }
+
+.leftName {
+    line-height: 20px;
+    height: 20px;
+    font-size: 12px;
+    margin-top: -3px;
+}
