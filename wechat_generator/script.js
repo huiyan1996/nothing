@@ -68,16 +68,11 @@ function addChat() {
     var msg = `
         <div class="message-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-<<<<<<< HEAD
             <img class="avatar ${user}" src="${img}" alt="头像">
             <div>
                 ${chatName}
                 <div class="message-bubble">${chat}</div>
             </div>
-=======
-            <div class="avatar ${user}" style="background-image: url(${img})" alt="头像"></div>
-            <div class="message-bubble">${chat}</div>
->>>>>>> e4d6203059a72357c3ad4873db46269216c03f20
         </div>
     `;
 
