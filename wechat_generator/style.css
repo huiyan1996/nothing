@@ -149,6 +149,8 @@ main::-webkit-scrollbar {
     height: 40px;
     margin: 0 10px;
     object-fit: cover;
+    background-position: center;
+    background-size: cover;
 }
 
 .message-item--left {}
