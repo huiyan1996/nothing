@@ -166,6 +166,7 @@ main::-webkit-scrollbar {
     max-width: 280px;
     position: relative;
     word-break: break-word;
+    width: fit-content;
 }
 
 .message-item--left .message-bubble {
