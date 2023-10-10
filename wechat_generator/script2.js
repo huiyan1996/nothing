@@ -22,6 +22,15 @@ $(document).ready(function(){
     if(localStorage.getItem("weGenData")) {
         $("#lastRecBtn").show()
     }
+
+    $("#switchGroupDm").on("change", () => {
+        let checked = $("#switchGroupDm").is(":checked");
+        if(checked) {
+            $(".leftName").hide()
+        }else{
+            $(".leftName").show()
+        }
+    })
 })
 
 function loadData() {
