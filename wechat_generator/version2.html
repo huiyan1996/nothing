@@ -103,6 +103,26 @@
                                     <input class="form-control" type="text" id="timeContent" placeholder="时间">
                                 </div>
                                 <button type="button" class="btn btn-primary" onclick="addTime()">添加时间信息</button>
+                                
+                                <div class="form-group mt-4">
+                                    <label>打电话/视频</label>
+                                    <input class="form-control" type="text" id="callContent" placeholder="通话时长 00:42 / 对方已拒绝 / 已取消">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input callOpt" type="radio" name="callOpt" value="phone" checked>
+                                                <span>电话</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input callOpt" type="radio" name="callOpt" value="video">
+                                                <span>视频</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="addCall()">添加通话信息</button>
                             </div>
                         </div>
                     </div>

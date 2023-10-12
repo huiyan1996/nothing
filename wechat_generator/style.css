@@ -250,6 +250,16 @@ main::-webkit-scrollbar {
     vertical-align: middle;
 }
 
+.phoneIcon {
+    height: 15px;
+    vertical-align: middle;
+}
+.cameraIcon {
+    height: 17px;
+    vertical-align: middle;
+    margin-bottom: 2px;
+}
+
 footer {
     /* position: absolute; */
     /* bottom: 0; */
