@@ -251,8 +251,9 @@ main::-webkit-scrollbar {
 }
 
 .phoneIcon {
-    height: 15px;
+    height: 17px;
     vertical-align: middle;
+    margin-bottom: 2px;
 }
 .cameraIcon {
     height: 17px;
