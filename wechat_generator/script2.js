@@ -40,6 +40,9 @@ function loadData() {
     $("#username").val(data.chatName)
     $("#username").trigger("input")
 
+    userList = []
+    chatList = []
+
     data.userList.forEach((v,k) => {
         charImg = v.img
         addChar(v.name)
@@ -85,6 +88,16 @@ function deleteChat(n, isTime) {
     }
 }
 
+function deleteChar(n) {
+
+    const ind = $(".delCharBtn").index(n)
+    userList.splice(ind, 1)
+
+    $(n).parent().remove()
+    
+    addChar()
+}
+
 function generate() {
     html2canvas(document.querySelector("#chatPage")).then(canvas => {
         document.getElementById("generatedImg").innerHTML = ""
@@ -110,7 +123,8 @@ function addChar(text) {
 
     userList.forEach((v,k) => {
         charHtml += `
-            <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline charCheck">
+                <a href="javascript:;" class="delCharBtn" onclick="deleteChar(this)">x</a>
                 <label class="form-check-label">
                     <input class="form-check-input charOpt" type="radio" name="charOpt" value="${k}" ${k==0?'checked':''}>
                     <img src="${v.img}" height="50px" />
