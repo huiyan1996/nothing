@@ -40,6 +40,9 @@ function loadData() {
     $("#username").val(data.chatName)
     $("#username").trigger("input")
 
+    userList = []
+    chatList = []
+
     data.userList.forEach((v,k) => {
         charImg = v.img
         addChar(v.name)
@@ -54,6 +57,9 @@ function loadData() {
         }
         if(v.type == 'time') {
             addTime(v.content)
+        }
+        if(v.type == 'call') {
+            addCall(v.side, v.name, v.content, v.user_img, v.callType)
         }
     })
 }
@@ -160,6 +166,60 @@ function addChat(side, name, text, img) {
         name: userName,
         user_img: img || userList[char].img,
         type: "text",
+        content: chat
+    })
+
+    $("#chatContent").val("")
+}
+
+function addCall(side, name, text, img, callType) {
+    var user = side || $(".userOpt:checked").val()
+    var char = $(".charOpt:checked").val()
+    const chat = text || $("#callContent").val()
+    const userName = name || userList[char].name
+    const cType = callType ||  $(".callOpt:checked").val()
+
+    var chatName = "";
+    if(user == 'left') {
+        chatName = `<div class="text-start leftName">${userName || 'First Kanaphan'}</div>`;
+    }
+
+    var msg = `
+        <div class="message-item msg-item message-item--${user}">
+            <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
+            <img class="avatar ${user}" src="${img || userList[char].img}" alt="头像">
+            <div>
+                ${chatName}
+                <div class="message-bubble">
+                    <div class="d-flex align-items-center">
+                        <div>${chat}</div>
+                        <div class="ms-2">
+                            ${cType == 'phone' ? `
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="phoneIcon">
+                                <path d="M2.10863 14.1079L3.76461 15.7639C4.02858 16.0413 4.38552 16.2119 4.76752 16.2431C5.84479 16.3311 7.91395 15.0073 8.44327 14.1917C8.8559 13.5559 8.69631 12.6629 8.69702 11.9465C10.8675 11.3476 13.1582 11.3453 15.3275 11.9399C15.3268 12.6563 15.1654 13.5497 15.5768 14.1847C16.1037 14.9979 18.1615 16.3114 19.2367 16.2294C19.6149 16.2006 19.97 16.0352 20.2357 15.7642L21.895 14.1049C22.5266 13.4721 22.4856 12.3791 21.7923 11.8009C16.3175 6.31749 7.7222 6.27776 2.21038 11.7982C1.51362 12.3797 1.47304 13.4775 2.10863 14.1079Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            `: `
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cameraIcon">
+                                    <path stroke-linecap="round" d="M 8.25 13.5 l -4.72 4.72 a 0.75 0.75 180 0 1 -1.28 -0.53 v -11.38 a 0.75 0.75 180 0 1 1.28 -0.53 l 4.72 4.72 M 19.5 5.25 h -9 a 2.25 2.25 180 0 0 -2.25 2.25 v 9 a 2.25 2.25 180 0 0 2.25 2.25 h 9 A 2.25 2.25 180 0 0 21.75 16.5 v -9 a 2.25 2.25 180 0 0 -2.25 -2.25 z" />
+                                </svg>
+                            `}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    if(chat.trim()) {
+        $("#messageList").append(msg)
+    }
+
+    chatList.push({
+        side: user,
+        name: userName,
+        user_img: img || userList[char].img,
+        type: "call",
+        callType: cType,
         content: chat
     })
 
