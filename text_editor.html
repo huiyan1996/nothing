@@ -61,9 +61,20 @@
             border-style: solid;
             color: #fff;
         }
+
+        details {
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
+
+    <details>
+        <summary>Load local txt file</summary>
+
+        <input type="file" onchange="readLocalFile(this)">
+    </details>
+
     <div class="buttonWrapper">
         <input type="text" placeholder="Title" class="titleField" id="fileTitle">
 
@@ -76,6 +87,22 @@
     <textarea class="textarea" id="field" oninput="save()"></textarea>
 
     <script>
+        const readLocalFile = (e) => {
+            readFileContent(e.files[0]).then(content => {
+                document.querySelector("#field").value = content
+                save()
+            }).catch(error => console.log(error))
+        }
+
+        function readFileContent(file) {
+            const reader = new FileReader()
+        return new Promise((resolve, reject) => {
+            reader.onload = event => resolve(event.target.result)
+            reader.onerror = error => reject(error)
+            reader.readAsText(file)
+        })
+        }
+
         const save = () => {
             const content = document.querySelector("#field").value;
 
