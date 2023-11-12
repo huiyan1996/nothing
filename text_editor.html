@@ -18,6 +18,9 @@
             position: sticky;
             top: 0;
             padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
         }
 
         .textarea {
@@ -38,6 +41,7 @@
             border-width: 1px;
             text-decoration: none;
             margin-right: 10px;
+            margin-bottom: 10px;
         }
 
         .button {
@@ -62,8 +66,11 @@
 <body>
     <div class="buttonWrapper">
         <input type="text" placeholder="Title" class="titleField" id="fileTitle">
-        <a href="javascript:;" onclick="downloadFile('txt')" class="button primary">Save as .txt</a>
-        <a href="javascript:;" onclick="downloadFile('lrc')" class="button primary">Save as .lrc</a>
+
+        <div>
+            <a href="javascript:;" onclick="downloadFile('txt')" class="button primary">Save as .txt</a>
+            <a href="javascript:;" onclick="downloadFile('lrc')" class="button primary">Save as .lrc</a>
+        </div>
     </div>
     <textarea class="textarea" id="field"></textarea>
 
