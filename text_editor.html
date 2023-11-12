@@ -70,11 +70,26 @@
         <div>
             <a href="javascript:;" onclick="downloadFile('txt')" class="button primary">Save as .txt</a>
             <a href="javascript:;" onclick="downloadFile('lrc')" class="button primary">Save as .lrc</a>
+            <a href="javascript:;" onclick="clearText()" class="button primary">Clear Text</a>
         </div>
     </div>
-    <textarea class="textarea" id="field"></textarea>
+    <textarea class="textarea" id="field" oninput="save()"></textarea>
 
     <script>
+        const save = () => {
+            const content = document.querySelector("#field").value;
+
+            localStorage.setItem("lastSave", content)
+        }
+
+        const clearText = () => {
+            let text = "Confirm to clear text?\nIt can't be undone after confirm.";
+            if (confirm(text) == true) {
+                document.querySelector("#field").value = ""
+                localStorage.removeItem("lastSave")
+            }
+        }
+
         const downloadFile = (type) => {
             const title = document.querySelector("#fileTitle").value;
 
@@ -86,6 +101,13 @@
             link.click();
             URL.revokeObjectURL(link.href);
         };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const saveText = localStorage.getItem("lastSave")
+            if(saveText) {
+                document.querySelector("#field").value = saveText
+            }
+        })
     </script>
 </body>
 </html>
