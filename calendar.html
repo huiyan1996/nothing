@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
+    <title>行程表</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            padding: 10px;
+            margin: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .wrapper {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 15px;
+            border: 1px solid #000;
+        }
+
+        .wrapper .item {
+            width: 23%;
+            height: calc(20vw);
+            background-color: #fff;
+            margin: 1%;
+            border: 1px solid #000;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .noborder {
+            border: none !important;
+        }
+
+        .wrapper .item.img {
+            /* width: 100%; */
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .inputwrapper {
+            margin-top: 15px;
+        }
+
+        .wrapper .item .job {
+            display: block;
+            padding: 5px 8px;
+            margin-bottom: 10px;
+            background-color: #eba205;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px -4px #000;
+        }
+
+        .wrapper .item div:first-child {
+            margin-bottom: 20px;
+        }
+
+        .wrapper .item .job span {
+            filter: invert(1);
+            mix-blend-mode: difference;
+            font-weight: bold;
+            white-space: pre-wrap;
+        }
+
+        .inputField {
+            border-radius: 5px;
+            padding: 5px 10px;
+            outline: none;
+            width: 100%;
+            resize: none;
+        }
+
+        .button {
+            background-color: #308fce;
+            color: #fff;
+            margin-top: 15px;
+            border: none;
+            border-radius: 5px;
+            padding: 7px 15px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper" id="wrapper1">
+        <div class="item img">
+            <!-- <img src="" id="image1" alt=""> -->
+        </div>
+        <div class="item">
+            <div>Sun</div>
+        </div>
+        <div class="item">
+            <div>Mon</div>
+        </div>
+        <div class="item">
+            <div>Tue</div>
+        </div>
+        <div class="item">
+            <div>Wed</div>
+        </div>
+        <div class="item">
+            <div>Thu</div>
+        </div>
+        <div class="item">
+            <div>Fri</div>
+        </div>
+        <div class="item">
+            <div>Sat</div>
+        </div>
+    </div>
+
+    <div class="inputwrapper">
+        <button type="button" class="button primary" onclick="generate()">下载</button>
+    </div>
+
+    <div class="inputwrapper">
+        <input type="file" id="imageInp" >
+    </div>
+
+    <div class="inputwrapper">
+        <label>
+            <input type="radio" name="border" class="borderSel" value="y" checked> 有边框
+        </label>
+        <label>
+            <input type="radio" name="border" class="borderSel" value="n"> 无边框
+        </label>
+    </div>
+
+    <div class="inputwrapper">
+        <label>
+            <input type="radio" name="bg" class="bgSel" value="center" checked> 图片置中
+        </label>
+        <label>
+            <input type="radio" name="bg" class="bgSel" value="top" checked> 图片位置 ↑
+        </label>
+        <label>
+            <input type="radio" name="bg" class="bgSel" value="bottom"> 图片位置 ↓
+        </label>
+        <label>
+            <input type="radio" name="bg" class="bgSel" value="left"> 图片位置 ←
+        </label>
+        <label>
+            <input type="radio" name="bg" class="bgSel" value="right"> 图片位置 →
+        </label>
+    </div>
+
+    <div class="inputwrapper">
+        <label>
+            <input type="radio" name="bgSize" class="bgSizeSel" value="cover" checked> 图片填满
+        </label>
+        <label>
+            <input type="radio" name="bgSize" class="bgSizeSel" value="contain"> 图片适应边框
+        </label>
+        </label>
+    </div>
+
+    <div class="inputwrapper">
+        <label>背景： </label>
+        <input type="color" id="bgcolorSel">
+    </div>
+
+    <div class="inputwrapper">
+        <label>行程框： </label>
+        <input type="color" id="colorSel">
+    </div>
+
+    <div class="inputwrapper">
+        <label>行程： </label>
+        <input type="color" id="itemcolorSel">
+    </div>
+
+    <div class="inputwrapper">
+        <label>
+            <input type="radio" name="day" class="daySel" value="1" checked> 周日
+        </label>
+        <label>
+            <input type="radio" name="day" class="daySel" value="2"> 周一
+        </label>
+        <label>
+            <input type="radio" name="day" class="daySel" value="3"> 周二
+        </label>
+        <label>
+            <input type="radio" name="day" class="daySel" value="4"> 周三
+        </label>
+        <label>
+            <input type="radio" name="day" class="daySel" value="5"> 周四
+        </label>
+        <label>
+            <input type="radio" name="day" class="daySel" value="6"> 周五
+        </label>
+        <label>
+            <input type="radio" name="day" class="daySel" value="7"> 周六
+        </label>
+
+        <div class="inputwrapper">
+            <textarea class="inputField" id="job" rows="5"></textarea>
+            <button type="button" class="button primary" onclick="addJob()">添加</button>
+        </div>
+    </div>
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/html2canvas.min.js"></script>
+    <script>
+        $("#imageInp").on("change", async (e) => {
+            let img = URL.createObjectURL(e.target.files[0]);
+            // let img = await blobToBase64(e.target.files[0])
+            $(".item.img").css("background-image", "url("+img+")")
+            // $("#image1").attr('src', img)
+        })
+        
+        $(".bgSel").on("change", async (e) => {
+            let sel = $(".bgSel:checked").val()
+
+            $(".item.img").css("background-position", sel + " center")
+        })
+        
+        $(".bgSizeSel").on("change", async (e) => {
+            let sel = $(".bgSizeSel:checked").val()
+
+            $(".item.img").css("background-size", sel)
+        })
+        
+        $(".borderSel").on("change", async (e) => {
+            let sel = $(".borderSel:checked").val()
+
+            if(sel == 'y') {
+                $(".item, .wrapper").removeClass("noborder")
+            }else{
+                $(".item, .wrapper").addClass("noborder")
+            }
+        })
+        
+        $("#bgcolorSel").on("input", () => {
+            let sel = $("#bgcolorSel").val()
+            $(".wrapper").css("background-color", sel)
+        })
+        
+        $("#colorSel").on("input", () => {
+            let sel = $("#colorSel").val()
+            $(".wrapper .item").css("background-color", sel)
+        })
+        
+        $("#itemcolorSel").on("input", () => {
+            let sel = $("#itemcolorSel").val()
+            $(".wrapper .item .job").css("background-color", sel)
+        })
+
+        function addJob() {
+            let sel = $(".daySel:checked").val()
+            let job = $("#job").val()
+
+            if(job.trim()) {
+                let html = `<div class="job"><span>${job}</span></div>`
+                $(".wrapper .item").eq(Number(sel)).append(html)
+            }
+        }
+
+        function blobToBase64(blob) {
+            return new Promise((resolve, _) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        function generate() {
+            html2canvas(document.querySelector("#wrapper1")).then(canvas => {
+                var imgUrl = canvas.toDataURL("image/png")
+                
+                var link = document.createElement("a")
+                link.href = imgUrl
+                link.setAttribute("download", "download");
+                link.click()
+
+                link.remove()
+            });
+        }
+    </script>
+</body>
+</html>
