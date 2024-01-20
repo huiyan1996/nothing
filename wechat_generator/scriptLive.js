@@ -166,6 +166,8 @@ function saveData() {
                 // title: "消息",
                 title: "编辑成功!",
                 icon: "success"
+            }).then(function() {
+                window.location.replace("./listing.html")
             });
         })
         .catch(error => console.error('Error:', error));
@@ -189,6 +191,8 @@ function saveData() {
                 // title: "消息",
                 title: "添加成功!",
                 icon: "success"
+            }).then(function() {
+                window.location.replace("./listing.html")
             });
         })
         .catch(error => console.error('Error:', error));
@@ -274,7 +278,7 @@ function addChat(side, name, text, img) {
 
     var chatName = "";
     if(user == 'left') {
-        chatName = `<div class="text-start leftName">${userName || 'First Kanaphan'}</div>`;
+        chatName = `<div class="text-start leftName" style="${chatType == 'private' ? 'display:none;':''}">${userName || 'First Kanaphan'}</div>`;
     }
 
     var msg = `
@@ -312,7 +316,7 @@ function addCall(side, name, text, img, callType) {
 
     var chatName = "";
     if(user == 'left') {
-        chatName = `<div class="text-start leftName">${userName || 'First Kanaphan'}</div>`;
+        chatName = `<div class="text-start leftName" style="${chatType == 'private' ? 'display:none;':''}">${userName || 'First Kanaphan'}</div>`;
     }
 
     var msg = `
@@ -364,7 +368,7 @@ function addImgChat(side, name, text, img) {
     
     var chatName = "";
     if(user == 'left') {
-        chatName = `<div class="text-start leftName">${userName || 'First Kanaphan'}</div>`;
+        chatName = `<div class="text-start leftName" style="${chatType == 'private' ? 'display:none;':''}">${userName || 'First Kanaphan'}</div>`;
     }
 
     if(msgImg) {
