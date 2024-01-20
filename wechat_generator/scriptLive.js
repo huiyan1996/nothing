@@ -5,6 +5,7 @@ var userList = []
 var chatList = []
 var id = null
 const searchParams = new URLSearchParams(window.location.search);
+var chatType
 
 $(document).ready(function(){
 
@@ -62,8 +63,10 @@ $(document).ready(function(){
         let checked = $("#switchGroupDm").is(":checked");
         if(checked) {
             $(".leftName").hide()
+            chatType = 'private'
         }else{
             $(".leftName").show()
+            chatType = 'group'
         }
     })
 })
@@ -125,7 +128,8 @@ function loadData() {
             }
         })
 
-        if(d.chatType == 'private') {
+        chatType = d.chatType
+        if(chatType == 'private') {
             $("#switchGroupDm").attr("checked", true)
             $("#switchGroupDm").trigger("change")
         }
