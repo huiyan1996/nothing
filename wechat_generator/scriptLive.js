@@ -49,7 +49,11 @@ $(document).ready(function(){
 
         fetch('https://api.uomg.com/api/image.360', {
             method: 'POST',
-            body: formData
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
         }).then(async (img) => {
             img = await img.json()
             // charImg = img.data.display_url
