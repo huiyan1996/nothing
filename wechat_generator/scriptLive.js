@@ -41,14 +41,18 @@ $(document).ready(function(){
         // image = await blobToBase64(e.target.files[0])
 
         var formData = new FormData();
-        formData.append('image', e.target.files[0]);
+        formData.append('file', e.target.files[0]);
 
-        fetch('https://api.imgbb.com/1/upload?key=68c35be5a3ea5ffa015a2e0d9a0f47b2', {
+        fetch('https://api.uomg.com/api/image.360', {
             method: 'POST',
+            headers: {
+              'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+              'Content-Type': 'multipart/form-data'
+            },
             body: formData
         }).then(async (img) => {
             img = await img.json()
-            charImg = img.data.display_url
+            // charImg = img.data.display_url
 
             $("#addChar").removeAttr("disabled")
          })
