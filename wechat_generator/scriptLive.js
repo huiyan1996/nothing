@@ -31,7 +31,8 @@ $(document).ready(function(){
             body: formData
         }).then(async (img) => {
             img = await img.json()
-            msgImg = img.data.display_url
+            // msgImg = img.data.display_url
+            msgImg = img.data?.links?.url
 
             $("#addImgChat").removeAttr("disabled")
          })
