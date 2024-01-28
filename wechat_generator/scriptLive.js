@@ -38,10 +38,10 @@ $(document).ready(function(){
 
     $("#character_img").on("change", async (e) => {
         // msgImg = URL.createObjectURL(e.target.files[0]);
-        let image = await blobToBase64(e.target.files[0])
+        // let image = await blobToBase64(e.target.files[0])
 
         var formData = new FormData();
-        formData.append('filename', image);
+        formData.append('filename', e.target.files[0]);
 
         fetch('https://p.sda1.dev/api/v1/upload_external_noform', {
             method: 'POST',
