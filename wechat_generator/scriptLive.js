@@ -38,10 +38,10 @@ $(document).ready(function(){
 
     $("#character_img").on("change", async (e) => {
         // msgImg = URL.createObjectURL(e.target.files[0]);
-        // image = await blobToBase64(e.target.files[0])
+        let image = await blobToBase64(e.target.files[0])
 
         var formData = new FormData();
-        formData.append('file', e.target.files[0]);
+        formData.append('file', image);
 
         fetch('https://api.uomg.com/api/image.360', {
             method: 'POST',
