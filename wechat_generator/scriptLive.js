@@ -41,9 +41,9 @@ $(document).ready(function(){
         let image = await blobToBase64(e.target.files[0])
 
         var formData = new FormData();
-        formData.append('file', image);
+        formData.append('filename', image);
 
-        fetch('https://api.uomg.com/api/image.360', {
+        fetch('https://p.sda1.dev/api/v1/upload_external_noform', {
             method: 'POST',
             body: formData
         }).then(async (img) => {
