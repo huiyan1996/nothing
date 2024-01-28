@@ -22,9 +22,11 @@ $(document).ready(function(){
         // msgImg = await blobToBase64(e.target.files[0])
 
         var formData = new FormData();
-        formData.append('image', e.target.files[0]);
+        // formData.append('image', e.target.files[0]);
+        formData.append('file', e.target.files[0]);
 
-        fetch('https://api.imgbb.com/1/upload?key=68c35be5a3ea5ffa015a2e0d9a0f47b2', {
+        // fetch('https://api.imgbb.com/1/upload?key=68c35be5a3ea5ffa015a2e0d9a0f47b2', {
+        fetch('https://www.freeimg.cn/api/v1/upload', {
             method: 'POST',
             body: formData
         }).then(async (img) => {
@@ -41,14 +43,16 @@ $(document).ready(function(){
         // let image = await blobToBase64(e.target.files[0])
 
         var formData = new FormData();
-        formData.append('filename', e.target.files[0]);
+        formData.append('file', e.target.files[0]);
 
-        fetch('https://p.sda1.dev/api/v1/upload_external_noform', {
+        // fetch('https://www.imgurl.org/api/v2/upload', {
+
+        fetch('https://www.freeimg.cn/api/v1/upload', {
             method: 'POST',
             body: formData
         }).then(async (img) => {
             img = await img.json()
-            // charImg = img.data.display_url
+            charImg = img.data?.links?.url
 
             $("#addChar").removeAttr("disabled")
          })
