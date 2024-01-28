@@ -44,6 +44,7 @@ function loadData() {
         // Handle your data here
         let d = data.fields
 
+        $("#usernameDisplay").text(d.chatName)
         chatList = JSON.parse(d.chatList)
         lastChat = chatList.length
 
@@ -209,32 +210,32 @@ function addImgChat(side, name, text, img) {
         chatName = `<div class="text-start leftName" style="${chatType == 'private' ? 'display:none;':''}">${userName || 'First Kanaphan'}</div>`;
     }
 
-    if(msgImg) {
-        var msg = `
-            <div class="message-item msg-item message-item--${user}">
-                <div class="avatar ${user}" style="background-image: url(${img || './img/empty.png'})" alt="头像"></div>
-                <div>
-                    ${chatName}
-                    <div class="message-bubble img">
-                        <img src="${text || msgImg}" onclick="viewImage('${text || msgImg}')" alt="">
-                    </div>
+    // if(msgImg) {
+    var msg = `
+        <div class="message-item msg-item message-item--${user}">
+            <div class="avatar ${user}" style="background-image: url(${img || './img/empty.png'})" alt="头像"></div>
+            <div>
+                ${chatName}
+                <div class="message-bubble img">
+                    <img src="${text || msgImg}" onclick="viewImage('${text || msgImg}')" alt="">
                 </div>
             </div>
-        `;
+        </div>
+    `;
 
-        $("#messageList").append(msg)
+    $("#messageList").append(msg)
 
-        chatList.push({
-            side: user,
-            name: userName,
-            user_img: img || './img/empty.png',
-            type: "img",
-            content: text || msgImg
-        })
+    chatList.push({
+        side: user,
+        name: userName,
+        user_img: img || './img/empty.png',
+        type: "img",
+        content: text || msgImg
+    })
 
-        $("#imgMsg").val("")
-        msgImg = ""
-    }
+    $("#imgMsg").val("")
+    msgImg = ""
+    // }
 
     $("#addImgChat").attr("disabled", true)
 }
