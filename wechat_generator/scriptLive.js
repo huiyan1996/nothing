@@ -28,6 +28,9 @@ $(document).ready(function(){
         // fetch('https://api.imgbb.com/1/upload?key=68c35be5a3ea5ffa015a2e0d9a0f47b2', {
         fetch('https://www.freeimg.cn/api/v1/upload', {
             method: 'POST',
+            headers: {
+                "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
+            },
             body: formData
         }).then(async (img) => {
             img = await img.json()
@@ -50,6 +53,9 @@ $(document).ready(function(){
 
         fetch('https://www.freeimg.cn/api/v1/upload', {
             method: 'POST',
+            headers: {
+                "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
+            },
             body: formData
         }).then(async (img) => {
             img = await img.json()
