@@ -124,7 +124,10 @@ function loadData() {
             addChar(v.name)
         })
 
+        console.log(cList)
+
         cList.forEach((v,k) => {
+
             if(v.type == 'text') {
                 addChat(v.side, v.name, v.content, v.user_img)
             }
@@ -386,7 +389,7 @@ function addImgChat(side, name, text, img) {
         chatName = `<div class="text-start leftName" style="${chatType == 'private' ? 'display:none;':''}">${userName || 'First Kanaphan'}</div>`;
     }
 
-    if(msgImg) {
+    if(msgImg || text) {
         var msg = `
             <div class="message-item msg-item message-item--${user}">
                 <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
