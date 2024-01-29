@@ -124,8 +124,6 @@ function loadData() {
             addChar(v.name)
         })
 
-        console.log(cList)
-
         cList.forEach((v,k) => {
 
             if(v.type == 'text') {
