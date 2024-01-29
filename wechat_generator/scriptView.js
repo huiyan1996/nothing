@@ -8,6 +8,7 @@ var ind = 0
 var lastChat = 0
 var chatting = true
 var chatType
+var author
 
 $(document).ready(function(){
 
@@ -43,6 +44,8 @@ function loadData() {
     .then(data => {
         // Handle your data here
         let d = data.fields
+
+        author = d.author
 
         $("#usernameDisplay").text(d.chatName)
         chatList = JSON.parse(d.chatList)
@@ -98,6 +101,7 @@ function clickChat() {
     }else{
         if(chatting) {
             addTime('结束')
+            addTime('作者: '+author)
             chatting = false
         }
     }
