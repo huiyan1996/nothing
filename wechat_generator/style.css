@@ -441,6 +441,7 @@ main,
     font-size: 10px;
     padding: 3px 6px;
     border-radius: 3px;
+    max-width: calc(100% - 120px);
 }
 
 .modal-img img {
