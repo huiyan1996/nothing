@@ -228,6 +228,28 @@ function deleteChat(n, isTime) {
     }
 }
 
+function changeSide(n) {
+
+    const dom = $(n).parent()
+    const ind = $(".msg-item").index(dom)
+    // chatList[ind]
+
+    if(chatList[ind].side == 'left') {
+        dom.removeClass("message-item--left")
+        dom.addClass("message-item--right")
+        chatList[ind].side = 'right'
+    }else{
+        dom.removeClass("message-item--right")
+        dom.addClass("message-item--left")
+        chatList[ind].side = 'left'
+    }
+}
+
+function editContent(n) {
+    const ind = Number($(n).attr('data-ind'))
+    chatList[ind].content = $(n).text()
+}
+
 function deleteChar(n) {
 
     const ind = $(".delCharBtn").index(n)
@@ -297,13 +319,15 @@ function addChat(side, name, text, img) {
         chatName = `<div class="text-start leftName" style="${chatType == 'private' ? 'display:none;':''}">${userName || 'First Kanaphan'}</div>`;
     }
 
+    const ind = $(".msg-item").length
+
     var msg = `
         <div class="message-item msg-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-            <img class="avatar ${user}" src="${img || userList[char].img}" alt="头像">
+            <img class="avatar ${user}" src="${img || userList[char].img}" alt="头像" onclick="changeSide(this)">
             <div>
                 ${chatName}
-                <div class="message-bubble">${chat}</div>
+                <div class="message-bubble" data-ind="${ind}" contenteditable onKeyUp="editContent(this)">${chat}</div>
             </div>
         </div>
     `;
@@ -338,7 +362,7 @@ function addCall(side, name, text, img, callType) {
     var msg = `
         <div class="message-item msg-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-            <img class="avatar ${user}" src="${img || userList[char].img}" alt="头像">
+            <img class="avatar ${user}" src="${img || userList[char].img}" alt="头像" onclick="changeSide(this)">
             <div>
                 ${chatName}
                 <div class="message-bubble">
@@ -391,7 +415,7 @@ function addImgChat(side, name, text, img) {
         var msg = `
             <div class="message-item msg-item message-item--${user}">
                 <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-                <div class="avatar ${user}" style="background-image: url(${img || userList[char].img})" alt="头像"></div>
+                <div class="avatar ${user}" style="background-image: url(${img || userList[char].img})" alt="头像" onclick="changeSide(this)"></div>
                 <div>
                     ${chatName}
                     <div class="message-bubble img">
