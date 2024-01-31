@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +8,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <style>
+        .chat-page {
+            min-width: 400px;
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+        }
+
         main {
-            min-height: calc(90vh - 100px);
-            max-height: calc(90vh - 100px);
+            min-height: calc(100% - 100px);
+            max-height: calc(100% - 100px);
             overflow: auto;
             -ms-overflow-style: none;  /* IE and Edge */
             scrollbar-width: none;  /* Firefox */
@@ -19,14 +26,27 @@
         main::-webkit-scrollbar {
             display: none;
         }
+
+        .message-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-item {
+            width: calc(100% - 60px);
+        }
+
+        .message-item--right {
+            align-self: flex-end;
+        }
     </style>
 </head>
-<body>
-    <div class="container-fluid">
-        <div class="col-12">
-            <div class="row justify-content-center">
-                <div class="col-lg-4 py-3">
-                    <section class="chat-page mx-auto" id="chatPage">
+<body class="h-100">
+    <div class="container-fluid h-100">
+        <div class="col-12 h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-lg-4 p-0 h-100">
+                    <section class="chat-page mx-auto h-100" id="chatPage">
                         <header>
                             <div class="nav-back">
                                 <i class="icon icon-back"></i>
@@ -80,7 +100,7 @@
     </div>
 
     <div id="loadingModal" class="modal" tabindex="-1" data-bs-backdrop="static">
-        <div class="modal-dialog" style="height: 85%;">
+        <div class="modal-dialog" style="height: 100%;">
             <div class="d-flex align-items-center justify-content-center h-100">
                 <div class="spinner-border text-dark" role="status">
                   <span class="visually-hidden">Loading...</span>
