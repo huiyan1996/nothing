@@ -168,7 +168,8 @@ main::-webkit-scrollbar {
     border: 1px solid #ddd;
     padding: 7px 10px;
     border-radius: 3px;
-    max-width: 100%;
+    /* max-width: 100%; */
+    max-width: 280px;
     position: relative;
     word-break: break-word;
     width: fit-content;
