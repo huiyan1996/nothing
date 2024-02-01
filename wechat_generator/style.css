@@ -256,6 +256,11 @@ main::-webkit-scrollbar {
     vertical-align: middle;
 }
 
+.editCharBtn {
+    text-decoration: none;
+    color: #555;
+}
+
 .phoneIcon {
     height: 17px;
     vertical-align: middle;

@@ -6,6 +6,8 @@ var chatList = []
 var id = null
 const searchParams = new URLSearchParams(window.location.search);
 var chatType
+var editImgInd
+var editOldImgUrl
 
 $(document).ready(function(){
 
@@ -22,20 +24,37 @@ $(document).ready(function(){
         // msgImg = await blobToBase64(e.target.files[0])
 
         var formData = new FormData();
-        // formData.append('image', e.target.files[0]);
-        formData.append('file', e.target.files[0]);
+        formData.append('image', e.target.files[0]);
+        // formData.append('file', e.target.files[0]);
 
         // fetch('https://api.imgbb.com/1/upload?key=68c35be5a3ea5ffa015a2e0d9a0f47b2', {
-        fetch('https://www.freeimg.cn/api/v1/upload', {
+        // fetch('https://www.freeimg.cn/api/v1/upload', {
+        //     method: 'POST',
+        //     headers: {
+        //         "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
+        //     },
+        //     body: formData
+        // }).then(async (img) => {
+        //     img = await img.json()
+        //     // msgImg = img.data.display_url
+        //     msgImg = img.data?.links?.url
+
+        //     $("#addImgChat").removeAttr("disabled")
+        //  })
+        //  .catch(error => alert('Error:', error));
+
+        fetch('https://imgtp.com/api/upload', {
             method: 'POST',
             headers: {
-                "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
+                // "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
+                // "token": "1b9dcc72b21ae9ce64e07e576edef118",
+                "token": "ce9ea31ce3bb52130e9cf0504792d78f",
             },
             body: formData
         }).then(async (img) => {
             img = await img.json()
-            // msgImg = img.data.display_url
-            msgImg = img.data?.links?.url
+            // msgImg = img.data?.links?.url
+            msgImg = img.data?.url
 
             $("#addImgChat").removeAttr("disabled")
          })
@@ -47,19 +66,36 @@ $(document).ready(function(){
         // let image = await blobToBase64(e.target.files[0])
 
         var formData = new FormData();
-        formData.append('file', e.target.files[0]);
+        // formData.append('file', e.target.files[0]);
+        formData.append('image', e.target.files[0]);
 
-        // fetch('https://www.imgurl.org/api/v2/upload', {
+        // fetch('https://www.freeimg.cn/api/v1/upload', {
+        //     method: 'POST',
+        //     headers: {
+        //         "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
+        //     },
+        //     body: formData
+        // }).then(async (img) => {
+        //     img = await img.json()
+        //     charImg = img.data?.links?.url
 
-        fetch('https://www.freeimg.cn/api/v1/upload', {
+        //     $("#addChar").removeAttr("disabled")
+        //  })
+        //  .catch(error => alert('Error:', error));
+        
+        //  fetch('https://img.ink/api/upload', {
+        fetch('https://imgtp.com/api/upload', {
             method: 'POST',
             headers: {
-                "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
+                // "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
+                // "token": "1b9dcc72b21ae9ce64e07e576edef118",
+                "token": "ce9ea31ce3bb52130e9cf0504792d78f",
             },
             body: formData
         }).then(async (img) => {
             img = await img.json()
-            charImg = img.data?.links?.url
+            // charImg = img.data?.links?.url
+            charImg = img.data?.url
 
             $("#addChar").removeAttr("disabled")
          })
@@ -119,6 +155,9 @@ function loadData() {
         userList = []
         chatList = []
 
+        $("#charList").empty()
+        $("#messageList").empty()
+
         uList.forEach((v,k) => {
             charImg = v.img
             addChar(v.name)
@@ -149,6 +188,30 @@ function loadData() {
     .catch(error => {
         console.error('Error:', error);
     });
+}
+
+function reloadChat() {
+    $("#messageList").empty()
+
+    var cList = chatList
+
+    chatList = []
+
+    cList.map((v,k) => {
+
+        if(v.type == 'text') {
+            addChat(v.side, v.name, v.content, v.user_img)
+        }
+        if(v.type == 'img') {
+            addImgChat(v.side, v.name, v.content, v.user_img)
+        }
+        if(v.type == 'time') {
+            addTime(v.content)
+        }
+        if(v.type == 'call') {
+            addCall(v.side, v.name, v.content, v.user_img, v.callType)
+        }
+    })
 }
 
 function saveData() {
@@ -226,6 +289,11 @@ function deleteChat(n, isTime) {
     }else{
         $(n).parent().remove()
     }
+
+    $(".msg-item").each((k, v) => {
+        // console.log(k)
+        $(v).find('div.message-bubble').attr('data-ind', k)
+    })
 }
 
 function changeSide(n) {
@@ -257,10 +325,14 @@ function deleteChar(n) {
 
     $(n).parent().remove()
     
-    addChar()
+    // addChar()
 }
 
 function generate() {
+    // $("img").each((k, v) => {
+    //     convertImage($(v).attr('src'), v)
+    // })
+
     html2canvas(document.querySelector("#chatPage"), {
         useCORS: true,
         // proxy: <server_url></server_url>
@@ -292,8 +364,9 @@ function addChar(text) {
                 <a href="javascript:;" class="delCharBtn" onclick="deleteChar(this)">x</a>
                 <label class="form-check-label">
                     <input class="form-check-input charOpt" type="radio" name="charOpt" value="${k}" ${k==0?'checked':''}>
-                    <img src="${v.img}" height="50px" />
+                    <img src="${v.img}" class="charImg" height="50px" />
                     <span class="ml-2">${v.name}</span>
+                    <a href="javascript:;" class="editCharBtn" onclick="editChar(this)">✎</a>
                 </label>
             </div>
         `;
@@ -306,6 +379,37 @@ function addChar(text) {
     charImg = ""
 
     $("#addChar").attr("disabled", true)
+}
+
+function editChar(n) {
+    editImgInd = $(".editCharBtn").index(n)
+    editOldImgUrl = $(n).parent().find('.charImg').attr('src')
+
+    $("#editImg").val(editOldImgUrl)
+    $("#editImgBlock").show()
+}
+
+function editImgFunc() {
+    const newImgUrl = $("#editImg").val()
+
+    if((editImgInd || editImgInd == 0) && newImgUrl) {
+        userList[editImgInd].img = newImgUrl
+        $(".charImg").eq(editImgInd).attr("src", newImgUrl)
+
+        chatList.map((v,k) => {
+            if(v.user_img == editOldImgUrl) {
+                v.user_img = newImgUrl
+            }
+        })
+    
+        editImgInd = null
+        editOldImgUrl = null
+    
+        $("#editImg").val("")
+        $("#editImgBlock").hide()
+        
+        reloadChat()
+    }
 }
 
 function addChat(side, name, text, img) {
