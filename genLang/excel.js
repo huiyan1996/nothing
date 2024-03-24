@@ -14,7 +14,7 @@ document.getElementById('button').addEventListener("click", () => {
         let fileReader = new FileReader();
         fileReader.readAsBinaryString(selectedFile);
         fileReader.onload = (event)=>{
-         let data = event.target.result;
+         data = event.target.result;
          let workbook = XLSX.read(data,{type:"binary"});
          console.log(workbook);
          workbook.SheetNames.forEach(sheet => {
@@ -33,9 +33,11 @@ function filterData() {
 
     var rebuild = {}
 
-    var getData = JSON.parse(document.getElementById("jsondata").innerHTML)
+    // console.log(data)
 
-    getData.forEach((v, k) => {
+    // var getData = JSON.parse(document.getElementById("jsondata").innerHTML)
+
+    data.forEach((v, k) => {
         var k = v[key]
         var l = v[lang]
 
