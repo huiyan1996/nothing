@@ -45,7 +45,7 @@ $(document).ready(function(){
         //  .catch(error => alert('Error:', error));
 
         // fetch('https://freeimage.host/api/1/upload', {
-            fetch('http://api.tucang.cc/api/v1/upload', {
+            fetch('https://api.tucang.cc/api/v1/upload', {
             method: 'POST',
             headers: {
                 // "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
@@ -89,7 +89,7 @@ $(document).ready(function(){
         
         //  fetch('https://img.ink/api/upload', {
         // fetch('https://imgtp.com/api/upload', {
-        fetch('http://api.tucang.cc/api/v1/upload', {
+        fetch('https://api.tucang.cc/api/v1/upload', {
             method: 'POST',
             headers: {
                 // "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
