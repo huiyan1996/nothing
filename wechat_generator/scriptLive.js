@@ -25,6 +25,7 @@ $(document).ready(function(){
 
         var formData = new FormData();
         formData.append('image', e.target.files[0]);
+        formData.append('token', '1722486243649f5732b248038450ca4dc4bca1160128b');
         // formData.append('file', e.target.files[0]);
 
         // fetch('https://api.imgbb.com/1/upload?key=68c35be5a3ea5ffa015a2e0d9a0f47b2', {
@@ -43,12 +44,14 @@ $(document).ready(function(){
         //  })
         //  .catch(error => alert('Error:', error));
 
-        fetch('https://imgtp.com/api/upload', {
+        // fetch('https://freeimage.host/api/1/upload', {
+            fetch('http://api.tucang.cc/api/v1/upload', {
             method: 'POST',
             headers: {
                 // "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
                 // "token": "1b9dcc72b21ae9ce64e07e576edef118",
-                "token": "ce9ea31ce3bb52130e9cf0504792d78f",
+                // "key": "6d207e02198a847aa98d0a2a901485a5",
+                "token": "1722485483425441143def150484696c739dd94764719",
             },
             body: formData
         }).then(async (img) => {
@@ -67,7 +70,8 @@ $(document).ready(function(){
 
         var formData = new FormData();
         // formData.append('file', e.target.files[0]);
-        formData.append('image', e.target.files[0]);
+        formData.append('file', e.target.files[0]);
+        formData.append('token', '1722486243649f5732b248038450ca4dc4bca1160128b');
 
         // fetch('https://www.freeimg.cn/api/v1/upload', {
         //     method: 'POST',
@@ -84,12 +88,14 @@ $(document).ready(function(){
         //  .catch(error => alert('Error:', error));
         
         //  fetch('https://img.ink/api/upload', {
-        fetch('https://imgtp.com/api/upload', {
+        // fetch('https://imgtp.com/api/upload', {
+        fetch('http://api.tucang.cc/api/v1/upload', {
             method: 'POST',
             headers: {
                 // "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
                 // "token": "1b9dcc72b21ae9ce64e07e576edef118",
-                "token": "ce9ea31ce3bb52130e9cf0504792d78f",
+                // "token": "ce9ea31ce3bb52130e9cf0504792d78f",
+                "token": "1722485483425441143def150484696c739dd94764719",
             },
             body: formData
         }).then(async (img) => {
@@ -428,7 +434,7 @@ function addChat(side, name, text, img) {
     var msg = `
         <div class="message-item msg-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-            <img class="avatar ${user}" src="${img || userList[char].img}" alt="头像" onclick="changeSide(this)">
+            <img class="avatar ${user}" src="${img || userList[char].img}" onclick="changeSide(this)" onerror="this.src='./img/empty.png'">
             <div>
                 ${chatName}
                 <div class="message-bubble" data-ind="${ind}" contenteditable onKeyUp="editContent(this)">${chat}</div>
@@ -466,7 +472,7 @@ function addCall(side, name, text, img, callType) {
     var msg = `
         <div class="message-item msg-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-            <img class="avatar ${user}" src="${img || userList[char].img}" alt="头像" onclick="changeSide(this)">
+            <img class="avatar ${user}" src="${img || userList[char].img}" onclick="changeSide(this)" onerror="this.src='./img/empty.png'">
             <div>
                 ${chatName}
                 <div class="message-bubble">
@@ -519,7 +525,7 @@ function addImgChat(side, name, text, img) {
         var msg = `
             <div class="message-item msg-item message-item--${user}">
                 <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-                <div class="avatar ${user}" style="background-image: url(${img || userList[char].img})" alt="头像" onclick="changeSide(this)"></div>
+                <div class="avatar ${user}" style="background-image: url(${img || userList[char].img})" onclick="changeSide(this)"></div>
                 <div>
                     ${chatName}
                     <div class="message-bubble img">
