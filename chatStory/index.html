@@ -5,17 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P'Kim的赌气</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #222; color: #fff; display: flex; justify-content: center; align-items: center; height: 100dvh; margin: 0; }
-        #chatroom { width: 100%; max-width: 500px; height: 100dvh; background: #333; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; }
-        #chatroom-header { background: #444; padding: 10px; text-align: center; font-weight: bold; }
-        #chatbox { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; }
-        .message { display: flex; margin: 10px 0; }
-        .left { justify-content: flex-start; }
-        .right { justify-content: flex-end; }
-        .message p { max-width: 70%; padding: 10px; border-radius: 10px; }
-        .left p { background: #555; text-align: left; }
-        .right p { background: #007bff; text-align: right; }
-        #options-container { background: #444; padding: 10px; display: flex; flex-direction: column; align-items: stretch; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #222; 
+            color: #fff; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        #chatroom { 
+            width: 100%; 
+            max-width: 500px; 
+            height: 100vh; 
+            background: #333; 
+            display: flex; 
+            flex-direction: column; 
+            border-radius: 10px; 
+            overflow: hidden; 
+        }
+        #chatroom-header { 
+            background: #444; 
+            padding: 10px; 
+            text-align: center; 
+            font-weight: bold; 
+        }
+        #chatbox { 
+            flex: 1; 
+            padding: 10px; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .message { 
+            display: flex; 
+            margin: 10px 0; 
+        }
+        .left { 
+            justify-content: flex-start; 
+        }
+        .right { 
+            justify-content: flex-end; 
+        }
+        .message p { 
+            max-width: 70%; 
+            padding: 10px; 
+            border-radius: 10px; 
+        }
+        .left p { 
+            background: #555; 
+            text-align: left; 
+        }
+        .right p { 
+            background: #007bff; 
+            text-align: right; 
+        }
+        #options-container { 
+            background: #444; 
+            padding: 10px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: stretch; 
+        }
         #options button { 
             width: 100%; 
             padding: 10px; 
@@ -26,7 +78,9 @@
             cursor: pointer; 
             border-radius: 8px;
         }
-        #options button:hover { opacity: 0.8; }
+        #options button:hover { 
+            opacity: 0.8; 
+        }
     </style>
 </head>
 <body>
@@ -54,23 +108,23 @@
             responseB: {
                 text: "观众疯狂刷屏提醒你，你终于看到P'Kim的ID。",
                 choices: [
-                    { text: "继续打游戏，等直播结束再说。", next: "angryKim" },
-                    { text: "察觉不对劲，立刻给P'Kim发私信解释。", next: "messageKim" }
+                    { text: "继续打游戏，等直播结束再说。", next: "angryKim", reply: "继续打游戏" },
+                    { text: "察觉不对劲，立刻给P'Kim发私信解释。", next: "messageKim", reply: "立刻解释" }
                 ]
             },
             angryKim: {
                 text: "直播结束后，你看到P'Kim的推文：‘打游戏最重要，我不重要。’",
                 choices: [
-                    { text: "直接骑摩托去P'Kim家道歉。", next: "goToKim" },
-                    { text: "发消息解释，试图在网上哄好他。", next: "textApology" }
+                    { text: "直接骑摩托去P'Kim家道歉。", next: "goToKim", reply: "骑摩托去道歉" },
+                    { text: "发消息解释，试图在网上哄好他。", next: "textApology", reply: "网上哄他" }
                 ]
             },
             messageKim: { text: "P'Kim回复了一个‘哼’的表情，但很快又打字道：‘知道就好。’", next: "end2" },
             goToKim: {
                 text: "你赶到P'Kim家楼下，给他发消息：‘出来。’",
                 choices: [
-                    { text: "带P'Kim去吃东西。", next: "food" },
-                    { text: "直接撒娇求原谅。", next: "actCute" }
+                    { text: "带P'Kim去吃东西。", next: "food", reply: "带他去吃东西" },
+                    { text: "直接撒娇求原谅。", next: "actCute", reply: "撒娇求原谅" }
                 ]
             },
             textApology: { text: "P'Kim回了一个冷漠的表情，但并没有回复更多。", next: "end3" },
@@ -85,17 +139,30 @@
 
         function displayChat(id) {
             const scene = story[id];
+            // 显示NPC消息（左侧）
             const message = document.createElement("div");
             message.className = "message left";
             message.innerHTML = `<p>${scene.text}</p>`;
             chatbox.appendChild(message);
             optionsContainer.innerHTML = "";
 
+            // 添加自动滚动
+            chatbox.scrollTop = chatbox.scrollHeight;
+
             if (scene.choices) {
                 scene.choices.forEach(choice => {
                     const btn = document.createElement("button");
                     btn.textContent = choice.text;
                     btn.onclick = () => {
+                        // 添加用户回复（右侧），如果设置了 reply 属性
+                        if (choice.reply) {
+                            const userMessage = document.createElement("div");
+                            userMessage.className = "message right";
+                            userMessage.innerHTML = `<p>${choice.reply}</p>`;
+                            chatbox.appendChild(userMessage);
+                        }
+                        // 自动滚动到最新消息
+                        chatbox.scrollTop = chatbox.scrollHeight;
                         displayChat(choice.next);
                     };
                     optionsContainer.appendChild(btn);
@@ -103,7 +170,12 @@
             } else {
                 const nextBtn = document.createElement("button");
                 nextBtn.textContent = scene.restart ? "重新开始" : "下一步";
-                nextBtn.onclick = scene.restart ? () => location.reload() : () => displayChat(scene.next);
+                nextBtn.onclick = scene.restart 
+                    ? () => location.reload() 
+                    : () => {
+                        displayChat(scene.next);
+                        chatbox.scrollTop = chatbox.scrollHeight;
+                    };
                 optionsContainer.appendChild(nextBtn);
             }
         }
