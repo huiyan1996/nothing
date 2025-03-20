@@ -36,6 +36,7 @@
             overflow-y: auto; 
             display: flex; 
             flex-direction: column; 
+            scroll-behavior: smooth; 
         }
         .message { 
             display: flex; 
@@ -144,9 +145,7 @@
             message.innerHTML = `<p>${scene.text}</p>`;
             chatbox.appendChild(message);
             optionsContainer.innerHTML = "";
-
-            // 添加自动滚动
-            chatbox.scrollTop = chatbox.scrollHeight;
+            chatbox.scrollTo({ top: chatbox.scrollHeight, behavior: "smooth" });
 
             if (scene.choices) {
                 scene.choices.forEach(choice => {
@@ -160,8 +159,7 @@
                             userMessage.innerHTML = `<p>${choice.reply}</p>`;
                             chatbox.appendChild(userMessage);
                         }
-                        // 自动滚动到最新消息
-                        chatbox.scrollTop = chatbox.scrollHeight;
+                        chatbox.scrollTo({ top: chatbox.scrollHeight, behavior: "smooth" });
                         displayChat(choice.next);
                     };
                     optionsContainer.appendChild(btn);
@@ -173,7 +171,7 @@
                     ? () => location.reload() 
                     : () => {
                         displayChat(scene.next);
-                        chatbox.scrollTop = chatbox.scrollHeight;
+                        chatbox.scrollTo({ top: chatbox.scrollHeight, behavior: "smooth" });
                     };
                 optionsContainer.appendChild(nextBtn);
             }
