@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P'Kim的赌气</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #222; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        #chatroom { width: 100%; max-width: 500px; height: 100vh; background: #333; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; }
+        #chatroom-header { background: #444; padding: 10px; text-align: center; font-weight: bold; }
+        #chatbox { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; }
+        .message { display: flex; margin: 10px 0; }
+        .left { justify-content: flex-start; }
+        .right { justify-content: flex-end; }
+        .message p { max-width: 70%; padding: 10px; border-radius: 10px; }
+        .left p { background: #555; text-align: left; }
+        .right p { background: #007bff; text-align: right; }
+        #options-container { background: #444; padding: 10px; display: flex; flex-direction: column; align-items: stretch; }
+        #options button { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 5px 0; 
+            background: rgb(121,66,20);
+            color: #fff; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 8px;
+        }
+        #options button:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div id="chatroom">
+        <div id="chatroom-header">P'Kim的赌气</div>
+        <div id="chatbox"></div>
+        <div id="options-container">
+            <div id="options"></div>
+        </div>
+    </div>
+    <script>
+        const chatbox = document.getElementById("chatbox");
+        const optionsContainer = document.getElementById("options");
+        
+        const story = {
+            start: { text: "夜幕降临，你（Latte）坐在电脑前，专注地在直播打游戏。", next: "gift" },
+            gift: {
+                text: "P'Kim静静地坐在屏幕前，看着你的直播，给你刷了一大波礼物，然而……",
+                choices: [
+                    { text: "注意到礼物，立刻感谢P'Kim。", next: "responseA", reply: "哇，P'Kim送了好多礼物！谢谢你！" },
+                    { text: "没注意到，继续打游戏。", next: "responseB", reply: "(沉浸在游戏中，没注意到礼物)" }
+                ]
+            },
+            responseA: { text: "P'Kim在弹幕上回：‘哼，总算看到了。’", next: "end1" },
+            responseB: {
+                text: "观众疯狂刷屏提醒你，你终于看到P'Kim的ID。",
+                choices: [
+                    { text: "继续打游戏，等直播结束再说。", next: "angryKim" },
+                    { text: "察觉不对劲，立刻给P'Kim发私信解释。", next: "messageKim" }
+                ]
+            },
+            angryKim: {
+                text: "直播结束后，你看到P'Kim的推文：‘打游戏最重要，我不重要。’",
+                choices: [
+                    { text: "直接骑摩托去P'Kim家道歉。", next: "goToKim" },
+                    { text: "发消息解释，试图在网上哄好他。", next: "textApology" }
+                ]
+            },
+            messageKim: { text: "P'Kim回复了一个‘哼’的表情，但很快又打字道：‘知道就好。’", next: "end2" },
+            goToKim: {
+                text: "你赶到P'Kim家楼下，给他发消息：‘出来。’",
+                choices: [
+                    { text: "带P'Kim去吃东西。", next: "food" },
+                    { text: "直接撒娇求原谅。", next: "actCute" }
+                ]
+            },
+            textApology: { text: "P'Kim回了一个冷漠的表情，但并没有回复更多。", next: "end3" },
+            food: { text: "P'Kim斜了你一眼：‘哼，带我去吃东西。’ 你们一起去了泰式餐厅，他坏笑着点了超辣的菜。", next: "end4" },
+            actCute: { text: "你撒娇求原谅，P'Kim揉了揉你的头发，笑着说：‘好吧，原谅你了。’", next: "end5" },
+            end1: { text: "【结局1：P'Kim满意地看完直播，你们关系更进一步。】", restart: true },
+            end2: { text: "【结局2：你成功哄好P'Kim，直播结束后还收到他的晚安消息。】", restart: true },
+            end3: { text: "【结局3：P'Kim赌气不理你，你只能等明天再想办法。】", restart: true },
+            end4: { text: "【结局4：你成功哄好P'Kim，但付出了被辣哭的代价。】", restart: true },
+            end5: { text: "【结局5：撒娇成功，P'Kim终于不生气了，你得到了一个温暖的晚安抱抱。】", restart: true }
+        };
+
+        function displayChat(id) {
+            const scene = story[id];
+            const message = document.createElement("div");
+            message.className = "message left";
+            message.innerHTML = `<p>${scene.text}</p>`;
+            chatbox.appendChild(message);
+            optionsContainer.innerHTML = "";
+
+            if (scene.choices) {
+                scene.choices.forEach(choice => {
+                    const btn = document.createElement("button");
+                    btn.textContent = choice.text;
+                    btn.onclick = () => {
+                        displayChat(choice.next);
+                    };
+                    optionsContainer.appendChild(btn);
+                });
+            } else {
+                const nextBtn = document.createElement("button");
+                nextBtn.textContent = scene.restart ? "重新开始" : "下一步";
+                nextBtn.onclick = scene.restart ? () => location.reload() : () => displayChat(scene.next);
+                optionsContainer.appendChild(nextBtn);
+            }
+        }
+        
+        displayChat("start");
+    </script>
+</body>
+</html>
