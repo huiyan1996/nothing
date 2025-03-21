@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>重逢的晨光</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #222;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100dvh;
+      margin: 0;
+    }
+    #chatroom {
+      width: 100%;
+      max-width: 500px;
+      height: 100dvh;
+      background: #333;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #chatroom-header {
+      background: #444;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+    #chatbox {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      scroll-behavior: smooth;
+    }
+    /* 描述性文字 */
+    .description {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+    }
+    /* 对话容器 */
+    .dialogue-container {
+      width: 100%;
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .speaker-left,
+    .speaker-right {
+      font-size: 0.8em;
+      margin-bottom: 5px;
+      color: #ccc;
+    }
+    .speaker-left {
+      text-align: left;
+    }
+    .speaker-right {
+      text-align: right;
+      margin-left: auto;
+    }
+    .bubble-left,
+    .bubble-right {
+      max-width: 70%;
+      padding: 10px; /* 调整为10px */
+      border-radius: 10px;
+    }
+    .bubble-left {
+      background: #555;
+      text-align: left;
+      align-self: flex-start;
+    }
+    .bubble-right {
+      background: #2e5903; /* 右侧背景色 */
+      text-align: left; /* 内部文本左对齐 */
+      margin-left: auto;
+    }
+    /* 结局文本 */
+    .ending {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      text-align: center;
+    }
+    #options-container {
+      background: #444;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    #options button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      background: linear-gradient(90deg, #8B4513, #A0522D);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    #options button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div id="chatroom">
+    <div id="chatroom-header">重逢的晨光</div>
+    <div id="chatbox"></div>
+    <div id="options-container">
+      <div id="options"></div>
+    </div>
+  </div>
+  <script>
+    const chatbox = document.getElementById("chatbox");
+    const optionsContainer = document.getElementById("options");
+
+    // 故事结构：包含描述、对话、选项与结局
+    const story = {
+      start: {
+        description: `夜色下的城市依旧繁华，健身房的灯光透过落地窗洒在街道上，照亮了前方的路。Latte站在二楼办公室里，望着窗外的霓虹闪烁，手握一杯苦涩的黑咖啡，思绪却早已飞回到那个初见的清晨。
+        
+那天，作为刚入职的实习教练，他第一次见到了Kim——
+Kim穿着一身清爽的白色运动服走进前台，微皱眉头，略带局促地问道：“不好意思，请问这里有Trainer吗？” 
+Latte一时愣住，直到前台小姐姐笑着推了推他，他才红着脸低声回答：“我、我是教练……” 
+Kim随即报以灿烂的笑容：“那就拜托你了。”
+从那天开始，每个清晨，他们一起挥汗训练，笑语欢声填满了健身房的每个角落。
+        
+然而，不久后Kim为了出国留学，逐渐断了联系。日子一天天过去，Latte虽然忙于工作，晋升为管理人员，但内心总觉得空落落的——早晨少了那个总是笑着问“今天练什么？”的他。
+        
+直到某一天……`,
+        next: "chapter1"
+      },
+      chapter1: {
+        description: `健身房大门突然被推开，前台小姐姐抬头，眼中闪过惊讶。Latte正低头整理文件，手中的笔差点滑落。`,
+        dialogues: [
+          { speaker: "前台小姐姐", text: "您好，请问有什么需要帮助的吗？" },
+          { speaker: "未知声音", text: "不好意思，请问这里有Trainer吗？" }
+        ],
+        description2: `Kim站在大门口，穿着剪裁合身的西装，比当年更显成熟，但那一抹熟悉的笑意依然灿烂。`,
+        choices: [
+          { text: "直接冲上前去拥抱Kim。", next: "chapter1A", reply: { speaker: "Latte", text: "直接拥抱Kim" } },
+          { text: "保持镇定，试探性地打招呼。", next: "chapter1B", reply: { speaker: "Latte", text: "试探问候" } },
+          { text: "后退一步，悄悄观察他的神情。", next: "chapter1C", reply: { speaker: "Latte", text: "静默观察" } }
+        ]
+      },
+      chapter1A: {
+        description: `Latte顾不得周围的目光，快步冲过去，给了Kim一个紧紧的拥抱。`,
+        dialogues: [
+          { speaker: "Kim", text: "两年不见，你怎么变得这么主动了？" },
+          { speaker: "Latte", text: "……因为你没有联系我。" },
+          { speaker: "Kim", text: "我以为你会过得很好。" }
+        ],
+        restart: true,
+        ending: `温暖重逢
+你们在彼此的怀抱中找回了那份纯粹与温暖，未来的每个清晨，都注定充满期待。`
+      },
+      chapter1B: {
+        description: `Latte压下内心激动，面带微笑，故作镇定地说道：`,
+        dialogues: [
+          { speaker: "Latte", text: "Kim，好久不见。" },
+          { speaker: "Kim", text: "怎么，不认得我了？" },
+          { speaker: "Latte", text: "你两年没联系我了。" },
+          { speaker: "Kim", text: "现在联系了，可以补回来吗？" }
+        ],
+        choices: [
+          { text: "认真点头，表示期待重新开始。", next: "chapter3A", reply: { speaker: "Latte", text: "点头表示期待" } },
+          { text: "打趣回应，询问补偿的方式。", next: "chapter3B", reply: { speaker: "Latte", text: "打趣回应：请客吗？" } },
+          { text: "略显犹豫，选择先一起喝杯咖啡聊聊。", next: "chapter3C", reply: { speaker: "Latte", text: "先喝杯咖啡吧" } }
+        ]
+      },
+      chapter1C: {
+        description: `Latte选择观察，悄悄退到一旁，默默注视着走进来的Kim。Kim四处打量，似乎在寻找曾经熟悉的温暖，最终走向前台，低声问道：“不好意思，请问这里有Trainer吗？”Latte心跳加速，却依然保持沉默。`,
+        choices: [
+          { text: "走出隐藏，上前表露心意。", next: "chapter3D", reply: { speaker: "Latte", text: "走出阴影，表露心意" } },
+          { text: "继续观察，等待Kim主动靠近。", next: "chapter3E", reply: { speaker: "Latte", text: "继续等待" } }
+        ]
+      },
+      chapter3A: {
+        description: `Latte点了点头，眼中闪烁着坚定的光芒，开口说道：`,
+        dialogues: [
+          { speaker: "Latte", text: "当然，明天早上一起训练吧？" },
+          { speaker: "Kim", text: "好，我们从明天开始补回那段时光。" }
+        ],
+        description2: `晨光透过窗户洒在两人身上，仿佛时光倒流，一切回到了最初的温暖。`,
+        restart: true,
+        ending: `回归熟悉的节奏
+你们重新找回了共同训练的节奏，每个清晨都充满了阳光与欢笑，未来温柔而坚定。`
+      },
+      chapter3B: {
+        description: `Latte故作思索，嘴角带着坏笑，问道：`,
+        dialogues: [
+          { speaker: "Latte", text: "补回来？那你打算怎么补偿？" },
+          { speaker: "Kim", text: "随你决定。" },
+          { speaker: "Latte", text: "那就先请我吃饭吧，听说你请客一流。" },
+          { speaker: "Kim", text: "成交，今晚见。" }
+        ],
+        restart: true,
+        ending: `甜蜜的晚餐约定
+在温馨餐馆里，你们互诉心声，晚餐后散步于夜色中，预示着无限可能。`
+      },
+      chapter3C: {
+        description: `Latte略显犹豫，但依然微笑，提议：`,
+        dialogues: [
+          { speaker: "Latte", text: "不如我们先坐下来喝杯咖啡，聊聊这些年的变化？" },
+          { speaker: "Kim", text: "好主意，我也有很多故事要讲。" }
+        ],
+        description2: `在咖啡馆里，你们从旧日记忆聊到未来梦想，轻松气氛让隔阂逐渐融化。`,
+        restart: true,
+        ending: `心灵的交汇
+经过真诚对话，你们发现彼此的理解与默契从未改变。`
+      },
+      chapter3D: {
+        description: `鼓起勇气，Latte走出藏身处，正视Kim，开口道：`,
+        dialogues: [
+          { speaker: "Latte", text: "其实，我一直在等你的消息，每个清晨，没有你，我都觉得缺了些什么。" },
+          { speaker: "Kim", text: "我也是，国外虽精彩，不及这里的一抹温柔。" }
+        ],
+        description2: `两人相视而笑，往日误会在真诚中烟消云散。`,
+        restart: true,
+        ending: `坦诚相待
+你们决定不再让距离隔阂彼此的心，共同迎接新的开始。`
+      },
+      chapter3E: {
+        description: `Latte选择继续等待，默默观察着Kim的举动。时间流逝，Kim似乎感受到Latte的疏离，眉宇间流露遗憾。终于，Kim缓步走向Latte，低声说道：`,
+        dialogues: [
+          { speaker: "Kim", text: "也许，我该主动靠近一点。" }
+        ],
+        description2: `他小心伸出手，试图拉近你们的距离。`,
+        restart: true,
+        ending: `迟来的温暖
+经过短暂冷漠，你们在尴尬中重拾温情，开启崭新篇章。`
+      }
+    };
+
+    // 当前场景的步骤数组与索引
+    let currentSteps = [];
+    let currentStepIndex = 0;
+    let currentScene = null;
+
+    function displayChat(id) {
+      currentScene = story[id];
+      currentSteps = [];
+      currentStepIndex = 0;
+      if (currentScene.description) {
+        currentSteps.push({ type: "description", content: currentScene.description });
+      }
+      if (currentScene.dialogues) {
+        currentScene.dialogues.forEach(dialogue => {
+          currentSteps.push({ type: "dialogue", speaker: dialogue.speaker, content: dialogue.text });
+        });
+      }
+      if (currentScene.description2) {
+        currentSteps.push({ type: "description", content: currentScene.description2 });
+      }
+      if (currentScene.restart && currentScene.ending) {
+        currentSteps.push({ type: "ending", content: currentScene.ending });
+      }
+      optionsContainer.innerHTML = "";
+      showNextStep();
+    }
+
+    function showNextStep() {
+      if (currentStepIndex < currentSteps.length) {
+        const step = currentSteps[currentStepIndex];
+        if (step.type === "description") {
+          const div = document.createElement("div");
+          div.className = "description";
+          div.textContent = step.content;
+          chatbox.appendChild(div);
+        } else if (step.type === "dialogue") {
+          const container = document.createElement("div");
+          container.className = "dialogue-container";
+          const speakerDiv = document.createElement("div");
+          if (step.speaker === "Latte") {
+            speakerDiv.className = "speaker-right";
+          } else {
+            speakerDiv.className = "speaker-left";
+          }
+          speakerDiv.textContent = step.speaker;
+          container.appendChild(speakerDiv);
+          const bubbleDiv = document.createElement("div");
+          if (step.speaker === "Latte") {
+            bubbleDiv.className = "bubble-right";
+          } else {
+            bubbleDiv.className = "bubble-left";
+          }
+          // 直接设置 innerText，不使用<p>
+          bubbleDiv.innerText = step.content;
+          container.appendChild(bubbleDiv);
+          chatbox.appendChild(container);
+        } else if (step.type === "ending") {
+          const div = document.createElement("div");
+          div.className = "ending";
+          div.textContent = step.content;
+          chatbox.appendChild(div);
+        }
+        currentStepIndex++;
+        chatbox.scrollTo({ top: chatbox.scrollHeight, behavior: "smooth" });
+        updateNextButton();
+      } else {
+        if (currentScene.choices) {
+          showChoices();
+        } else {
+          showFinalNext();
+        }
+      }
+    }
+
+    function updateNextButton() {
+      optionsContainer.innerHTML = "";
+      if (currentStepIndex < currentSteps.length) {
+        const btn = document.createElement("button");
+        btn.textContent = "下一步";
+        btn.onclick = showNextStep;
+        optionsContainer.appendChild(btn);
+      } else {
+        if (currentScene.choices) {
+          showChoices();
+        } else {
+          showFinalNext();
+        }
+      }
+    }
+
+    function showChoices() {
+      optionsContainer.innerHTML = "";
+      currentScene.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.textContent = choice.text;
+        btn.onclick = () => {
+          if (choice.reply) {
+            const userContainer = document.createElement("div");
+            userContainer.className = "dialogue-container";
+            const speakerDiv = document.createElement("div");
+            speakerDiv.className = "speaker-right";
+            speakerDiv.textContent = choice.reply.speaker;
+            userContainer.appendChild(speakerDiv);
+            const bubbleDiv = document.createElement("div");
+            bubbleDiv.className = "bubble-right";
+            bubbleDiv.innerText = choice.reply.text;
+            userContainer.appendChild(bubbleDiv);
+            chatbox.appendChild(userContainer);
+          }
+          chatbox.scrollTo({ top: chatbox.scrollHeight, behavior: "smooth" });
+          displayChat(choice.next);
+        };
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function showFinalNext() {
+      optionsContainer.innerHTML = "";
+      const btn = document.createElement("button");
+      btn.textContent = currentScene.restart ? "重新开始" : "下一步";
+      btn.onclick = currentScene.restart
+        ? () => location.reload()
+        : () => {
+            displayChat(currentScene.next);
+            chatbox.scrollTo({ top: chatbox.scrollHeight, behavior: "smooth" });
+          };
+      optionsContainer.appendChild(btn);
+    }
+
+    displayChat("start");
+  </script>
+</body>
+</html>
