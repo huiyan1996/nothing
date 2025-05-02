@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Thai Alphabet Quiz</title>
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <h1>Thai Alphabet Quiz</h1>
+
+      <!-- Reference Table -->
+      <div id="alphabet-table">
+        <h2>Thai Consonants Reference</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Thai Letter</th>
+              <th>Sound</th>
+            </tr>
+          </thead>
+          <tbody id="ref-table-body"></tbody>
+        </table>
+        <button onclick="startGame()">Start Game</button>
+      </div>
+
+      <!-- Quiz -->
+      <div id="question-container" class="hidden">
+        <div id="thai-letter"></div>
+        <div id="options"></div>
+      </div>
+
+      <!-- Results -->
+      <div id="result-container" class="hidden">
+        <h2>Your Score: <span id="score"></span>/100</h2>
+        <h3>Review:</h3>
+        <ul id="review-list"></ul>
+        <button onclick="startGame()">Play Again</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
