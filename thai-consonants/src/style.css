@@ -1,3 +1,13 @@
+html {
+  font-size: 1.2vw;
+}
+
+@media screen and (max-width: 767px) {
+  html {
+    font-size: 2.5vw;
+  }
+}
+
 html,
 body {
   margin: 0;
@@ -13,12 +23,13 @@ body {
   display: flex;
   justify-content: center;
   padding: 30px 15px;
+  font-size: 1rem;
 }
 
 .game-container {
   text-align: center;
-  max-width: 500px;
-  width: 100%;
+  width: 500px;
+  max-width: 90vw;
   background-color: #2b1a10;
   padding: 30px;
   border-radius: 10px;
@@ -26,7 +37,6 @@ body {
 }
 
 #thai-letter {
-  font-size: 60px;
   margin: 20px 0;
 }
 
@@ -58,6 +68,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  font-size: 1.2rem;
 }
 
 th,
