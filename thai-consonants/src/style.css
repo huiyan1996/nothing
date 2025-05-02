@@ -24,6 +24,7 @@ body {
   justify-content: center;
   padding: 30px 15px;
   font-size: 1rem;
+  align-items: center;
 }
 
 .game-container {
@@ -54,6 +55,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s;
+  font-size: 1.1rem;
 }
 
 .option-btn:hover {
@@ -92,6 +94,11 @@ th {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+#question-container {
+  font-size: 1.4rem;
+  align-self: center;
 }
 
 #review-list {
