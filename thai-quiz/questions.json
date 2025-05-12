@@ -1,0 +1,982 @@
+[
+  {
+    "question": "What is the meaning of “จะไปทําอะไร?”?",
+    "correct": "What are you going to do?",
+    "options": [
+      "Option 1",
+      "Option 2",
+      "Option 3",
+      "What are you going to do?"
+    ]
+  },
+  {
+    "question": "What is the meaning of “สวัสดี”?",
+    "correct": "Hello",
+    "options": [
+      "Option 3",
+      "Option 1",
+      "Option 2",
+      "Hello"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ขอบคุณ”?",
+    "correct": "Thank you",
+    "options": [
+      "Thank you",
+      "Option 2",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ขอโทษ”?",
+    "correct": "Sorry",
+    "options": [
+      "Option 2",
+      "Sorry",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “คุณสบายดีไหม?”?",
+    "correct": "How are you?",
+    "options": [
+      "How are you?",
+      "Option 3",
+      "Option 1",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “คุณชื่ออะไร?”?",
+    "correct": "What is your name?",
+    "options": [
+      "What is your name?",
+      "Option 2",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ผม/ดิฉันมาจากไหน?”?",
+    "correct": "Where am I from?",
+    "options": [
+      "Option 1",
+      "Where am I from?",
+      "Option 2",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “คุณทำงานอะไร?”?",
+    "correct": "What is your job?",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "What is your job?",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ที่นี่ราคาเท่าไหร่?”?",
+    "correct": "How much is it here?",
+    "options": [
+      "Option 2",
+      "Option 1",
+      "How much is it here?",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ห้องน้ำอยู่ที่ไหน?”?",
+    "correct": "Where is the bathroom?",
+    "options": [
+      "Option 3",
+      "Where is the bathroom?",
+      "Option 1",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ช่วยด้วย!”?",
+    "correct": "Help!",
+    "options": [
+      "Option 1",
+      "Option 3",
+      "Help!",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันหิว”?",
+    "correct": "I'm hungry",
+    "options": [
+      "Option 3",
+      "I'm hungry",
+      "Option 2",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันร้อน”?",
+    "correct": "I'm hot",
+    "options": [
+      "I'm hot",
+      "Option 1",
+      "Option 2",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันหนาว”?",
+    "correct": "I'm cold",
+    "options": [
+      "Option 2",
+      "I'm cold",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันเหนื่อย”?",
+    "correct": "I'm tired",
+    "options": [
+      "Option 2",
+      "Option 3",
+      "I'm tired",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันหายาก”?",
+    "correct": "I miss you",
+    "options": [
+      "Option 3",
+      "I miss you",
+      "Option 1",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ไปตลาดกันไหม?”?",
+    "correct": "Shall we go to the market?",
+    "options": [
+      "Option 2",
+      "Option 3",
+      "Shall we go to the market?",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันพูดไทยไม่เก่ง”?",
+    "correct": "I don't speak Thai well",
+    "options": [
+      "Option 1",
+      "Option 2",
+      "I don't speak Thai well",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “พูดช้าๆ ได้ไหม?”?",
+    "correct": "Can you speak slowly?",
+    "options": [
+      "Option 3",
+      "Can you speak slowly?",
+      "Option 2",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “คุณช่วยแปลให้หน่อยได้ไหม?”?",
+    "correct": "Can you translate for me?",
+    "options": [
+      "Can you translate for me?",
+      "Option 3",
+      "Option 2",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันต้องการน้ำ”?",
+    "correct": "I need water",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "Option 1",
+      "I need water"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันต้องการความช่วยเหลือ”?",
+    "correct": "I need help",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "Option 1",
+      "I need help"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันชอบที่นี่”?",
+    "correct": "I like it here",
+    "options": [
+      "Option 1",
+      "I like it here",
+      "Option 2",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันไม่เข้าใจ”?",
+    "correct": "I don't understand",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "Option 1",
+      "I don't understand"
+    ]
+  },
+  {
+    "question": "What is the meaning of “คุณพูดภาษาอังกฤษได้ไหม?”?",
+    "correct": "Can you speak English?",
+    "options": [
+      "Option 1",
+      "Can you speak English?",
+      "Option 3",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “คุณอาศัยอยู่ที่ไหน?”?",
+    "correct": "Where do you live?",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "Where do you live?",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันกำลังมองหาโรงแรม”?",
+    "correct": "I'm looking for a hotel",
+    "options": [
+      "I'm looking for a hotel",
+      "Option 1",
+      "Option 3",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันแพ้ถั่ว”?",
+    "correct": "I'm allergic to nuts",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "I'm allergic to nuts",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันไม่กินเนื้อสัตว์”?",
+    "correct": "I'm vegetarian",
+    "options": [
+      "I'm vegetarian",
+      "Option 3",
+      "Option 1",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันป่วย”?",
+    "correct": "I'm sick",
+    "options": [
+      "I'm sick",
+      "Option 2",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันกำลังเดินทาง”?",
+    "correct": "I'm traveling",
+    "options": [
+      "Option 2",
+      "Option 1",
+      "Option 3",
+      "I'm traveling"
+    ]
+  },
+  {
+    "question": "What is the meaning of “วันนี้วันอะไร?”?",
+    "correct": "What day is it today?",
+    "options": [
+      "What day is it today?",
+      "Option 3",
+      "Option 2",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “กี่โมงแล้ว?”?",
+    "correct": "What time is it?",
+    "options": [
+      "Option 1",
+      "Option 2",
+      "Option 3",
+      "What time is it?"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันต้องการไปสนามบิน”?",
+    "correct": "I need to go to the airport",
+    "options": [
+      "Option 2",
+      "I need to go to the airport",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันต้องการโทรศัพท์”?",
+    "correct": "I need a phone",
+    "options": [
+      "Option 1",
+      "Option 2",
+      "Option 3",
+      "I need a phone"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ช่วยเรียกรถแท็กซี่หน่อย”?",
+    "correct": "Please call a taxi",
+    "options": [
+      "Option 1",
+      "Option 3",
+      "Please call a taxi",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ฉันรักคุณ”?",
+    "correct": "I love you",
+    "options": [
+      "Option 2",
+      "I love you",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ลาแล้วพบกันใหม่”?",
+    "correct": "Goodbye, see you again",
+    "options": [
+      "Option 1",
+      "Goodbye, see you again",
+      "Option 3",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “แมว”?",
+    "correct": "cat",
+    "options": [
+      "cat",
+      "Option 2",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “สุนัข”?",
+    "correct": "dog",
+    "options": [
+      "Option 2",
+      "Option 1",
+      "dog",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “บ้าน”?",
+    "correct": "house",
+    "options": [
+      "Option 2",
+      "Option 3",
+      "Option 1",
+      "house"
+    ]
+  },
+  {
+    "question": "What is the meaning of “รถ”?",
+    "correct": "car",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "Option 1",
+      "car"
+    ]
+  },
+  {
+    "question": "What is the meaning of “โต๊ะ”?",
+    "correct": "table",
+    "options": [
+      "Option 3",
+      "table",
+      "Option 2",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “เก้าอี้”?",
+    "correct": "chair",
+    "options": [
+      "Option 3",
+      "Option 1",
+      "Option 2",
+      "chair"
+    ]
+  },
+  {
+    "question": "What is the meaning of “หนังสือ”?",
+    "correct": "book",
+    "options": [
+      "Option 1",
+      "Option 2",
+      "Option 3",
+      "book"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ปากกา”?",
+    "correct": "pen",
+    "options": [
+      "Option 1",
+      "pen",
+      "Option 2",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “โทรศัพท์”?",
+    "correct": "phone",
+    "options": [
+      "Option 3",
+      "Option 1",
+      "phone",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “คอมพิวเตอร์”?",
+    "correct": "computer",
+    "options": [
+      "computer",
+      "Option 1",
+      "Option 2",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “น้ำ”?",
+    "correct": "water",
+    "options": [
+      "water",
+      "Option 3",
+      "Option 2",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ข้าว”?",
+    "correct": "rice",
+    "options": [
+      "Option 2",
+      "Option 3",
+      "Option 1",
+      "rice"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ขนม”?",
+    "correct": "snack",
+    "options": [
+      "snack",
+      "Option 2",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ตลาด”?",
+    "correct": "market",
+    "options": [
+      "market",
+      "Option 2",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “โรงเรียน”?",
+    "correct": "school",
+    "options": [
+      "Option 3",
+      "Option 1",
+      "Option 2",
+      "school"
+    ]
+  },
+  {
+    "question": "What is the meaning of “โรงพยาบาล”?",
+    "correct": "hospital",
+    "options": [
+      "Option 2",
+      "hospital",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ร้านอาหาร”?",
+    "correct": "restaurant",
+    "options": [
+      "Option 2",
+      "restaurant",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “สนามบิน”?",
+    "correct": "airport",
+    "options": [
+      "Option 2",
+      "airport",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ธนาคาร”?",
+    "correct": "bank",
+    "options": [
+      "Option 1",
+      "Option 3",
+      "Option 2",
+      "bank"
+    ]
+  },
+  {
+    "question": "What is the meaning of “สวนสาธารณะ”?",
+    "correct": "park",
+    "options": [
+      "Option 1",
+      "park",
+      "Option 2",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ถนน”?",
+    "correct": "road",
+    "options": [
+      "Option 1",
+      "Option 2",
+      "Option 3",
+      "road"
+    ]
+  },
+  {
+    "question": "What is the meaning of “สะพาน”?",
+    "correct": "bridge",
+    "options": [
+      "Option 1",
+      "Option 2",
+      "Option 3",
+      "bridge"
+    ]
+  },
+  {
+    "question": "What is the meaning of “แม่น้ำ”?",
+    "correct": "river",
+    "options": [
+      "river",
+      "Option 1",
+      "Option 3",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ภูเขา”?",
+    "correct": "mountain",
+    "options": [
+      "Option 3",
+      "mountain",
+      "Option 1",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ทะเล”?",
+    "correct": "sea",
+    "options": [
+      "Option 2",
+      "sea",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “เกาะ”?",
+    "correct": "island",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "island",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “วัด”?",
+    "correct": "temple",
+    "options": [
+      "Option 2",
+      "temple",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “พิพิธภัณฑ์”?",
+    "correct": "museum",
+    "options": [
+      "Option 2",
+      "museum",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “โรงภาพยนตร์”?",
+    "correct": "cinema",
+    "options": [
+      "cinema",
+      "Option 2",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “สวนสัตว์”?",
+    "correct": "zoo",
+    "options": [
+      "zoo",
+      "Option 2",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ห้องเรียน”?",
+    "correct": "classroom",
+    "options": [
+      "Option 3",
+      "classroom",
+      "Option 1",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “สนามกีฬา”?",
+    "correct": "stadium",
+    "options": [
+      "stadium",
+      "Option 1",
+      "Option 2",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “เสื้อ”?",
+    "correct": "shirt",
+    "options": [
+      "Option 3",
+      "Option 1",
+      "Option 2",
+      "shirt"
+    ]
+  },
+  {
+    "question": "What is the meaning of “กางเกง”?",
+    "correct": "pants",
+    "options": [
+      "pants",
+      "Option 2",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “รองเท้า”?",
+    "correct": "shoes",
+    "options": [
+      "shoes",
+      "Option 3",
+      "Option 1",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the meaning of “หมวก”?",
+    "correct": "hat",
+    "options": [
+      "Option 2",
+      "Option 1",
+      "hat",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “นาฬิกา”?",
+    "correct": "watch",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "watch",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “กระเป๋า”?",
+    "correct": "bag",
+    "options": [
+      "bag",
+      "Option 3",
+      "Option 2",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the meaning of “แว่นตา”?",
+    "correct": "glasses",
+    "options": [
+      "Option 1",
+      "Option 2",
+      "glasses",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the meaning of “ดอกไม้”?",
+    "correct": "flower",
+    "options": [
+      "flower",
+      "Option 2",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “ไฟ”?",
+    "correct": "fai",
+    "options": [
+      "Option 2",
+      "Option 1",
+      "Option 3",
+      "fai"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “แมว”?",
+    "correct": "maeo",
+    "options": [
+      "Option 3",
+      "maeo",
+      "Option 2",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “ข้าว”?",
+    "correct": "khao",
+    "options": [
+      "Option 2",
+      "khao",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “หวัดดี”?",
+    "correct": "wat dee",
+    "options": [
+      "Option 3",
+      "Option 1",
+      "Option 2",
+      "wat dee"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “ตลาด”?",
+    "correct": "talat",
+    "options": [
+      "talat",
+      "Option 3",
+      "Option 1",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “เรียน”?",
+    "correct": "rian",
+    "options": [
+      "rian",
+      "Option 2",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “ช่วย”?",
+    "correct": "chuay",
+    "options": [
+      "chuay",
+      "Option 1",
+      "Option 2",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “ขอบคุณ”?",
+    "correct": "khob khun",
+    "options": [
+      "khob khun",
+      "Option 2",
+      "Option 1",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “อาหาร”?",
+    "correct": "ahan",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "ahan",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “น้ำ”?",
+    "correct": "nam",
+    "options": [
+      "nam",
+      "Option 2",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “บ้าน”?",
+    "correct": "ban",
+    "options": [
+      "ban",
+      "Option 1",
+      "Option 2",
+      "Option 3"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “รถ”?",
+    "correct": "rot",
+    "options": [
+      "Option 2",
+      "Option 3",
+      "Option 1",
+      "rot"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “หนังสือ”?",
+    "correct": "nang seu",
+    "options": [
+      "Option 3",
+      "Option 1",
+      "Option 2",
+      "nang seu"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “ดนตรี”?",
+    "correct": "don tree",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "Option 1",
+      "don tree"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “โรงเรียน”?",
+    "correct": "rong rian",
+    "options": [
+      "Option 3",
+      "Option 2",
+      "Option 1",
+      "rong rian"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “ตลาด”?",
+    "correct": "talat",
+    "options": [
+      "Option 2",
+      "talat",
+      "Option 3",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “โรงพยาบาล”?",
+    "correct": "rong phayaban",
+    "options": [
+      "rong phayaban",
+      "Option 1",
+      "Option 3",
+      "Option 2"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “ท้องฟ้า”?",
+    "correct": "thong fa",
+    "options": [
+      "Option 3",
+      "Option 1",
+      "Option 2",
+      "thong fa"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “สุขสันต์”?",
+    "correct": "suk san",
+    "options": [
+      "Option 2",
+      "Option 3",
+      "suk san",
+      "Option 1"
+    ]
+  },
+  {
+    "question": "What is the pronunciation of “แสดง”?",
+    "correct": "sa-daeng",
+    "options": [
+      "sa-daeng",
+      "Option 1",
+      "Option 2",
+      "Option 3"
+    ]
+  }
+]

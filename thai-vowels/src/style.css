@@ -1,0 +1,139 @@
+:root {
+  --bg-color: #0b1a2a;
+  --text-color: #f0f8ff;
+  --container-bg: #102a43;
+  --box-shadow: #000;
+  --button-bg: #1e3a5f;
+  --button-hover: #29527a;
+  --button-accent: #5085a5;
+  --table-border: #4c6a92;
+  --table-header: #274c77;
+  --correct-color: lightgreen;
+  --wrong-color: #ff6961;
+  --font-family: 'Arial', sans-serif;
+}
+
+html {
+  font-size: 1.2vw;
+}
+
+@media screen and (max-width: 767px) {
+  html {
+    font-size: 2.5vw;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  padding: 30px 15px;
+  font-size: 1rem;
+  align-items: center;
+}
+
+.game-container {
+  text-align: center;
+  width: 500px;
+  max-width: 90vw;
+  background-color: var(--container-bg);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--box-shadow);
+}
+
+#thai-letter {
+  margin: 20px 0;
+}
+
+#options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-btn {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 1.1rem;
+}
+
+.option-btn:hover {
+  background-color: var(--button-hover);
+}
+
+.hidden {
+  display: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+th,
+td {
+  border: 1px solid var(--table-border);
+  padding: 8px;
+  text-align: center;
+  background-color: var(--button-bg);
+  color: white;
+}
+
+th {
+  background-color: var(--table-header);
+}
+
+#alphabet-table button,
+#result-container button {
+  background-color: var(--button-accent);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#question-container {
+  font-size: 1.4rem;
+  align-self: center;
+}
+
+#review-list {
+  text-align: left;
+  margin-top: 20px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.review-item {
+  background-color: var(--button-bg);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.correct {
+  color: var(--correct-color);
+}
+
+.wrong {
+  color: var(--wrong-color);
+}
