@@ -1,0 +1,87 @@
+{
+  "2-moons-2": {
+    "title": "2 Moons 2",
+    "year": "2019",
+    "summary": "A story about university life, focusing on the romance between medical students Wayo and Pha.",
+    "cast": ["Joong Archen as Wayo", "Benjamin Brasier as Pha", "Pavel Naret as Ming", "Darvid Kreepolrerk as Kit"],
+    "image": "https://images.pexels.com/photos/436413/pexels-photo-436413.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "star-and-sky": {
+    "title": "Star and Sky: Star in My Mind",
+    "year": "2022",
+    "summary": "A romantic drama following the story of two university students who discover love and friendship.",
+    "cast": ["Joong Archen as Daonuea", "Sarit Trilertvichien as Kluen", "Nanan Hirunsatit as Prince", "Phuwin Tangsakyuen as Kaew"],
+    "image": "https://images.pexels.com/photos/3062541/pexels-photo-3062541.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "mafia": {
+    "title": "Mafia The Series: Guns and Freaks",
+    "year": "2023",
+    "summary": "An action drama about the underground world of organized crime and the people caught in its web.",
+    "cast": ["Joong Archen as Lead Role"],
+    "image": "https://images.pexels.com/photos/2873486/pexels-photo-2873486.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "sky-in-your-heart": {
+    "title": "Star and Sky: Sky in Your Heart",
+    "year": "2022",
+    "summary": "A continuation of the Star and Sky series, exploring new relationships and challenges.",
+    "cast": ["Joong Archen"],
+    "image": "https://images.pexels.com/photos/1738434/pexels-photo-1738434.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "warp-effect": {
+    "title": "The Warp Effect",
+    "year": "2023",
+    "summary": "A sci-fi drama about time travel and its consequences on relationships.",
+    "cast": ["Joong Archen"],
+    "image": "https://images.pexels.com/photos/3075993/pexels-photo-3075993.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "our-skyy-2": {
+    "title": "Our Skyy 2",
+    "year": "2023",
+    "summary": "A continuation of the popular Our Skyy series.",
+    "cast": ["Joong Archen"],
+    "image": "https://images.pexels.com/photos/1738434/pexels-photo-1738434.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "home-school": {
+    "title": "Home School",
+    "year": "2023",
+    "summary": "A drama about the challenges of home schooling and personal growth.",
+    "cast": ["Joong Archen"],
+    "image": "https://images.pexels.com/photos/4260325/pexels-photo-4260325.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "hidden-agenda": {
+    "title": "Hidden Agenda",
+    "year": "2023",
+    "summary": "A thriller about secrets and hidden motives.",
+    "cast": ["Joong Archen"],
+    "image": "https://images.pexels.com/photos/2873486/pexels-photo-2873486.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "ploys-yearbook": {
+    "title": "Ploy's Yearbook",
+    "year": "2023",
+    "summary": "A coming-of-age story centered around a yearbook.",
+    "cast": ["Joong Archen"],
+    "image": "https://images.pexels.com/photos/3062545/pexels-photo-3062545.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "heart-killers": {
+    "title": "The Heart Killers",
+    "year": "2023",
+    "summary": "A romantic thriller about love and betrayal.",
+    "cast": ["Joong Archen"],
+    "image": "https://images.pexels.com/photos/2873486/pexels-photo-2873486.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "thamepo": {
+    "title": "ThamePo Heart That Skips a Beat",
+    "year": "2023",
+    "summary": "A romantic drama about unexpected love.",
+    "cast": ["Joong Archen"],
+    "image": "https://images.pexels.com/photos/3062541/pexels-photo-3062541.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  "dare-you": {
+    "title": "Dare You to Death",
+    "year": "2024",
+    "summary": "Coming Soon",
+    "cast": ["Joong Archen"],
+    "image": "https://images.pexels.com/photos/2873486/pexels-photo-2873486.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "status": "coming_soon"
+  }
+}

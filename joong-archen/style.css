@@ -1,0 +1,380 @@
+/* Base Styles */
+:root {
+  --color-primary: #1a1a1a;
+  --color-accent: #e34761;
+  --color-white: #ffffff;
+  --color-grey: #777777;
+  --color-instagram: #c13584;
+  --color-facebook: #3b5998;
+  --color-twitter: #1da1f2;
+  --color-tiktok: #000000;
+  --color-youtube: #ff0000;
+  --color-spotify: #1db954;
+  --color-apple: #000000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('img/banner.jpg') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  text-align: center;
+  padding: 0 24px;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.hero .subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 32px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-5px);
+  color: var(--color-white);
+}
+
+.social-icon.instagram:hover {
+  background-color: var(--color-instagram);
+}
+
+.social-icon.facebook:hover {
+  background-color: var(--color-facebook);
+}
+
+.social-icon.twitter:hover {
+  background-color: var(--color-twitter);
+}
+
+.social-icon.tiktok:hover {
+  background-color: var(--color-tiktok);
+}
+
+/* Music Section */
+.music {
+  padding: 64px 0;
+  background-color: #f8f8f8;
+}
+
+.music h2, .filmography h2 {
+  text-align: center;
+  font-size: 2.25rem;
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.music h2::after, .filmography h2::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: var(--color-accent);
+  margin: 16px auto 0;
+}
+
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.music-card {
+  transition: transform 0.3s ease;
+}
+
+.music-card:hover {
+  transform: translateY(-8px);
+}
+
+.album-cover {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.album-cover img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.streaming-links {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.album-cover:hover .streaming-links {
+  opacity: 1;
+}
+
+.stream-link {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.stream-link.youtube:hover {
+  background-color: var(--color-youtube);
+  color: var(--color-white);
+}
+
+.stream-link.spotify:hover {
+  background-color: var(--color-spotify);
+  color: var(--color-white);
+}
+
+.stream-link.apple:hover {
+  background-color: var(--color-apple);
+  color: var(--color-white);
+}
+
+.album-info {
+  margin-top: 16px;
+}
+
+.album-info h3 {
+  font-size: 1.125rem;
+  margin-bottom: 8px;
+}
+
+.album-info p {
+  color: var(--color-grey);
+  font-size: 0.875rem;
+}
+
+/* Filmography Section */
+.filmography {
+  padding: 64px 0;
+  background-color: var(--color-white);
+}
+
+.filmography-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.film-card {
+  transition: transform 0.3s ease;
+}
+
+.film-card:hover {
+  transform: translateY(-8px);
+}
+
+.film-poster {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.film-poster img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+}
+
+.film-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.film-poster:hover .film-overlay {
+  opacity: 1;
+}
+
+.film-role {
+  color: var(--color-white);
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.watch-now {
+  padding: 8px 24px;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.watch-now:hover {
+  background-color: #c62d47;
+  transform: scale(1.05);
+}
+
+.film-info {
+  margin-top: 16px;
+}
+
+.film-info h3 {
+  font-size: 1.125rem;
+  margin-bottom: 8px;
+}
+
+.film-year, .film-type {
+  color: var(--color-grey);
+  font-size: 0.875rem;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background-color: var(--color-white);
+  margin: 15% auto;
+  padding: 32px;
+  width: 80%;
+  max-width: 800px;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  right: 24px;
+  top: 16px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-body {
+  margin-top: 24px;
+}
+
+#modalTitle {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+#modalSummary {
+  margin-bottom: 24px;
+}
+
+#modalCast {
+  border-top: 1px solid #eee;
+  padding-top: 16px;
+}
+
+li {
+  list-style: none;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 992px) {
+  .music-grid, .filmography-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .hero h1 {
+    font-size: 2.25rem;
+  }
+  
+  .hero .subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .music-grid, .filmography-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-content {
+    width: 95%;
+    margin: 10% auto;
+    padding: 16px;
+  }
+}

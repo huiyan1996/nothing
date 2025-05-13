@@ -1,0 +1,110 @@
+{
+  "my-starlight": {
+    "title": "แล้วแต่ดาว",
+    "englishTitle": "My Starlight",
+    "year": "2023",
+    "type": "Single",
+    "image": "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "links": {
+      "youtube": "#",
+      "spotify": "#",
+      "apple": "#"
+    }
+  },
+  "heal": {
+    "title": "เยียวยา",
+    "englishTitle": "Heal",
+    "year": "2023",
+    "type": "Single",
+    "image": "https://images.pexels.com/photos/3756766/pexels-photo-3756766.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "links": {
+      "youtube": "#",
+      "spotify": "#",
+      "apple": "#"
+    }
+  },
+  "no-more-empty-nights": {
+    "title": "ท้องฟ้ากับแสงดาวและสองเรา",
+    "englishTitle": "No More Empty Nights",
+    "year": "2023",
+    "type": "Single",
+    "image": "https://images.pexels.com/photos/2746813/pexels-photo-2746813.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "links": {
+      "youtube": "#",
+      "spotify": "#",
+      "apple": "#"
+    }
+  },
+  "hidden-agenda": {
+    "title": "หมดเวลาซ่อน",
+    "englishTitle": "Hidden Agenda",
+    "year": "2023",
+    "type": "Single",
+    "image": "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "links": {
+      "youtube": "#",
+      "spotify": "#",
+      "apple": "#"
+    }
+  },
+  "your-smile": {
+    "title": "อย่านอยด์ดิ",
+    "englishTitle": "Your Smile",
+    "year": "2023",
+    "type": "Single",
+    "image": "https://images.pexels.com/photos/3756766/pexels-photo-3756766.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "links": {
+      "youtube": "#",
+      "spotify": "#",
+      "apple": "#"
+    }
+  },
+  "hurt-me-please": {
+    "title": "เจ้าความรัก",
+    "englishTitle": "Hurt Me Please",
+    "year": "2023",
+    "type": "Single",
+    "image": "https://images.pexels.com/photos/2746813/pexels-photo-2746813.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "links": {
+      "youtube": "#",
+      "spotify": "#",
+      "apple": "#"
+    }
+  },
+  "would-you-mind": {
+    "title": "จีบได้มั้ย",
+    "englishTitle": "Would You Mind?",
+    "year": "2023",
+    "type": "Single",
+    "image": "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "links": {
+      "youtube": "#",
+      "spotify": "#",
+      "apple": "#"
+    }
+  },
+  "never-back-down": {
+    "title": "ตื๊อเท่านั้นที่ครองโลก",
+    "englishTitle": "Never Back Down",
+    "year": "2023",
+    "type": "Single",
+    "image": "https://images.pexels.com/photos/3756766/pexels-photo-3756766.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "links": {
+      "youtube": "#",
+      "spotify": "#",
+      "apple": "#"
+    }
+  },
+  "treasure": {
+    "title": "YOU'RE MY TREASURE",
+    "englishTitle": "You're My Treasure",
+    "year": "2023",
+    "type": "Single",
+    "image": "https://images.pexels.com/photos/2746813/pexels-photo-2746813.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "links": {
+      "youtube": "#",
+      "spotify": "#",
+      "apple": "#"
+    }
+  }
+}
