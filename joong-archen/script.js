@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', async function() {
           <div class="film-poster">
             <img src="${series.image}" alt="${series.title}">
             <div class="film-overlay">
-              <p class="film-role">Lead Role</p>
               <button class="watch-now">View Details</button>
             </div>
           </div>
