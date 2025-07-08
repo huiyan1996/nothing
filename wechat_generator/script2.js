@@ -144,6 +144,24 @@ function addChar(text) {
     charImg = ""
 }
 
+
+function changeSide(n) {
+
+    const dom = $(n).parent()
+    const ind = $(".msg-item").index(dom)
+    // chatList[ind]
+
+    if(chatList[ind].side == 'left') {
+        dom.removeClass("message-item--left")
+        dom.addClass("message-item--right")
+        chatList[ind].side = 'right'
+    }else{
+        dom.removeClass("message-item--right")
+        dom.addClass("message-item--left")
+        chatList[ind].side = 'left'
+    }
+}
+
 function addChat(side, name, text, img) {
     var user = side || $(".userOpt:checked").val()
     var char = $(".charOpt:checked").val()
@@ -158,7 +176,7 @@ function addChat(side, name, text, img) {
     var msg = `
         <div class="message-item msg-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-            <img class="avatar ${user}" src="${img || userList[char].img}" alt="头像">
+            <img class="avatar ${user}" onclick="changeSide(this)" src="${img || userList[char].img}" alt="头像">
             <div>
                 ${chatName}
                 <div class="message-bubble">${chat}</div>
@@ -196,7 +214,7 @@ function addCall(side, name, text, img, callType) {
     var msg = `
         <div class="message-item msg-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-            <img class="avatar ${user}" src="${img || userList[char].img}" alt="头像">
+            <img class="avatar ${user}" onclick="changeSide(this)" src="${img || userList[char].img}" alt="头像">
             <div>
                 ${chatName}
                 <div class="message-bubble">
@@ -249,7 +267,7 @@ function addImgChat(side, name, text, img) {
         var msg = `
             <div class="message-item msg-item message-item--${user}">
                 <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-                <div class="avatar ${user}" style="background-image: url(${img || userList[char].img})" alt="头像"></div>
+                <div class="avatar ${user}" onclick="changeSide(this)" style="background-image: url(${img || userList[char].img})" alt="头像"></div>
                 <div>
                     ${chatName}
                     <div class="message-bubble img">
