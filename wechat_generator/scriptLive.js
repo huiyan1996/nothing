@@ -20,93 +20,132 @@ $(document).ready(function(){
     })
 
     $("#imgMsg").on("change", async (e) => {
-        // msgImg = URL.createObjectURL(e.target.files[0]);
-        // msgImg = await blobToBase64(e.target.files[0])
 
-        var formData = new FormData();
-        formData.append('image', e.target.files[0]);
-        formData.append('token', '1722486243649f5732b248038450ca4dc4bca1160128b');
-        // formData.append('file', e.target.files[0]);
 
-        // fetch('https://api.imgbb.com/1/upload?key=68c35be5a3ea5ffa015a2e0d9a0f47b2', {
-        // fetch('https://www.freeimg.cn/api/v1/upload', {
-        //     method: 'POST',
-        //     headers: {
-        //         "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
-        //     },
-        //     body: formData
-        // }).then(async (img) => {
-        //     img = await img.json()
-        //     // msgImg = img.data.display_url
-        //     msgImg = img.data?.links?.url
+        const file = e.target.files[0];
+        const formData = new FormData();
 
-        //     $("#addImgChat").removeAttr("disabled")
-        //  })
-        //  .catch(error => alert('Error:', error));
+        formData.append("file", file);
+        formData.append("upload_preset", "wecgen");  // 🔧 Your unsigned preset
+        formData.append("cloud_name", "dm8co83yz");         // 🔧 Your Cloudinary cloud name
 
-        // fetch('https://freeimage.host/api/1/upload', {
-            fetch('https://api.tucang.cc/api/v1/upload', {
-            method: 'POST',
-            headers: {
-                // "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
-                // "token": "1b9dcc72b21ae9ce64e07e576edef118",
-                // "key": "6d207e02198a847aa98d0a2a901485a5",
-                "token": "1722485483425441143def150484696c739dd94764719",
-            },
+        fetch("https://api.cloudinary.com/v1_1/dm8co83yz/image/upload", {
+            method: "POST",
             body: formData
-        }).then(async (img) => {
-            img = await img.json()
-            // msgImg = img.data?.links?.url
-            msgImg = img.data?.url
+        })
+        .then(async (res) => {
+            const data = await res.json();
+            if (data.secure_url) {
+                msgImg = data.secure_url;
+                // console.log("Cloudinary Image URL:", charImg);
 
-            $("#addImgChat").removeAttr("disabled")
-         })
-         .catch(error => alert('Error:', error));
+                $("#addImgChat").removeAttr("disabled")
+                // Optionally display preview or use URL
+            } else {
+                alert("Upload failed.");
+            }
+        })
+        .catch((err) => alert("Upload error: " + err));
+
     })
 
     $("#character_img").on("change", async (e) => {
-        // msgImg = URL.createObjectURL(e.target.files[0]);
-        // let image = await blobToBase64(e.target.files[0])
+        const file = e.target.files[0];
+        const formData = new FormData();
 
-        var formData = new FormData();
-        // formData.append('file', e.target.files[0]);
-        formData.append('file', e.target.files[0]);
-        formData.append('token', '1722486243649f5732b248038450ca4dc4bca1160128b');
+        formData.append("file", file);
+        formData.append("upload_preset", "wecgen");  // 🔧 Your unsigned preset
+        formData.append("cloud_name", "dm8co83yz");         // 🔧 Your Cloudinary cloud name
 
-        // fetch('https://www.freeimg.cn/api/v1/upload', {
-        //     method: 'POST',
-        //     headers: {
-        //         "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
-        //     },
-        //     body: formData
-        // }).then(async (img) => {
-        //     img = await img.json()
-        //     charImg = img.data?.links?.url
-
-        //     $("#addChar").removeAttr("disabled")
-        //  })
-        //  .catch(error => alert('Error:', error));
-        
-        //  fetch('https://img.ink/api/upload', {
-        // fetch('https://imgtp.com/api/upload', {
-        fetch('https://api.tucang.cc/api/v1/upload', {
-            method: 'POST',
-            headers: {
-                // "Authorization": "Bearer 146|SZAyVfwnJLv3CQ3CKZjXRub4z3tj6C6eSFW5HYXz",
-                // "token": "1b9dcc72b21ae9ce64e07e576edef118",
-                // "token": "ce9ea31ce3bb52130e9cf0504792d78f",
-                "token": "1722485483425441143def150484696c739dd94764719",
-            },
+        fetch("https://api.cloudinary.com/v1_1/dm8co83yz/image/upload", {
+            method: "POST",
             body: formData
-        }).then(async (img) => {
-            img = await img.json()
-            // charImg = img.data?.links?.url
-            charImg = img.data?.url
+        })
+        .then(async (res) => {
+            const data = await res.json();
+            if (data.secure_url) {
+                charImg = data.secure_url;
+                // console.log("Cloudinary Image URL:", charImg);
+                $("#addChar").removeAttr("disabled");
+                // Optionally display preview or use URL
+            } else {
+                alert("Upload failed.");
+            }
+        })
+        .catch((err) => alert("Upload error: " + err));
+    });
 
-            $("#addChar").removeAttr("disabled")
-         })
-         .catch(error => alert('Error:', error));
-    })
+    // $("#character_img").on("change", async (e) => {
+    //     const API_KEY = 'G4klmbN457sxlJGXf551';
+    //     // const API_KEY = 'aYF98PDwp4htHWdXcS7sMnZYSAMWmMO1gGTvsp9h';
+    //     const API_SECRET = '4sziXsTD9VuQcA5r0tLRPpVfBuyJT3wM';
+
+    //     const file = e.target.files[0];
+    //     const timestamp = Math.floor(Date.now() / 1000);
+
+    //     // Generate signature
+    //     const params = {
+    //         api_key: API_KEY,
+    //         api_timestamp: timestamp
+    //     };
+    //     const sig = await createSignature(params, API_SECRET);
+
+    //     // Prepare FormData
+    //     const formData = new FormData();
+    //     formData.append('file', file);
+    //     formData.append('api_key', API_KEY);
+    //     formData.append('api_timestamp', timestamp);
+    //     formData.append('api_signature', sig);
+
+    //     // Upload to Publitio
+    //     fetch('https://api.publit.io/v1/files/create', {
+    //         method: 'POST',
+    //         body: formData,
+    //           headers: {
+    //             'Authorization': 'Bearer aYF98PDwp4htHWdXcS7sMnZYSAMWmMO1gGTvsp9h'
+    //           },
+    //     }).then(async (res) => {
+    //         const data = await res.json();
+    //         console.log(data);
+
+    //         if (data.success) {
+    //             const charImg = data.url_preview;
+    //             $("#addChar").removeAttr("disabled");
+    //             // Do something with `charImg`, like show preview or save to DB
+    //         } else {
+    //             alert('Upload failed: ' + JSON.stringify(data));
+    //         }
+    //     }).catch(error => alert('Upload error: ' + error));
+    // });
+
+    // // HMAC-SHA1 signature function
+    // async function createSignature(params, secret) {
+    //     const sorted = Object.keys(params).sort().reduce((acc, key) => {
+    //         acc[key] = params[key];
+    //         return acc;
+    //     }, {});
+
+    //     const queryString = Object.entries(sorted)
+    //         .map(([k, v]) => `${k}=${v}`)
+    //         .join('&');
+
+    //     const encoder = new TextEncoder();
+    //     const keyData = encoder.encode(secret);
+    //     const msgData = encoder.encode(queryString);
+
+    //     const cryptoKey = await crypto.subtle.importKey(
+    //         'raw',
+    //         keyData,
+    //         { name: 'HMAC', hash: 'SHA-1' },
+    //         false,
+    //         ['sign']
+    //     );
+
+    //     const signature = await crypto.subtle.sign('HMAC', cryptoKey, msgData);
+    //     return Array.from(new Uint8Array(signature))
+    //         .map(b => b.toString(16).padStart(2, '0'))
+    //         .join('');
+    // }
 
     if(localStorage.getItem("weGenData")) {
         $("#lastRecBtn").show()
