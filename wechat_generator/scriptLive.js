@@ -616,7 +616,7 @@ function addTime(text) {
     $("#timeContent").val("")
 }
 
-function addTime(text) {
+function addTimepass(text) {
     const time = text || $("#timepassContent").val()
 
     var msg = `
