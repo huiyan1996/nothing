@@ -35,7 +35,7 @@
 
         const getData = () => {
             fetch(
-                `https://api.airtable.com/v0/appLowyF339uw0g8o/Chat`,
+                `https://api.airtable.com/v0/appLowyF339uw0g8o/Chat?sort[0][field]=genTitle&sort[0][direction]=asc`,
                 {
                     method: 'GET',
                     headers: {
