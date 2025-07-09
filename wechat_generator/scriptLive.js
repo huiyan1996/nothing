@@ -219,6 +219,9 @@ function loadData() {
             if(v.type == 'time') {
                 addTime(v.content)
             }
+            if(v.type == 'timepass') {
+                addTime(v.content)
+            }
             if(v.type == 'call') {
                 addCall(v.side, v.name, v.content, v.user_img, v.callType)
             }
@@ -595,7 +598,7 @@ function addTime(text) {
     const time = text || $("#timeContent").val()
 
     var msg = `
-        <div class="message-list msg-item" id="messageList">
+        <div class="message-list msg-item">
             <div class="badge-block">
                 <span class="time-badge">${time}</span>
                 <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this, true)">x</a>
@@ -611,6 +614,28 @@ function addTime(text) {
     })
 
     $("#timeContent").val("")
+}
+
+function addTime(text) {
+    const time = text || $("#timepassContent").val()
+
+    var msg = `
+        <div class="message-list msg-item">
+            <div class="badge-block">
+                <span class="time-badge" style="height: ${timepass || 30}px"> </span>
+                <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this, true)">x</a>
+            </div>
+        </div>
+    `;
+
+    $("#messageList").append(msg)
+
+    chatList.push({
+        type: "timepass",
+        content: time
+    })
+
+    $("#timepassContent").val("")
 }
 
 function blobToBase64(blob) {
