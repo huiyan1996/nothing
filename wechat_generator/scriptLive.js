@@ -256,6 +256,9 @@ function reloadChat() {
         if(v.type == 'time') {
             addTime(v.content)
         }
+        if(v.type == 'timepass') {
+            addTimepass(v.content)
+        }
         if(v.type == 'call') {
             addCall(v.side, v.name, v.content, v.user_img, v.callType)
         }
