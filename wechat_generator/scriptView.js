@@ -95,6 +95,9 @@ function clickChat() {
         if(v.type == 'time') {
             addTime(v.content)
         }
+        if(v.type == 'timepass') {
+            addTimepass(v.content)
+        }
         if(v.type == 'call') {
             addCall(v.side, v.name, v.content, v.user_img, v.callType)
         }
@@ -111,6 +114,28 @@ function clickChat() {
     last.scrollIntoView({ behavior: "smooth"})
 
     ind++
+}
+
+function addTimepass(text) {
+    const timepass = text || $("#timepassContent").val()
+
+    var msg = `
+        <div class="message-list msg-item">
+            <div class="badge-block">
+                <span class="time-badge time" style="height: ${timepass || 30}px"> </span>
+                <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this, true)">x</a>
+            </div>
+        </div>
+    `;
+
+    $("#messageList").append(msg)
+
+    chatList.push({
+        type: "timepass",
+        content: timepass
+    })
+
+    $("#timepassContent").val("")
 }
 
 function viewImage(src) {
