@@ -622,7 +622,7 @@ function addTime(text) {
     var msg = `
         <div class="message-list msg-item">
             <div class="badge-block">
-                <span class="time-badge" style="height: ${timepass || 30}px"> </span>
+                <span class="time-badge time" style="height: ${timepass || 30}px"> </span>
                 <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this, true)">x</a>
             </div>
         </div>
