@@ -635,7 +635,7 @@ function addTimepass(text) {
 
     chatList.push({
         type: "timepass",
-        content: time
+        content: timepass
     })
 
     $("#timepassContent").val("")
