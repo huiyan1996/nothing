@@ -220,7 +220,7 @@ function loadData() {
                 addTime(v.content)
             }
             if(v.type == 'timepass') {
-                addTime(v.content)
+                addTimepass(v.content)
             }
             if(v.type == 'call') {
                 addCall(v.side, v.name, v.content, v.user_img, v.callType)
