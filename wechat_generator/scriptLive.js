@@ -617,7 +617,7 @@ function addTime(text) {
 }
 
 function addTimepass(text) {
-    const time = text || $("#timepassContent").val()
+    const timepass = text || $("#timepassContent").val()
 
     var msg = `
         <div class="message-list msg-item">
