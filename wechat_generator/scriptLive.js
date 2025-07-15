@@ -524,7 +524,7 @@ function addCall(side, name, text, img, callType) {
         content: chat
     })
 
-    $("#chatContent").val("")
+    $("#callContent").val("")
 
     scrollToBottom()
 }
