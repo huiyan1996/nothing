@@ -193,6 +193,11 @@ main::-webkit-scrollbar {
     background-color: #fff;
 }
 
+.message-item--left .message-bubble.sticker {
+    border-color: transparent;
+    background-color: transparent;
+}
+
 .message-item--left .message-bubble::before {
     content: '';
     border-top: 1px solid #ddd;
@@ -207,11 +212,20 @@ main::-webkit-scrollbar {
     border-radius: 0 0 20px 0;
 }
 
+.message-item--left .message-bubble.sticker:before {
+    display: none;
+}
+
 .message-item--right .message-bubble {
     /* background-color: #afe56e;
     border-color: #7fb25a; */
     background-color: #9fe759;
     border-color: #87cd51;
+}
+
+.message-item--right .message-bubble.sticker {
+    border-color: transparent;
+    background-color: transparent;
 }
 
 .message-item--right .message-bubble::before {
@@ -228,6 +242,10 @@ main::-webkit-scrollbar {
     border-radius: 0 0 20px 0;
 }
 
+.message-item--right .message-bubble.sticker:before {
+    display: none;
+}
+
 .message-bubble.img {
     padding: 0;
     border: 0;
@@ -239,6 +257,12 @@ main::-webkit-scrollbar {
     max-width: 150px;
     max-height: 300px;
     object-fit: cover;
+}
+
+.message-bubble.sticker img {
+    max-width: 120px;
+    max-height: 300px;
+    object-fit: content;
 }
 
 .message-bubble.img:before {
@@ -451,6 +475,27 @@ main,
     left: unset;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.imgCenter-badge {
+    display: block;
+    text-align: center;
+    margin: 5px auto;
+    position: relative;
+}
+
+.imgCenter-badge:hover .deleteBtn {
+    display: flex;
+    left: 10px;
+    top: 0;
+    transform: translateY(-50%);
+}
+
+.imgCenter-badge img {
+    width: 75%;
+    margin: 0 auto;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.7);
 }
 
 .time-badge {

@@ -1,6 +1,7 @@
 var defaultImg = "./img/empty.png"
 var msgImg = "./img/empty.png"
 var charImg = "./img/empty.png"
+var imgCenter = "./img/empty.png"
 var chatList = []
 var id = null
 const searchParams = new URLSearchParams(window.location.search);
@@ -90,13 +91,16 @@ function clickChat() {
             addChat(v.side, v.name, v.content, v.user_img)
         }
         if(v.type == 'img') {
-            addImgChat(v.side, v.name, v.content, v.user_img)
+            addImgChat(v.side, v.name, v.content, v.user_img, v.isSticker)
         }
         if(v.type == 'time') {
             addTime(v.content)
         }
         if(v.type == 'timepass') {
             addTimepass(v.content)
+        }
+        if(v.type == 'imgCenter') {
+            addImgCenter(v.content)
         }
         if(v.type == 'call') {
             addCall(v.side, v.name, v.content, v.user_img, v.callType)
@@ -230,9 +234,34 @@ function addCall(side, name, text, img, callType) {
     $("#chatContent").val("")
 }
 
-function addImgChat(side, name, text, img) {
+function addImgCenter(img) {
+    const centerImg = img || imgCenter
+
+    var msg = `
+        <div class="message-list msg-item">
+            <div class="imgCenter-badge">
+                <img src="${centerImg}" onclick="viewImage('${centerImg}')" alt="">
+            </div>
+        </div>
+    `;
+
+    $("#messageList").append(msg)
+
+    chatList.push({
+        type: "imgCenter",
+        content: centerImg
+    })
+
+    $("#imgCenterMsg").val("")
+    imgCenter = ""
+
+    // $("#addImgCenter").attr("disabled", true)
+}
+
+function addImgChat(side, name, text, img, sticker) {
     var user = side || $(".userOpt:checked").val()
     const userName = name || 'Username'
+    var isSticker = sticker || $("#isSticker").is(":checked")
     
     var chatName = "";
     if(user == 'left') {
@@ -242,11 +271,12 @@ function addImgChat(side, name, text, img) {
     if(text || msgImg) {
         var msg = `
             <div class="message-item msg-item message-item--${user}">
-                <div class="avatar ${user}" style="background-image: url(${img || './img/empty.png'})" alt="头像"></div>
+                <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
+                <div class="avatar ${user}" style="background-image: url(${img || userList[char].img})" onclick="changeSide(this)"></div>
                 <div>
                     ${chatName}
-                    <div class="message-bubble img">
-                        <img src="${text || msgImg}" onclick="viewImage('${text || msgImg}')" alt="">
+                    <div class="message-bubble ${isSticker ? 'sticker' : 'img'}">
+                        <img src="${text || msgImg}" alt="">
                     </div>
                 </div>
             </div>
@@ -257,12 +287,14 @@ function addImgChat(side, name, text, img) {
         chatList.push({
             side: user,
             name: userName,
-            user_img: img || './img/empty.png',
+            user_img: img || userList[char].img,
             type: "img",
+            isSticker: isSticker? true : false,
             content: text || msgImg
         })
 
         $("#imgMsg").val("")
+        $("#isSticker").attr("checked", false)
         msgImg = ""
     }
 
@@ -273,7 +305,7 @@ function addTime(text) {
     const time = text || $("#timeContent").val()
 
     var msg = `
-        <div class="message-list msg-item" id="messageList">
+        <div class="message-list msg-item">
             <div class="badge-block">
                 <span class="time-badge">${time}</span>
             </div>

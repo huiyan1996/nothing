@@ -29,19 +29,23 @@
     <script src="jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        const API_KEY = 'pateT1OAqdJjqETzj.f0c16960c0ba5712c854aa6613dfa49e1b50172f0921a688f8cb5d27244df71c';
+        const BASE_ID = 'appLowyF339uw0g8o';
+        const TABLE_NAME = 'Chat';
+
         $(document).ready(() => {
             getData()
         })
 
         const getData = () => {
             fetch(
-                `https://api.airtable.com/v0/appLowyF339uw0g8o/Chat?sort[0][field]=genTitle&sort[0][direction]=asc`,
+                `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?sort[0][field]=genTitle&sort[0][direction]=asc`,
                 {
                     method: 'GET',
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer pateT1OAqdJjqETzj.f0c16960c0ba5712c854aa6613dfa49e1b50172f0921a688f8cb5d27244df71c`,
+                        Authorization: `Bearer ${API_KEY}`,
                     },
                 }
             )
@@ -70,6 +74,7 @@
                                 <div class="mt-3">
                                     <a href="./versionLive.html?id=${v.id}" target="_blank" class="btn btn-primary btn-sm">编辑</a>
                                     <a href="./viewLive.html?id=${v.id}" target="_blank" class="btn btn-primary btn-sm">查看</a>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="duplicateRecordWithNewTitle('${v.id}')">复制</button>
                                     <button type="button" class="btn btn-danger btn-sm" onclick="deleteRecord('${v.id}')">删除</button>
                                 </div>
                             </div>
@@ -94,12 +99,12 @@
                 confirmButtonText: "确认删除"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    const url = `https://api.airtable.com/v0/appLowyF339uw0g8o/Chat/${id}`
+                    const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}/${id}`
 
                     const options = {
                         method: 'DELETE',
                         headers: {
-                            'Authorization': `Bearer pateT1OAqdJjqETzj.f0c16960c0ba5712c854aa6613dfa49e1b50172f0921a688f8cb5d27244df71c`,
+                            Authorization: `Bearer ${API_KEY}`,
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
@@ -120,6 +125,43 @@
                     }).catch(error => console.error('Error:', error));
                 }  
             });
+        }
+
+        const duplicateRecordWithNewTitle = async (RECORD_ID) => {
+            // Step 1: Fetch original record
+            const getRes = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}/${RECORD_ID}`, {
+                headers: {
+                    Authorization: `Bearer ${API_KEY}`,
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            const original = await getRes.json();
+            const fields = { ...original.fields };
+
+            // Step 2: Update genTitle field to "[original name] copy"
+            if (fields.genTitle) {
+                fields.genTitle = `${fields.genTitle} copy`;
+            } else {
+                fields.genTitle = 'Untitled copy';
+            }
+
+            fields.chatList = "[]"
+
+            // Step 3: Create a new record
+            const postRes = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ fields })
+            });
+
+            const newRecord = await postRes.json();
+
+            getData(); // Refresh the listing
+            console.log('New duplicated record:', newRecord);
         }
     </script>
 </body>

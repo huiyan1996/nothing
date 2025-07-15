@@ -1,6 +1,7 @@
 var defaultImg = "./img/empty.png"
 var msgImg = "./img/empty.png"
 var charImg = "./img/empty.png"
+var imgCenter = "./img/empty.png"
 var userList = []
 var chatList = []
 var id = null
@@ -20,8 +21,6 @@ $(document).ready(function(){
     })
 
     $("#imgMsg").on("change", async (e) => {
-
-
         const file = e.target.files[0];
         const formData = new FormData();
 
@@ -46,7 +45,33 @@ $(document).ready(function(){
             }
         })
         .catch((err) => alert("Upload error: " + err));
+    })
 
+    $("#imgCenterMsg").on("change", async (e) => {
+        const file = e.target.files[0];
+        const formData = new FormData();
+
+        formData.append("file", file);
+        formData.append("upload_preset", "wecgen");  // 🔧 Your unsigned preset
+        formData.append("cloud_name", "dm8co83yz");         // 🔧 Your Cloudinary cloud name
+
+        fetch("https://api.cloudinary.com/v1_1/dm8co83yz/image/upload", {
+            method: "POST",
+            body: formData
+        })
+        .then(async (res) => {
+            const data = await res.json();
+            if (data.secure_url) {
+                imgCenter = data.secure_url;
+                // console.log("Cloudinary Image URL:", charImg);
+
+                $("#addImgCenter").removeAttr("disabled")
+                // Optionally display preview or use URL
+            } else {
+                alert("Upload failed.");
+            }
+        })
+        .catch((err) => alert("Upload error: " + err));
     })
 
     $("#character_img").on("change", async (e) => {
@@ -74,78 +99,6 @@ $(document).ready(function(){
         })
         .catch((err) => alert("Upload error: " + err));
     });
-
-    // $("#character_img").on("change", async (e) => {
-    //     const API_KEY = 'G4klmbN457sxlJGXf551';
-    //     // const API_KEY = 'aYF98PDwp4htHWdXcS7sMnZYSAMWmMO1gGTvsp9h';
-    //     const API_SECRET = '4sziXsTD9VuQcA5r0tLRPpVfBuyJT3wM';
-
-    //     const file = e.target.files[0];
-    //     const timestamp = Math.floor(Date.now() / 1000);
-
-    //     // Generate signature
-    //     const params = {
-    //         api_key: API_KEY,
-    //         api_timestamp: timestamp
-    //     };
-    //     const sig = await createSignature(params, API_SECRET);
-
-    //     // Prepare FormData
-    //     const formData = new FormData();
-    //     formData.append('file', file);
-    //     formData.append('api_key', API_KEY);
-    //     formData.append('api_timestamp', timestamp);
-    //     formData.append('api_signature', sig);
-
-    //     // Upload to Publitio
-    //     fetch('https://api.publit.io/v1/files/create', {
-    //         method: 'POST',
-    //         body: formData,
-    //           headers: {
-    //             'Authorization': 'Bearer aYF98PDwp4htHWdXcS7sMnZYSAMWmMO1gGTvsp9h'
-    //           },
-    //     }).then(async (res) => {
-    //         const data = await res.json();
-    //         console.log(data);
-
-    //         if (data.success) {
-    //             const charImg = data.url_preview;
-    //             $("#addChar").removeAttr("disabled");
-    //             // Do something with `charImg`, like show preview or save to DB
-    //         } else {
-    //             alert('Upload failed: ' + JSON.stringify(data));
-    //         }
-    //     }).catch(error => alert('Upload error: ' + error));
-    // });
-
-    // // HMAC-SHA1 signature function
-    // async function createSignature(params, secret) {
-    //     const sorted = Object.keys(params).sort().reduce((acc, key) => {
-    //         acc[key] = params[key];
-    //         return acc;
-    //     }, {});
-
-    //     const queryString = Object.entries(sorted)
-    //         .map(([k, v]) => `${k}=${v}`)
-    //         .join('&');
-
-    //     const encoder = new TextEncoder();
-    //     const keyData = encoder.encode(secret);
-    //     const msgData = encoder.encode(queryString);
-
-    //     const cryptoKey = await crypto.subtle.importKey(
-    //         'raw',
-    //         keyData,
-    //         { name: 'HMAC', hash: 'SHA-1' },
-    //         false,
-    //         ['sign']
-    //     );
-
-    //     const signature = await crypto.subtle.sign('HMAC', cryptoKey, msgData);
-    //     return Array.from(new Uint8Array(signature))
-    //         .map(b => b.toString(16).padStart(2, '0'))
-    //         .join('');
-    // }
 
     if(localStorage.getItem("weGenData")) {
         $("#lastRecBtn").show()
@@ -214,13 +167,16 @@ function loadData() {
                 addChat(v.side, v.name, v.content, v.user_img)
             }
             if(v.type == 'img') {
-                addImgChat(v.side, v.name, v.content, v.user_img)
+                addImgChat(v.side, v.name, v.content, v.user_img, v.isSticker)
             }
             if(v.type == 'time') {
                 addTime(v.content)
             }
             if(v.type == 'timepass') {
                 addTimepass(v.content)
+            }
+            if(v.type == 'imgCenter') {
+                addImgCenter(v.content)
             }
             if(v.type == 'call') {
                 addCall(v.side, v.name, v.content, v.user_img, v.callType)
@@ -251,7 +207,7 @@ function reloadChat() {
             addChat(v.side, v.name, v.content, v.user_img)
         }
         if(v.type == 'img') {
-            addImgChat(v.side, v.name, v.content, v.user_img)
+            addImgChat(v.side, v.name, v.content, v.user_img, v.isSticker)
         }
         if(v.type == 'time') {
             addTime(v.content)
@@ -556,10 +512,11 @@ function addCall(side, name, text, img, callType) {
     $("#chatContent").val("")
 }
 
-function addImgChat(side, name, text, img) {
+function addImgChat(side, name, text, img, sticker) {
     var user = side || $(".userOpt:checked").val()
     var char = $(".charOpt:checked").val()
     const userName = name || userList[char].name
+    var isSticker = sticker || $("#isSticker").is(":checked")
     
     var chatName = "";
     if(user == 'left') {
@@ -573,7 +530,7 @@ function addImgChat(side, name, text, img) {
                 <div class="avatar ${user}" style="background-image: url(${img || userList[char].img})" onclick="changeSide(this)"></div>
                 <div>
                     ${chatName}
-                    <div class="message-bubble img">
+                    <div class="message-bubble ${isSticker ? 'sticker' : 'img'}">
                         <img src="${text || msgImg}" alt="">
                     </div>
                 </div>
@@ -587,14 +544,41 @@ function addImgChat(side, name, text, img) {
             name: userName,
             user_img: img || userList[char].img,
             type: "img",
+            isSticker: isSticker? true : false,
             content: text || msgImg
         })
 
         $("#imgMsg").val("")
+        $("#isSticker").attr("checked", false)
         msgImg = ""
     }
 
     $("#addImgChat").attr("disabled", true)
+}
+
+function addImgCenter(img) {
+    const centerImg = img || imgCenter
+
+    var msg = `
+        <div class="message-list msg-item">
+            <div class="imgCenter-badge">
+                <img src="${centerImg}" onclick="viewImage('${centerImg}')" alt="">
+                <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this, true)">x</a>
+            </div>
+        </div>
+    `;
+
+    $("#messageList").append(msg)
+
+    chatList.push({
+        type: "imgCenter",
+        content: centerImg
+    })
+
+    $("#imgCenterMsg").val("")
+    imgCenter = ""
+
+    $("#addImgCenter").attr("disabled", true)
 }
 
 function addTime(text) {

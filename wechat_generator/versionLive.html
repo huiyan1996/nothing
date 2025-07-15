@@ -122,6 +122,7 @@
                                 <div class="form-group mt-4">
                                     <label>图片信息</label>
                                     <input type="file" accept="image/*" class="form-control" id="imgMsg">
+                                    <label><input type="checkbox" id="isSticker"> <span class="ml-2">贴图</span></label>
                                 </div>
                                 <button type="button" class="btn btn-primary" id="addImgChat" disabled onclick="addImgChat()">添加图片信息</button>
                                 
@@ -130,6 +131,12 @@
                                     <input class="form-control" type="text" id="timeContent" placeholder="时间">
                                 </div>
                                 <button type="button" class="btn btn-primary" onclick="addTime()">添加时间信息</button>
+                                
+                                <div class="form-group mt-4">
+                                    <label>中间/场景图</label>
+                                    <input type="file" accept="image/*" class="form-control" id="imgCenterMsg">
+                                </div>
+                                <button type="button" class="btn btn-primary" id="addImgCenter" disabled onclick="addImgCenter()">添加场景图</button>
                                 
                                 <div class="form-group mt-4">
                                     <label>过度线</label>
