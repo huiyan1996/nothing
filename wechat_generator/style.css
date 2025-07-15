@@ -1,7 +1,8 @@
 .chat-page {
     min-width: 400px;
     max-width: 400px;
-    position: relative;
+    position: sticky;
+    top: 0;
 }
 
 .first-page {

@@ -339,6 +339,7 @@ function generate() {
     // $("img").each((k, v) => {
     //     convertImage($(v).attr('src'), v)
     // })
+    $("#messageList").css("max-height", "unset")
 
     html2canvas(document.querySelector("#chatPage"), {
         useCORS: true,
@@ -350,6 +351,8 @@ function generate() {
         img.src = imgUrl
         document.getElementById("generatedImg").appendChild(img)
         $("#imageModal").modal('show')
+
+        $("#messageList").css("max-height", "85vh")
     });
 }
 
@@ -386,6 +389,17 @@ function addChar(text) {
     charImg = ""
 
     $("#addChar").attr("disabled", true)
+
+    scrollToBottom()
+}
+
+function scrollToBottom() {
+    const msgBlock = document.getElementById('messageList')
+    const last = msgBlock.lastElementChild
+
+    if(!last) return;
+
+    last.scrollIntoView({ behavior: "smooth", block: 'nearest', inline: 'start' })
 }
 
 function editChar(n) {
@@ -456,6 +470,7 @@ function addChat(side, name, text, img) {
     })
 
     $("#chatContent").val("")
+    scrollToBottom()
 }
 
 function addCall(side, name, text, img, callType) {
@@ -510,6 +525,8 @@ function addCall(side, name, text, img, callType) {
     })
 
     $("#chatContent").val("")
+
+    scrollToBottom()
 }
 
 function addImgChat(side, name, text, img, sticker) {
@@ -554,6 +571,8 @@ function addImgChat(side, name, text, img, sticker) {
     }
 
     $("#addImgChat").attr("disabled", true)
+
+    scrollToBottom()
 }
 
 function addImgCenter(img) {
@@ -579,6 +598,8 @@ function addImgCenter(img) {
     imgCenter = ""
 
     $("#addImgCenter").attr("disabled", true)
+
+    scrollToBottom()
 }
 
 function addTime(text) {
@@ -601,6 +622,8 @@ function addTime(text) {
     })
 
     $("#timeContent").val("")
+
+    scrollToBottom()
 }
 
 function addTimepass(text) {
@@ -623,6 +646,8 @@ function addTimepass(text) {
     })
 
     $("#timepassContent").val("")
+
+    scrollToBottom()
 }
 
 function blobToBase64(blob) {
