@@ -389,8 +389,6 @@ function addChar(text) {
     charImg = ""
 
     $("#addChar").attr("disabled", true)
-
-    scrollToBottom()
 }
 
 function scrollToBottom() {
