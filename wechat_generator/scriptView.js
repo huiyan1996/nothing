@@ -10,6 +10,8 @@ var lastChat = 0
 var chatting = true
 var chatType
 var author
+var nextChapterId = null
+var nextChapterType = null
 
 $(document).ready(function(){
 
@@ -51,6 +53,16 @@ function loadData() {
         $("#usernameDisplay").text(d.chatName)
         chatList = JSON.parse(d.chatList)
         lastChat = chatList.length
+        
+        // Load next chapter data
+        if (d.next && d.next.length > 0) {
+            nextChapterId = d.next[0];
+        }
+        
+        // Load next chapter type
+        if (d.nextType && d.nextType.length > 0) {
+            nextChapterType = d.nextType[0];
+        }
 
         // chatList = cList
 
@@ -109,6 +121,9 @@ function clickChat() {
         if(chatting) {
             addTime('结束')
             addTime('作者: '+author)
+            if(nextChapterId) {
+                changeFooterToNextChapter()
+            }
             chatting = false
         }
     }
@@ -320,6 +335,29 @@ function addTime(text) {
     })
 
     $("#timeContent").val("")
+}
+
+function changeFooterToNextChapter() {
+    // Change the footer input to a next chapter button
+    const footer = document.querySelector('footer');
+    const textInput = footer.querySelector('.text-input');
+    
+    // Determine the correct URL based on next chapter type
+    const nextChapterUrl = nextChapterType === 'text' ? 
+        `./textView.html?id=${nextChapterId}` : 
+        `./viewLive.html?id=${nextChapterId}`;
+    
+    // Create next chapter button
+    const nextChapterButton = document.createElement('a');
+    nextChapterButton.href = nextChapterUrl;
+    nextChapterButton.className = 'text-input text-center d-flex align-items-center justify-content-center text-dark text-decoration-none';
+    nextChapterButton.textContent = '下一章';
+    nextChapterButton.style.width = '100%';
+    nextChapterButton.style.margin = '0 10px';
+    nextChapterButton.style.backgroundColor = '#d9f0ff';
+    
+    // Replace the text input with the next chapter button
+    textInput.parentNode.replaceChild(nextChapterButton, textInput);
 }
 
 function blobToBase64(blob) {

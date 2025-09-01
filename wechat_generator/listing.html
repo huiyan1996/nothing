@@ -16,7 +16,10 @@
                 <div class="px-4">
                     <div class="d-flex justify-content-between align-items-center my-4">
                         <h3 class="display-6">列表</h3>
-                        <a class="btn btn-primary" href="./versionLive.html">添加新纪录</a>
+                        <div>
+                            <a class="btn btn-primary me-2" href="./versionLive.html">添加新对话</a>
+                            <a class="btn btn-info" href="./textEditor.html">添加新文本</a>
+                        </div>
                     </div>
                     <div class="row" id="listing">
                         <div class="col-12">加载中 ...</div>
@@ -65,18 +68,26 @@
                 var html = ""
     
                 data.map((v,k) => {
-                    // html += `<li><a href="./version2.html?id=${v.id}">${v.fields?.genTitle} by ${v.fields?.author}</a></li>`
+                    const recordType = v.fields?.type || 'chat';
+                    const typeBadge = recordType === 'text' ? 
+                        '<span class="badge bg-info me-2">文本</span>' : 
+                        '<span class="badge bg-primary me-2">聊天</span>';
+                    const copyButton = recordType === 'text' ? '' : 
+                        '<button type="button" class="btn btn-danger btn-sm" onclick="duplicateRecordWithNewTitle(\'' + v.id + '\')">复制</button>';
+                    
                     html += `<div class="col-lg-4 col-md-6 mb-3">
-                            <div class="card p-3">
-                                <div class="font-weight-bold">${v.fields?.genTitle}</div>
+                            <div class="card p-3 h-100">
+                                <div class="font-weight-bold">${typeBadge}${v.fields?.genTitle}</div>
                                 <div class="font-weight-thin">${v.fields?.author}</div>
     
                                 <div class="mt-3">
-                                    <a href="./versionLive.html?id=${v.id}" target="_blank" class="btn btn-primary btn-sm">编辑</a>
-                                    <a href="./viewLive.html?id=${v.id}" target="_blank" class="btn btn-primary btn-sm">查看</a>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="duplicateRecordWithNewTitle('${v.id}')">复制</button>
+                                    <a href="${recordType === 'text' ? './textEditor.html' : './versionLive.html'}?id=${v.id}" target="_blank" class="btn btn-primary btn-sm">编辑</a>
+                                    <a href="${recordType === 'text' ? './textView.html' : './viewLive.html'}?id=${v.id}" target="_blank" class="btn btn-primary btn-sm">查看</a>
+                                    ${copyButton}
                                     <button type="button" class="btn btn-danger btn-sm" onclick="deleteRecord('${v.id}')">删除</button>
                                 </div>
+
+                                ${recordType === 'text' ? '' : '<div class="font-weight-thin text-danger"><small>复制按钮点击后会复制这个对话的标题，作者和人物列表</small></div>'}
                             </div>
                         </div>`
                 })
@@ -147,6 +158,9 @@
             }
 
             fields.chatList = "[]"
+            delete fields.next
+            delete fields.nextType
+            delete fields.nextTitle
 
             // Step 3: Create a new record
             const postRes = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`, {

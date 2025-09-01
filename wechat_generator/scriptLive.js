@@ -9,12 +9,16 @@ const searchParams = new URLSearchParams(window.location.search);
 var chatType
 var editImgInd
 var editOldImgUrl
+var saveNext = ""
 
 $(document).ready(function(){
 
     if(searchParams.has('id')) {
         loadData()
     }
+    
+    // Load next chapter options
+    loadNextChapterOptions()
 
     $("#username").on('input', ()=>{
         $("#usernameDisplay").text($("#username").val());
@@ -146,6 +150,11 @@ function loadData() {
         $("#author").val(d.author)
         $("#username").val(d.chatName)
         $("#username").trigger("input")
+        
+        // Load next chapter selection
+        if(d.next?.[0]) {
+            saveNext = d.next[0]
+        }
 
         var uList = JSON.parse(d.userList)
         var cList = JSON.parse(d.chatList)
@@ -194,6 +203,49 @@ function loadData() {
     });
 }
 
+function loadNextChapterOptions() {
+    fetch(
+        `https://api.airtable.com/v0/appLowyF339uw0g8o/Chat?sort[0][field]=genTitle&sort[0][direction]=asc`,
+        {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer pateT1OAqdJjqETzj.f0c16960c0ba5712c854aa6613dfa49e1b50172f0921a688f8cb5d27244df71c`,
+            },
+        }
+    )
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Something went wrong');
+        }
+    })
+    .then(data => {
+        const records = data.records;
+        const selectElement = document.getElementById('nextChapter');
+        
+        // Clear existing options except the first one
+        selectElement.innerHTML = '<option value="">选择下个章节...</option>';
+        
+        // Add options for each record
+        records.forEach(record => {
+            const option = document.createElement('option');
+            option.value = record.id;
+            option.textContent = record.fields?.genTitle || '无标题';
+            selectElement.appendChild(option);
+        });
+
+        if(saveNext) {
+            $("#nextChapter").val(saveNext)
+        }
+    })
+    .catch(error => {
+        console.error('Error loading next chapter options:', error);
+    });
+}
+
 function reloadChat() {
     $("#messageList").empty()
 
@@ -225,11 +277,13 @@ function saveData() {
     $("#loadingScreen").css('display', 'flex')
     let currData = {
         genTitle: $("#genTitle").val() || '捡手机文学',
+        type: 'chat',
         author: $("#author").val() || '无名',
         userList: JSON.stringify(userList),
         chatType: $("#switchGroupDm").is(":checked")?'private':'group',
         chatList: JSON.stringify(chatList),
-        chatName: $("#username").val()
+        chatName: $("#username").val(),
+        next: $("#nextChapter").val() ? [$("#nextChapter").val()] : []
     }
 
     if(id) {
