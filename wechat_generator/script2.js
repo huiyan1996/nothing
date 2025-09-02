@@ -173,13 +173,15 @@ function addChat(side, name, text, img) {
         chatName = `<div class="text-start leftName">${userName || 'First Kanaphan'}</div>`;
     }
 
+    const ind = $(".msg-item").length
+
     var msg = `
         <div class="message-item msg-item message-item--${user}">
             <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
             <img class="avatar ${user}" onclick="changeSide(this)" src="${img || userList[char].img}" alt="头像">
             <div>
                 ${chatName}
-                <div class="message-bubble">${chat}</div>
+                <div class="message-bubble" data-ind="${ind}" contenteditable onKeyUp="editContent(this)">${chat}</div>
             </div>
         </div>
     `;
@@ -197,6 +199,11 @@ function addChat(side, name, text, img) {
     })
 
     $("#chatContent").val("")
+}
+
+function editContent(n) {
+    const ind = Number($(n).attr('data-ind'))
+    chatList[ind].content = $(n).text()
 }
 
 function addCall(side, name, text, img, callType) {
