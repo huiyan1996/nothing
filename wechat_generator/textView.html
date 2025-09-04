@@ -96,6 +96,11 @@
                     window.location.replace("./listing.html");
                 });
             }
+            
+            // Add scroll event listener to save scroll position
+            $(window).on('scroll', function() {
+                saveScrollPosition();
+            });
         });
 
         function loadData() {
@@ -152,6 +157,9 @@
                 } else {
                     $("#textContent").html('<div class="text-center text-muted">暂无内容</div>');
                 }
+                
+                // Restore scroll position after content is loaded
+                restoreScrollPosition();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -177,6 +185,54 @@
                 </div>
             `;
             $("#textContent").append(nextButton);
+        }
+
+        function saveScrollPosition() {
+            if (id) {
+                // Get existing scroll data
+                let allScrollData = {};
+                try {
+                    const existingData = localStorage.getItem('textViewScroll');
+                    if (existingData) {
+                        allScrollData = JSON.parse(existingData);
+                    }
+                } catch (error) {
+                    console.error('Error loading existing scroll data:', error);
+                    allScrollData = {};
+                }
+                
+                // Update scroll position for current ID
+                allScrollData[id] = {
+                    scrollTop: $(window).scrollTop(),
+                    timestamp: Date.now()
+                };
+                
+                // Save updated scroll data
+                localStorage.setItem('textViewScroll', JSON.stringify(allScrollData));
+            }
+        }
+
+        function restoreScrollPosition() {
+            if (!id) return;
+            
+            try {
+                const savedScrollData = localStorage.getItem('textViewScroll');
+                if (savedScrollData) {
+                    const allScrollData = JSON.parse(savedScrollData);
+                    
+                    // Check if we have scroll data for this specific ID
+                    if (allScrollData[id] && allScrollData[id].scrollTop > 0) {
+                        // Restore scroll position after a short delay to ensure content is loaded
+                        setTimeout(() => {
+                            $(window).scrollTop(allScrollData[id].scrollTop);
+                        }, 100);
+                    }
+                }
+            } catch (error) {
+                console.error('Error restoring scroll position:', error);
+                // Clear corrupted data
+                localStorage.removeItem('textViewScroll');
+            }
         }
     </script>
 </body>

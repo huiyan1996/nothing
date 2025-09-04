@@ -12,6 +12,7 @@ var chatType
 var author
 var nextChapterId = null
 var nextChapterType = null
+var savedIndex = 0
 
 $(document).ready(function(){
 
@@ -88,6 +89,9 @@ function loadData() {
 
         chatType = d.chatType
 
+        // Check and restore saved progress
+        restoreProgress()
+
         $("#loadingModal").modal('hide')
     })
     .catch(error => {
@@ -133,6 +137,9 @@ function clickChat() {
     last.scrollIntoView({ behavior: "smooth"})
 
     ind++
+    
+    // Save progress to localStorage
+    saveProgress()
 }
 
 function addTimepass(text) {
@@ -142,7 +149,6 @@ function addTimepass(text) {
         <div class="message-list msg-item">
             <div class="badge-block">
                 <span class="time-badge time" style="height: ${timepass || 30}px"> </span>
-                <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this, true)">x</a>
             </div>
         </div>
     `;
@@ -286,8 +292,7 @@ function addImgChat(side, name, text, img, sticker) {
     if(text || msgImg) {
         var msg = `
             <div class="message-item msg-item message-item--${user}">
-                <a class="deleteBtn" href="javascript:;" onclick="deleteChat(this)">x</a>
-                <div class="avatar ${user}" style="background-image: url(${img || userList[char].img})" onclick="changeSide(this)"></div>
+                <div class="avatar ${user}" style="background-image: url(${img || userList[char].img})"></div>
                 <div>
                     ${chatName}
                     <div class="message-bubble ${isSticker ? 'sticker' : 'img'}">
@@ -358,6 +363,100 @@ function changeFooterToNextChapter() {
     
     // Replace the text input with the next chapter button
     textInput.parentNode.replaceChild(nextChapterButton, textInput);
+}
+
+function saveProgress() {
+    if (id) {
+        // Get existing progress data
+        let allProgress = {};
+        try {
+            const existingData = localStorage.getItem('viewLiveProgress');
+            if (existingData) {
+                allProgress = JSON.parse(existingData);
+            }
+        } catch (error) {
+            console.error('Error loading existing progress:', error);
+            allProgress = {};
+        }
+        
+        // Update progress for current ID
+        allProgress[id] = {
+            index: ind,
+            timestamp: Date.now()
+        };
+        
+        // Save updated progress
+        localStorage.setItem('viewLiveProgress', JSON.stringify(allProgress));
+    }
+}
+
+function restoreProgress() {
+    if (!id) return;
+    
+    try {
+        const savedProgress = localStorage.getItem('viewLiveProgress');
+        if (savedProgress) {
+            const allProgress = JSON.parse(savedProgress);
+            
+            // Check if we have progress for this specific ID
+            if (allProgress[id] && allProgress[id].index > 0 && allProgress[id].index < lastChat) {
+                savedIndex = allProgress[id].index;
+                // ind = savedIndex;
+                
+                // Auto-play messages up to the saved index
+                autoPlayToIndex();
+            } else {
+                // No valid progress for this ID, start from beginning
+                ind = 0;
+            }
+        }
+    } catch (error) {
+        console.error('Error restoring progress:', error);
+        // Clear corrupted data
+        localStorage.removeItem('viewLiveProgress');
+        ind = 0;
+    }
+}
+
+function autoPlayToIndex() {
+    if (ind >= savedIndex) return;
+    
+    // Play messages automatically up to the saved index
+    const playNext = () => {
+        if (ind < savedIndex && ind < lastChat) {
+            const v = chatList[ind];
+            
+            if(v.type == 'text') {
+                addChat(v.side, v.name, v.content, v.user_img)
+            }
+            if(v.type == 'img') {
+                addImgChat(v.side, v.name, v.content, v.user_img, v.isSticker)
+            }
+            if(v.type == 'time') {
+                addTime(v.content)
+            }
+            if(v.type == 'timepass') {
+                addTimepass(v.content)
+            }
+            if(v.type == 'imgCenter') {
+                addImgCenter(v.content)
+            }
+            if(v.type == 'call') {
+                addCall(v.side, v.name, v.content, v.user_img, v.callType)
+            }
+            
+            const msgBlock = document.getElementById('messageList')
+            const last = msgBlock.lastElementChild
+            last.scrollIntoView({ behavior: "smooth"})
+            
+            ind++;
+            
+            // Continue playing with a small delay for smooth effect
+            setTimeout(playNext, 100);
+        }
+    };
+    
+    playNext();
 }
 
 function blobToBase64(blob) {
