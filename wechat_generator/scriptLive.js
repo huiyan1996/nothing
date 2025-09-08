@@ -658,6 +658,8 @@ function addImgCenter(img) {
 function addTime(text) {
     const time = text || $("#timeContent").val()
 
+    if(!time) return;
+
     var msg = `
         <div class="message-list msg-item">
             <div class="badge-block">
@@ -675,6 +677,7 @@ function addTime(text) {
     })
 
     $("#timeContent").val("")
+    $("#timeContent").focus()
 
     scrollToBottom()
 }
