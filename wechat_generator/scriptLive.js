@@ -522,6 +522,7 @@ function addChat(side, name, text, img) {
     })
 
     $("#chatContent").val("")
+    $("#chatContent").focus()
     scrollToBottom()
 }
 
