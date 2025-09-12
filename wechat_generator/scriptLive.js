@@ -376,7 +376,9 @@ function changeSide(n) {
 
 function editContent(n) {
     const ind = Number($(n).attr('data-ind'))
+    // const ind = $(".msg-item").index($(n).parent().parent())
     chatList[ind].content = $(n).text()
+    // console.log(ind, chatList)
 }
 
 function deleteChar(n) {
@@ -491,6 +493,10 @@ function addChat(side, name, text, img) {
     const chat = text || $("#chatContent").val()
     const userName = name || userList[char].name
 
+    if(chat.trim() == "") {
+        return
+    }
+
     var chatName = "";
     if(user == 'left') {
         chatName = `<div class="text-start leftName" style="${chatType == 'private' ? 'display:none;':''}">${userName || 'First Kanaphan'}</div>`;
@@ -509,9 +515,9 @@ function addChat(side, name, text, img) {
         </div>
     `;
 
-    if(chat.trim()) {
+    // if(chat.trim()) {
         $("#messageList").append(msg)
-    }
+    // }
 
     chatList.push({
         side: user,
