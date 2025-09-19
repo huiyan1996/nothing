@@ -539,6 +539,8 @@ function addCall(side, name, text, img, callType) {
     const userName = name || userList[char].name
     const cType = callType ||  $(".callOpt:checked").val()
 
+    if(!chat.trim()) return
+
     var chatName = "";
     if(user == 'left') {
         chatName = `<div class="text-start leftName" style="${chatType == 'private' ? 'display:none;':''}">${userName || 'First Kanaphan'}</div>`;
@@ -636,6 +638,8 @@ function addImgChat(side, name, text, img, sticker) {
 
 function addImgCenter(img) {
     const centerImg = img || imgCenter
+
+    if(!centerImg) return
 
     var msg = `
         <div class="message-list msg-item">
