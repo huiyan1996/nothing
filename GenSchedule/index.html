@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LatteKim Work Schedule</title>
+  <style>
+    @font-face {
+      font-family: 'Xinqingnian';
+      src: url('xinqingnian.otf') format('opentype');
+    }
+
+    @font-face {
+      font-family: 'Honglang';
+      src: url('honglang.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Shrikhand';
+      src: url('shrikhand.ttf') format('truetype');
+    }
+
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    canvas {
+      border: 1px solid #ccc;
+      display: block;
+      margin: 20px auto;
+      width: 70dvw;
+      height: 70dvw;
+    }
+
+    .controls {
+      margin: 20px auto;
+    }
+
+    .controls input,
+    .controls textarea {
+      padding: 8px;
+      margin: 5px;
+      font-size: 16px;
+    }
+
+    .controls input {
+      width: 200px;
+    }
+
+    .controls textarea {
+      width: 200px;
+      height: 80px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="controls">
+    <input type="text" id="titleInput" placeholder="Enter Title">
+    <textarea id="contentInput" placeholder="Enter Content"></textarea>
+    <input type="text" id="dateInput" placeholder="Enter Date">
+    <button onclick="refreshCanvas()">Refresh Canvas</button>
+  </div>
+
+  <canvas id="scheduleCanvas"></canvas>
+  <button onclick="downloadImage()">Download Image</button>
+
+  <script>
+    const canvas = document.getElementById('scheduleCanvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = 'img/bg.jpg'; // Background image
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      refreshCanvas();
+    };
+
+    // Draw wrapped text with stroke and fill
+    function wrapTextStrokeFill(context, text, x, y, maxWidth, lineHeight) {
+      const lines = text.split('\n'); // respect textarea line breaks
+      for (let i = 0; i < lines.length; i++) {
+        const words = lines[i].split(' ');
+        let line = '';
+        for (let n = 0; n < words.length; n++) {
+          const testLine = line + words[n] + ' ';
+          const metrics = context.measureText(testLine);
+          if (metrics.width > maxWidth && n > 0) {
+            context.strokeText(line.trim(), x, y);
+            context.fillText(line.trim(), x, y);
+            line = words[n] + ' ';
+            y += lineHeight;
+          } else {
+            line = testLine;
+          }
+        }
+        // Draw the last line of the current paragraph
+        context.strokeText(line.trim(), x, y);
+        context.fillText(line.trim(), x, y);
+        y += lineHeight;  // <- ensures each textarea newline moves down
+      }
+    }
+
+    // Simple wrap text (fill only) for title
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = context.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          context.fillText(line.trim(), x, y);
+          line = words[n] + ' ';
+          y += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      context.fillText(line.trim(), x, y);
+    }
+
+    function refreshCanvas() {
+      // clear and draw background
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      // fetch inputs
+      const title = document.getElementById('titleInput').value || 'Title';
+      const content = document.getElementById('contentInput').value || 'Content';
+      const date = document.getElementById('dateInput').value || 'Date';
+
+      // TITLE (80% width, centered, Y = 43%, color #c9c2e3)
+      const titleMaxW = canvas.width * 0.70;
+      ctx.font = "60px 'Honglang'";
+      ctx.fillStyle = "#c9c2e3";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      const lineH = 70;
+      const startY = canvas.height * 0.43;
+      wrapText(ctx, title, canvas.width / 2, startY, titleMaxW, lineH);
+
+      // CONTENT (textarea, multi-line, max width 85%, x=20%, y=60%, white fill, black stroke, align left)
+      const contentX = canvas.width * 0.15;
+      const contentY = canvas.height * 0.60;
+      const contentMaxW = canvas.width * 0.90;
+      ctx.font = "40px 'Shrikhand'";
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = "#000000";
+      ctx.lineWidth = 2;
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      wrapTextStrokeFill(ctx, content, contentX, contentY, contentMaxW, 50);
+
+      // DATE (x = canvas.width - 170, y = canvas.height * 2.9/10)
+      ctx.font = "60px 'Xinqingnian'";
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      ctx.fillText(
+        date,
+        canvas.width - 200,
+        canvas.height * 2.8 / 10
+      );
+    }
+
+    function downloadImage() {
+      const link = document.createElement('a');
+      link.download = 'work_schedule.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  </script>
+
+</body>
+
+</html>
