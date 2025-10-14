@@ -22,59 +22,267 @@
     }
 
     body {
-      text-align: center;
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+      align-items: flex-start;
+    }
+
+    .left-panel {
+      flex: 0 0 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .right-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     canvas {
       border: 1px solid #ccc;
-      display: block;
-      margin: 20px auto;
-      width: 70dvw;
-      height: 70dvw;
+      max-width: 100%;
+      height: auto;
     }
 
     .controls {
-      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .controls input,
     .controls textarea {
       padding: 8px;
-      margin: 5px;
       font-size: 16px;
-    }
-
-    .controls input {
-      width: 200px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .controls textarea {
-      width: 200px;
-      height: 80px;
+      height: 100px;
       resize: vertical;
     }
 
+    .font-size-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+    }
+
+    .font-size-group label {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .radio-options {
+      display: flex;
+      gap: 15px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .radio-option input[type="radio"] {
+      cursor: pointer;
+      width: auto;
+    }
+
+    .radio-option label {
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      border: 1px solid #e9ecef;
+    }
+
+    .control-group label {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #495057;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .control-row label {
+      font-size: 12px;
+      font-weight: normal;
+      margin: 0;
+      min-width: 80px;
+      color: #6c757d;
+    }
+
+    .control-row input[type="number"],
+    .control-row input[type="range"] {
+      flex: 1;
+      padding: 4px;
+      font-size: 12px;
+      border: 1px solid #ced4da;
+      border-radius: 3px;
+    }
+
+    .control-row input[type="range"] {
+      padding: 0;
+    }
+
+    .value-display {
+      min-width: 40px;
+      font-size: 12px;
+      color: #495057;
+      font-weight: bold;
+    }
+
     button {
-      margin-top: 10px;
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left-panel {
+        flex: 1;
+        width: 100%;
+      }
     }
   </style>
 </head>
 
 <body>
 
+  <div class="container">
+    <div class="left-panel">
   <div class="controls">
-    <input type="text" id="titleInput" placeholder="Enter Title">
-    <textarea id="contentInput" placeholder="Enter Content"></textarea>
-    <input type="text" id="dateInput" placeholder="Enter Date">
+        <div class="font-size-group">
+          <label>Title Settings:</label>
+          
+          <input type="text" id="titleInput" placeholder="Enter Title">
+          
+          <div class="control-row">
+            <label>Font Size:</label>
+            <input type="range" id="titleFontSizeSlider" min="30" max="100" value="60">
+            <span class="value-display" id="titleFontSizeValue">60px</span>
+          </div>
+          
+          <div class="control-row">
+            <label>Title Weight:</label>
+            <select id="titleFontWeightSelect">
+              <option value="normal">Normal</option>
+              <option value="bold" selected>Bold</option>
+              <option value="100">Thin (100)</option>
+              <option value="300">Light (300)</option>
+              <option value="400">Regular (400)</option>
+              <option value="500">Medium (500)</option>
+              <option value="600">Semi Bold (600)</option>
+              <option value="700">Bold (700)</option>
+              <option value="800">Extra Bold (800)</option>
+              <option value="900">Black (900)</option>
+            </select>
+          </div>
+          
+          <div class="control-row">
+            <label>Title Y:</label>
+            <input type="range" id="titleYSlider" min="0.25" max="0.50" step="0.01" value="0.43">
+            <span class="value-display" id="titleYValue">43%</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>Content Input & Formatting:</label>
+          
+          <input type="text" id="personnelInput" placeholder="Enter Personnel (e.g., Latte & Kim)">
+          <input type="text" id="timeInput" placeholder="Enter Time (e.g., 11:00 AM (中))">
+          <input type="text" id="locationInput" placeholder="Enter Location (e.g., เซ็นทรัล ปิ่นเกล้า)">
+          
+          <div class="control-row">
+            <label>Line Height:</label>
+            <input type="range" id="lineHeightSlider" min="30" max="80" value="50">
+            <span class="value-display" id="lineHeightValue">50px</span>
+          </div>
+          
+          <div class="control-row">
+            <label>Top Y:</label>
+            <input type="range" id="topYSlider" min="0.45" max="0.75" step="0.01" value="0.60">
+            <span class="value-display" id="topYValue">60%</span>
+          </div>
+          
+          <div class="control-row">
+            <label>Font Size:</label>
+            <input type="range" id="fontSizeSlider" min="20" max="60" value="40">
+            <span class="value-display" id="fontSizeValue">40px</span>
+          </div>
+          
+          <div class="control-row">
+            <label>Font Weight:</label>
+            <select id="fontWeightSelect">
+              <option value="normal">Normal</option>
+              <option value="bold" selected>Bold</option>
+              <option value="100">Thin (100)</option>
+              <option value="300">Light (300)</option>
+              <option value="400">Regular (400)</option>
+              <option value="500">Medium (500)</option>
+              <option value="600">Semi Bold (600)</option>
+              <option value="700">Bold (700)</option>
+              <option value="800">Extra Bold (800)</option>
+              <option value="900">Black (900)</option>
+            </select>
+          </div>
+        </div>
+
+        <input type="text" id="dateInput" placeholder="Enter Date">
+
     <button onclick="refreshCanvas()">Refresh Canvas</button>
+      </div>
+      <button onclick="downloadImage()">Download Image</button>
   </div>
 
+    <div class="right-panel">
   <canvas id="scheduleCanvas"></canvas>
-  <button onclick="downloadImage()">Download Image</button>
+    </div>
+  </div>
 
   <script>
     const canvas = document.getElementById('scheduleCanvas');
@@ -87,6 +295,40 @@
       canvas.height = img.height;
       refreshCanvas();
     };
+
+    // Add event listeners for the formatting controls
+    document.getElementById('lineHeightSlider').addEventListener('input', function() {
+      document.getElementById('lineHeightValue').textContent = this.value + 'px';
+      refreshCanvas();
+    });
+
+    document.getElementById('topYSlider').addEventListener('input', function() {
+      document.getElementById('topYValue').textContent = Math.round(this.value * 100) + '%';
+      refreshCanvas();
+    });
+
+    document.getElementById('fontSizeSlider').addEventListener('input', function() {
+      document.getElementById('fontSizeValue').textContent = this.value + 'px';
+      refreshCanvas();
+    });
+
+    document.getElementById('fontWeightSelect').addEventListener('change', function() {
+      refreshCanvas();
+    });
+
+    document.getElementById('titleFontWeightSelect').addEventListener('change', function() {
+      refreshCanvas();
+    });
+
+    document.getElementById('titleYSlider').addEventListener('input', function() {
+      document.getElementById('titleYValue').textContent = Math.round(this.value * 100) + '%';
+      refreshCanvas();
+    });
+
+    document.getElementById('titleFontSizeSlider').addEventListener('input', function() {
+      document.getElementById('titleFontSizeValue').textContent = this.value + 'px';
+      refreshCanvas();
+    });
 
     // Draw wrapped text with stroke and fill
     function wrapTextStrokeFill(context, text, x, y, maxWidth, lineHeight) {
@@ -138,36 +380,133 @@
 
       // fetch inputs
       const title = document.getElementById('titleInput').value || 'Title';
-      const content = document.getElementById('contentInput').value || 'Content';
+      const personnel = document.getElementById('personnelInput').value || '';
+      const time = document.getElementById('timeInput').value || '';
+      const location = document.getElementById('locationInput').value || '';
       const date = document.getElementById('dateInput').value || 'Date';
+      
+      // Get selected font size, weight, and Y position for title
+      const selectedFontSize = parseInt(document.getElementById('titleFontSizeSlider').value);
+      const titleFontWeight = document.getElementById('titleFontWeightSelect').value;
+      const titleY = parseFloat(document.getElementById('titleYSlider').value);
 
-      // TITLE (80% width, centered, Y = 43%, color #c9c2e3)
+      // TITLE with drop shadow and font weight
       const titleMaxW = canvas.width * 0.70;
-      ctx.font = "60px 'Honglang'";
-      ctx.fillStyle = "#c9c2e3";
+      const lineH = selectedFontSize + 10; // Dynamic line height based on font size
+      const startY = canvas.height * titleY;
+      
+      // Draw white drop shadow first
+      ctx.font = `${titleFontWeight} ${selectedFontSize}px 'Shrikhand'`;
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 6;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      const lineH = 70;
-      const startY = canvas.height * 0.43;
+      wrapText(ctx, title, canvas.width / 2 + 4, startY + 4, titleMaxW, lineH); // Increased offset for more obvious shadow
+      
+      // Draw main title
+      ctx.font = `${titleFontWeight} ${selectedFontSize}px 'Shrikhand'`;
+      ctx.fillStyle = "#c9c2e3";
+      ctx.strokeStyle = "#c9c2e3";
+      ctx.lineWidth = 1;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
       wrapText(ctx, title, canvas.width / 2, startY, titleMaxW, lineH);
 
-      // CONTENT (textarea, multi-line, max width 85%, x=20%, y=60%, white fill, black stroke, align left)
-      const contentX = canvas.width * 0.15;
-      const contentY = canvas.height * 0.60;
-      const contentMaxW = canvas.width * 0.90;
-      ctx.font = "40px 'Shrikhand'";
+      // Get formatting controls values
+      const lineHeight = parseInt(document.getElementById('lineHeightSlider').value);
+      const topY = parseFloat(document.getElementById('topYSlider').value);
+      const fontSize = parseInt(document.getElementById('fontSizeSlider').value);
+      const fontWeight = document.getElementById('fontWeightSelect').value;
+
+      // CONTENT - Three separate lines with proper formatting and wrapping
+      const contentX = canvas.width * 0.15; // Fixed X position
+      const contentY = canvas.height * topY;
+      const contentMaxW = canvas.width * 0.70; // Reduced width to fit inside the white box
+      ctx.font = `${fontWeight} ${fontSize}px 'Xinqingnian'`;
       ctx.fillStyle = "#ffffff";
-      ctx.strokeStyle = "#000000";
+      ctx.strokeStyle = "#666666";
       ctx.lineWidth = 2;
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
-      wrapTextStrokeFill(ctx, content, contentX, contentY, contentMaxW, 50);
+      
+      let currentY = contentY;
+      const lineSpacing = lineHeight;
+      
+      // Helper function to draw wrapped text with labels
+      function drawWrappedTextWithLabel(label, text, x, y, maxWidth, lineHeight) {
+        let currentY = y;
+        
+        // Draw the label first
+        ctx.strokeText(label, x, currentY);
+        ctx.fillText(label, x, currentY);
+        
+        // Calculate position for input text (after the label)
+        const labelWidth = ctx.measureText(label).width;
+        const inputX = x + labelWidth;
+        const inputMaxWidth = maxWidth - labelWidth;
+        
+        // Now draw the input text with wrapping
+        if (text.trim()) {
+          const words = text.split(' ');
+          let line = '';
+          let inputY = currentY;
+          
+          for (let n = 0; n < words.length; n++) {
+            const testLine = line + words[n] + ' ';
+            const metrics = ctx.measureText(testLine);
+            
+            if (metrics.width > inputMaxWidth && n > 0) {
+              // Draw current line of input text
+              ctx.strokeText(line.trim(), inputX, inputY);
+              ctx.fillText(line.trim(), inputX, inputY);
+              line = words[n] + ' ';
+              inputY += lineHeight;
+            } else {
+              line = testLine;
+            }
+          }
+          
+          // Draw the last line of input text
+          if (line.trim()) {
+            ctx.strokeText(line.trim(), inputX, inputY);
+            ctx.fillText(line.trim(), inputX, inputY);
+            currentY = inputY + lineHeight;
+          } else {
+            currentY += lineHeight;
+          }
+        } else {
+          currentY += lineHeight;
+        }
+        
+        return currentY;
+      }
+      
+      // Personnel line
+      currentY = drawWrappedTextWithLabel("活动人员：", personnel, contentX, currentY, contentMaxW, lineSpacing);
+      
+      // Time line
+      currentY = drawWrappedTextWithLabel("活动时间：", time, contentX, currentY, contentMaxW, lineSpacing);
+      
+      // Location line
+      currentY = drawWrappedTextWithLabel("活动地点：", location, contentX, currentY, contentMaxW, lineSpacing);
 
-      // DATE (x = canvas.width - 170, y = canvas.height * 2.9/10)
+      // DATE with text border
       ctx.font = "60px 'Xinqingnian'";
-      ctx.fillStyle = "#ffffff";
       ctx.textAlign = "left";
       ctx.textBaseline = "middle";
+      
+      // Draw black border/outline
+      ctx.strokeStyle = "#aaaaaa";
+      ctx.lineWidth = 3;
+      ctx.strokeText(
+        date,
+        canvas.width - 200,
+        canvas.height * 2.8 / 10
+      );
+      
+      // Draw white fill
+      ctx.fillStyle = "#ffffff";
       ctx.fillText(
         date,
         canvas.width - 200,
