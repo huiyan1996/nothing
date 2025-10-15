@@ -197,18 +197,18 @@
     <div class="left-panel">
   <div class="controls">
         <div class="font-size-group">
-          <label>Title Settings:</label>
+          <label>标题:</label>
           
           <input type="text" id="titleInput" placeholder="Enter Title">
           
           <div class="control-row">
-            <label>Font Size:</label>
+            <label>字体大小:</label>
             <input type="range" id="titleFontSizeSlider" min="30" max="100" value="60">
             <span class="value-display" id="titleFontSizeValue">60px</span>
           </div>
           
           <div class="control-row">
-            <label>Title Weight:</label>
+            <label>字体粗细:</label>
             <select id="titleFontWeightSelect">
               <option value="normal">Normal</option>
               <option value="bold" selected>Bold</option>
@@ -224,39 +224,39 @@
           </div>
           
           <div class="control-row">
-            <label>Title Y:</label>
+            <label>Y坐标:</label>
             <input type="range" id="titleYSlider" min="0.25" max="0.50" step="0.01" value="0.43">
             <span class="value-display" id="titleYValue">43%</span>
           </div>
         </div>
 
         <div class="control-group">
-          <label>Content Input & Formatting:</label>
+          <label>内容:</label>
           
-          <input type="text" id="personnelInput" placeholder="Enter Personnel (e.g., Latte & Kim)">
-          <input type="text" id="timeInput" placeholder="Enter Time (e.g., 11:00 AM (中))">
-          <input type="text" id="locationInput" placeholder="Enter Location (e.g., เซ็นทรัล ปิ่นเกล้า)">
+          <input type="text" id="personnelInput" placeholder="活动人员">
+          <input type="text" id="timeInput" placeholder="活动时间 (eg, 11:00 AM (中)">
+          <input type="text" id="locationInput" placeholder="活动地点">
           
           <div class="control-row">
-            <label>Line Height:</label>
+            <label>行高:</label>
             <input type="range" id="lineHeightSlider" min="30" max="80" value="50">
             <span class="value-display" id="lineHeightValue">50px</span>
           </div>
           
           <div class="control-row">
-            <label>Top Y:</label>
+            <label>Y坐标:</label>
             <input type="range" id="topYSlider" min="0.45" max="0.75" step="0.01" value="0.60">
             <span class="value-display" id="topYValue">60%</span>
           </div>
           
           <div class="control-row">
-            <label>Font Size:</label>
+            <label>字体大小:</label>
             <input type="range" id="fontSizeSlider" min="20" max="60" value="40">
             <span class="value-display" id="fontSizeValue">40px</span>
           </div>
           
           <div class="control-row">
-            <label>Font Weight:</label>
+            <label>字体粗细:</label>
             <select id="fontWeightSelect">
               <option value="normal" selected>Normal</option>
               <option value="bold">Bold</option>
@@ -272,11 +272,11 @@
           </div>
         </div>
 
-        <input type="text" id="dateInput" placeholder="Enter Date">
+        <input type="text" id="dateInput" placeholder="输入日期 (eg, 10.15)">
 
-    <button onclick="refreshCanvas()">Refresh Canvas</button>
+    <button onclick="refreshCanvas()">生成图片</button>
       </div>
-      <button onclick="downloadImage()">Download Image</button>
+      <button onclick="downloadImage()">下载图片</button>
   </div>
 
     <div class="right-panel">
