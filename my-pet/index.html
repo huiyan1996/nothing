@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#FF6B6B" />
+    <meta name="description" content="A fun digital pet game where you can feed, play, bathe, and care for your pet." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="My Digital Pet" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>My Digital Pet</title>
+    <script type="module" crossorigin src="/assets/index-C9IodFPJ.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CVUlQx7H.css">
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <header>
+          <h1>My Digital Pet</h1>
+          <div class="pet-name">
+            <span id="petName">Buddy</span>
+          </div>
+        </header>
+
+        <div class="stats-container">
+          <div class="stat">
+            <div class="stat-icon">🍔</div>
+            <div class="stat-bar">
+              <div class="stat-fill" id="hungerBar"></div>
+            </div>
+            <div class="stat-label" id="hungerValue">100%</div>
+          </div>
+          <div class="stat">
+            <div class="stat-icon">😊</div>
+            <div class="stat-bar">
+              <div class="stat-fill" id="happinessBar"></div>
+            </div>
+            <div class="stat-label" id="happinessValue">100%</div>
+          </div>
+          <div class="stat">
+            <div class="stat-icon">🛁</div>
+            <div class="stat-bar">
+              <div class="stat-fill" id="cleanBar"></div>
+            </div>
+            <div class="stat-label" id="cleanValue">100%</div>
+          </div>
+          <div class="stat">
+            <div class="stat-icon">😴</div>
+            <div class="stat-bar">
+              <div class="stat-fill" id="energyBar"></div>
+            </div>
+            <div class="stat-label" id="energyValue">100%</div>
+          </div>
+        </div>
+
+        <div class="pet-display">
+          <div class="pet-container">
+            <div class="pet" id="pet">
+              <div class="pet-body">🐶</div>
+              <div class="pet-status" id="petStatus"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions-container">
+          <button class="action-btn feed-btn" id="feedBtn">
+            <span class="btn-icon">🍖</span>
+            <span class="btn-text">Feed</span>
+          </button>
+          <button class="action-btn play-btn" id="playBtn">
+            <span class="btn-icon">⚽</span>
+            <span class="btn-text">Play</span>
+          </button>
+          <button class="action-btn bath-btn" id="bathBtn">
+            <span class="btn-icon">🛁</span>
+            <span class="btn-text">Bath</span>
+          </button>
+          <button class="action-btn sleep-btn" id="sleepBtn">
+            <span class="btn-icon">💤</span>
+            <span class="btn-text">Sleep</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
