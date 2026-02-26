@@ -1,23 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
+<html lang="zh-CN">
+<head>
     <meta charset="UTF-8">
-    <title>Text to image</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>A4 Generator - @安静而苒</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* Your Custom CSS */
+        .textInp {
+            width: 450px;
+            padding: 15px;
+            background: FloralWhite;
+            min-height: 300px;
+            outline: none;
+            font-size: 16px;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
 
-  </head>
-    
-  <body>
-  <div id="textInp" class="textInp" contenteditable></div>
+        .button {
+            background: skyblue;
+            border: 1px solid blue;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-<button type="button" class="button" onclick="generateImg()">Generate</button>
+        /* Layout CSS */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f0f0f0;
+            padding: 20px;
+            font-family: sans-serif;
+        }
 
-<div id="genImg"></div>
+        #genImg {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-<button type="button" class="button" onclick="downloadAll()">Download All Images</button>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'></script><script  src="./script.js"></script>
+        .page-img {
+            width: 450px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: 1px solid #ccc;
+        }
 
-  </body>
-  
+        #status {
+            color: #555;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="textInp" class="textInp" contenteditable="true">
+        请输入或粘贴您的文字...
+    </div>
+
+    <div>
+        <button class="button" onclick="generateImg()">生成图片</button>
+        <button class="button" style="background: lightgreen;" onclick="downloadAll()">下载全部</button>
+    </div>
+    <div id="status">准备就绪</div>
+
+    <div id="genImg"></div>
+
+    <script>
+        let generatedImages = [];
+
+        async function generateImg() {
+            const element = document.getElementById("textInp");
+            const container = document.getElementById("genImg");
+            const status = document.getElementById("status");
+
+            // Reset
+            container.innerHTML = "";
+            generatedImages = [];
+            
+            const width = element.offsetWidth;
+            const pageHeight = Math.floor(width * 1.414); // A4 Ratio (636px for 450px width)
+            const totalHeight = element.scrollHeight;
+            const totalPages = Math.ceil(totalHeight / pageHeight);
+
+            try {
+                for (let i = 0; i < totalPages; i++) {
+                    status.innerText = `正在处理第 ${i + 1} / ${totalPages} 页...`;
+
+                    const canvas = await html2canvas(element, {
+                        scale: 2, // Keeps it sharp
+                        y: i * pageHeight,
+                        height: Math.min(pageHeight, totalHeight - (i * pageHeight)),
+                        windowHeight: totalHeight,
+                        backgroundColor: "FloralWhite",
+                        useCORS: true
+                    });
+
+                    // BURN WATERMARK INTO CANVAS
+                    applyWatermark(canvas);
+
+                    const dataUrl = canvas.toDataURL("image/png");
+                    generatedImages.push(dataUrl);
+
+                    // Add to UI
+                    const img = document.createElement('img');
+                    img.src = dataUrl;
+                    img.className = "page-img";
+                    container.appendChild(img);
+                }
+                status.innerText = "生成成功！";
+            } catch (err) {
+                console.error(err);
+                status.innerText = "发生错误: " + err.message;
+            }
+        }
+
+        function applyWatermark(canvas) {
+            const ctx = canvas.getContext('2d');
+            const text = "@安静而苒";
+            
+            ctx.font = "bold 35px 'Microsoft YaHei', sans-serif";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.2)"; // 0.2 Transparency
+            ctx.textAlign = "center";
+
+            const stepX = 250;
+            const stepY = 200;
+
+            // Start from negative to cover edges after rotation
+            for (let x = -stepX; x < canvas.width + stepX; x += stepX) {
+                for (let y = -stepY; y < canvas.height + stepY; y += stepY) {
+                    ctx.save();
+                    ctx.translate(x, y);
+                    ctx.rotate(-35 * Math.PI / 180);
+                    ctx.fillText(text, 0, 0);
+                    ctx.restore();
+                }
+            }
+        }
+
+        function downloadAll() {
+            if (generatedImages.length === 0) return alert("请先生成图片");
+            generatedImages.forEach((data, index) => {
+                const a = document.createElement('a');
+                a.href = data;
+                a.download = `page_${index + 1}.png`;
+                a.click();
+            });
+        }
+    </script>
+</body>
 </html>
