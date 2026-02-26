@@ -1,0 +1,14 @@
+.textInp {
+  width: 450px;
+/*   border: 1px solid #ddd; */
+  padding: 15px;
+  background: FloralWhite;
+}
+
+.button {
+  background: skyblue;
+  border: 1px solid blue;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 15px 0;
+}
