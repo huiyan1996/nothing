@@ -5,16 +5,19 @@
     <title>A4 Generator - @安静而苒</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body { display: flex; flex-direction: column; align-items: center; background: #f0f0f0; padding: 20px; font-family: sans-serif; }
+        body { display: flex; flex-direction: column; align-items: center; background: #f0f0f0; padding: 20px; font-family: 'Microsoft YaHei', sans-serif; }
+        
         .textInp {
-            width: 450px; padding: 25px; background: FloralWhite; min-height: 300px;
-            outline: none; font-size: 16px; line-height: 1.8; word-wrap: break-word; box-sizing: border-box;
-            border: 1px solid #ddd;
+            width: 450px; padding: 25px; background: FloralWhite; min-height: 400px;
+            outline: none; font-size: 16px; line-height: 1.8; word-wrap: break-word; 
+            box-sizing: border-box; border: 1px solid #ccc;
         }
+
         .button {
             background: skyblue; border: 1px solid blue; padding: 10px 20px;
             border-radius: 10px; margin: 15px 0; cursor: pointer; font-weight: bold;
         }
+
         #genImg { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; }
         .page-img { width: 450px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 1px solid #ccc; display: block; }
         #status { color: #555; font-size: 14px; margin-bottom: 10px; }
@@ -23,7 +26,7 @@
 <body>
 
     <div id="textInp" class="textInp" contenteditable="true">
-        在此处输入文字...
+        请输入文字...
     </div>
 
     <div>
@@ -44,9 +47,10 @@
             container.innerHTML = "";
             generatedImages = [];
             
+            // Layout Calculations
             const width = element.offsetWidth;
             const pageHeight = Math.floor(width * 1.414); 
-            const totalHeight = element.scrollHeight + 20; // Safety buffer
+            const totalHeight = element.scrollHeight + 30; // Extra buffer for last page
             const totalPages = Math.ceil(totalHeight / pageHeight);
 
             try {
@@ -59,11 +63,12 @@
                         height: Math.min(pageHeight, totalHeight - (i * pageHeight)),
                         windowHeight: totalHeight,
                         backgroundColor: "FloralWhite",
-                        useCORS: true,
-                        scrollY: 0
+                        useCORS: true,      // Handle external assets
+                        allowTaint: false,  // More secure for GitHub Pages
+                        logging: false      // Clean up console
                     });
 
-                    // THE FIX: Pass the canvas to the improved watermark function
+                    // APPLY WATERMARK
                     applyWatermark(canvas);
 
                     const dataUrl = canvas.toDataURL("image/png");
@@ -76,7 +81,7 @@
                 }
                 status.innerText = "全部生成成功！";
             } catch (err) {
-                console.error(err);
+                console.error("Capture Error:", err);
                 status.innerText = "生成失败: " + err.message;
             }
         }
@@ -85,18 +90,15 @@
             const ctx = canvas.getContext('2d');
             const text = "@安静而苒";
             
-            // Scaled font for Scale: 2
-            ctx.font = "bold 50px 'Microsoft YaHei', sans-serif";
+            ctx.font = "bold 50px sans-serif";
             ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
 
-            // Horizontal and vertical distance between watermarks
             const stepX = 350; 
             const stepY = 300;
 
-            // We use canvas.width and canvas.height (the actual pixel size) 
-            // instead of the CSS size (450px).
+            // Ensure we cover the full high-res canvas (scale 2)
             for (let x = -stepX; x < canvas.width + stepX; x += stepX) {
                 for (let y = -stepY; y < canvas.height + stepY; y += stepY) {
                     ctx.save();
