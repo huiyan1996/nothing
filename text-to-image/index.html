@@ -5,59 +5,25 @@
     <title>A4 Generator - @安静而苒</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #f0f0f0;
-            padding: 20px;
-            font-family: sans-serif;
-        }
-
-        /* Your Custom CSS */
+        body { display: flex; flex-direction: column; align-items: center; background: #f0f0f0; padding: 20px; font-family: sans-serif; }
         .textInp {
-            width: 450px;
-            padding: 20px;
-            background: FloralWhite;
-            min-height: 300px;
-            outline: none;
-            font-size: 16px;
-            line-height: 1.8; /* Increased line-height for better readability */
-            word-wrap: break-word;
-            box-sizing: border-box;
+            width: 450px; padding: 25px; background: FloralWhite; min-height: 300px;
+            outline: none; font-size: 16px; line-height: 1.8; word-wrap: break-word; box-sizing: border-box;
+            border: 1px solid #ddd;
         }
-
         .button {
-            background: skyblue;
-            border: 1px solid blue;
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin: 15px 0;
-            cursor: pointer;
-            font-weight: bold;
+            background: skyblue; border: 1px solid blue; padding: 10px 20px;
+            border-radius: 10px; margin: 15px 0; cursor: pointer; font-weight: bold;
         }
-
-        #genImg {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .page-img {
-            width: 450px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            border: 1px solid #ccc;
-            display: block;
-        }
-
+        #genImg { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .page-img { width: 450px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: 1px solid #ccc; display: block; }
         #status { color: #555; font-size: 14px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <div id="textInp" class="textInp" contenteditable="true">
-        在这里输入文字... 如果文字跨页被切断，请在两段之间按下回车键手动留出空隙。
+        在此处输入文字...
     </div>
 
     <div>
@@ -65,7 +31,6 @@
         <button class="button" style="background: lightgreen;" onclick="downloadAll()">下载全部</button>
     </div>
     <div id="status">准备就绪</div>
-
     <div id="genImg"></div>
 
     <script>
@@ -81,8 +46,7 @@
             
             const width = element.offsetWidth;
             const pageHeight = Math.floor(width * 1.414); 
-            // Safety: Adding a small buffer to the scrollHeight to ensure the last page is caught
-            const totalHeight = element.scrollHeight + 10; 
+            const totalHeight = element.scrollHeight + 20; // Safety buffer
             const totalPages = Math.ceil(totalHeight / pageHeight);
 
             try {
@@ -90,15 +54,16 @@
                     status.innerText = `正在处理第 ${i + 1} / ${totalPages} 页...`;
 
                     const canvas = await html2canvas(element, {
-                        scale: 2,
+                        scale: 2, 
                         y: i * pageHeight,
-                        height: pageHeight, // Force exact A4 height for every slice
-                        windowHeight: totalHeight, // Look at the full content
+                        height: Math.min(pageHeight, totalHeight - (i * pageHeight)),
+                        windowHeight: totalHeight,
                         backgroundColor: "FloralWhite",
                         useCORS: true,
-                        scrollY: 0 // Reset scroll position for capture
+                        scrollY: 0
                     });
 
+                    // THE FIX: Pass the canvas to the improved watermark function
                     applyWatermark(canvas);
 
                     const dataUrl = canvas.toDataURL("image/png");
@@ -119,13 +84,19 @@
         function applyWatermark(canvas) {
             const ctx = canvas.getContext('2d');
             const text = "@安静而苒";
-            ctx.font = "bold 35px sans-serif";
+            
+            // Scaled font for Scale: 2
+            ctx.font = "bold 50px 'Microsoft YaHei', sans-serif";
             ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
             ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
 
-            const stepX = 250;
-            const stepY = 200;
+            // Horizontal and vertical distance between watermarks
+            const stepX = 350; 
+            const stepY = 300;
 
+            // We use canvas.width and canvas.height (the actual pixel size) 
+            // instead of the CSS size (450px).
             for (let x = -stepX; x < canvas.width + stepX; x += stepX) {
                 for (let y = -stepY; y < canvas.height + stepY; y += stepY) {
                     ctx.save();
@@ -143,7 +114,9 @@
                 const a = document.createElement('a');
                 a.href = data;
                 a.download = `page_${index + 1}.png`;
+                document.body.appendChild(a);
                 a.click();
+                document.body.removeChild(a);
             });
         }
     </script>
