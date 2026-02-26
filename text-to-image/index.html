@@ -5,16 +5,26 @@
     <title>A4 Generator - @安静而苒</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f0f0f0;
+            padding: 20px;
+            font-family: sans-serif;
+        }
+
         /* Your Custom CSS */
         .textInp {
             width: 450px;
-            padding: 15px;
+            padding: 20px;
             background: FloralWhite;
             min-height: 300px;
             outline: none;
             font-size: 16px;
-            line-height: 1.6;
+            line-height: 1.8; /* Increased line-height for better readability */
             word-wrap: break-word;
+            box-sizing: border-box;
         }
 
         .button {
@@ -27,40 +37,27 @@
             font-weight: bold;
         }
 
-        /* Layout CSS */
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #f0f0f0;
-            padding: 20px;
-            font-family: sans-serif;
-        }
-
         #genImg {
             margin-top: 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 10px;
         }
 
         .page-img {
             width: 450px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             border: 1px solid #ccc;
+            display: block;
         }
 
-        #status {
-            color: #555;
-            font-size: 14px;
-            margin-top: 5px;
-        }
+        #status { color: #555; font-size: 14px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <div id="textInp" class="textInp" contenteditable="true">
-        请输入或粘贴您的文字...
+        在这里输入文字... 如果文字跨页被切断，请在两段之间按下回车键手动留出空隙。
     </div>
 
     <div>
@@ -79,13 +76,13 @@
             const container = document.getElementById("genImg");
             const status = document.getElementById("status");
 
-            // Reset
             container.innerHTML = "";
             generatedImages = [];
             
             const width = element.offsetWidth;
-            const pageHeight = Math.floor(width * 1.414); // A4 Ratio (636px for 450px width)
-            const totalHeight = element.scrollHeight;
+            const pageHeight = Math.floor(width * 1.414); 
+            // Safety: Adding a small buffer to the scrollHeight to ensure the last page is caught
+            const totalHeight = element.scrollHeight + 10; 
             const totalPages = Math.ceil(totalHeight / pageHeight);
 
             try {
@@ -93,45 +90,42 @@
                     status.innerText = `正在处理第 ${i + 1} / ${totalPages} 页...`;
 
                     const canvas = await html2canvas(element, {
-                        scale: 2, // Keeps it sharp
+                        scale: 2,
                         y: i * pageHeight,
-                        height: Math.min(pageHeight, totalHeight - (i * pageHeight)),
-                        windowHeight: totalHeight,
+                        height: pageHeight, // Force exact A4 height for every slice
+                        windowHeight: totalHeight, // Look at the full content
                         backgroundColor: "FloralWhite",
-                        useCORS: true
+                        useCORS: true,
+                        scrollY: 0 // Reset scroll position for capture
                     });
 
-                    // BURN WATERMARK INTO CANVAS
                     applyWatermark(canvas);
 
                     const dataUrl = canvas.toDataURL("image/png");
                     generatedImages.push(dataUrl);
 
-                    // Add to UI
                     const img = document.createElement('img');
                     img.src = dataUrl;
                     img.className = "page-img";
                     container.appendChild(img);
                 }
-                status.innerText = "生成成功！";
+                status.innerText = "全部生成成功！";
             } catch (err) {
                 console.error(err);
-                status.innerText = "发生错误: " + err.message;
+                status.innerText = "生成失败: " + err.message;
             }
         }
 
         function applyWatermark(canvas) {
             const ctx = canvas.getContext('2d');
             const text = "@安静而苒";
-            
-            ctx.font = "bold 35px 'Microsoft YaHei', sans-serif";
-            ctx.fillStyle = "rgba(0, 0, 0, 0.2)"; // 0.2 Transparency
+            ctx.font = "bold 35px sans-serif";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
             ctx.textAlign = "center";
 
             const stepX = 250;
             const stepY = 200;
 
-            // Start from negative to cover edges after rotation
             for (let x = -stepX; x < canvas.width + stepX; x += stepX) {
                 for (let y = -stepY; y < canvas.height + stepY; y += stepY) {
                     ctx.save();
