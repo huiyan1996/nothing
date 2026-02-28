@@ -163,16 +163,31 @@
             }
         }
 
-        function downloadAll() {
-            if (generatedImages.length === 0) return alert("请先生成图片");
-            generatedImages.forEach((data, index) => {
+        async function downloadAll() {
+            if (generatedImages.length === 0) return alert("请先生成图片！");
+            
+            const status = document.getElementById("status");
+            const total = generatedImages.length;
+
+            // We use a loop with a delay to prevent the "Message Channel Closed" error
+            for (let index = 0; index < total; index++) {
+                status.innerText = `正在下载第 ${index + 1} / ${total} 页... 请勿关闭窗口`;
+
+                const data = generatedImages[index];
                 const a = document.createElement('a');
                 a.href = data;
                 a.download = `Page_${index + 1}.png`;
+                
+                // Add to DOM briefly (required for some Windows browsers)
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-            });
+
+                // This 200ms pause prevents the browser from blocking the "Asynchronous Response"
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+
+            status.innerText = "✨ 所有图片已保存！";
         }
     </script>
 </body>
