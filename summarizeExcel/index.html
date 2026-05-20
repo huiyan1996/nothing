@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Spend & Remarks Summary</title>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .upload-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .file-label {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .file-label:hover {
+            background-color: #219a52;
+        }
+        .error {
+            color: #e74c3c;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .dashboard {
+            display: none;
+        }
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .panel h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        .action-bar {
+            margin: 15px 0;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn-copy {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn-copy:hover {
+            background-color: #2980b9;
+        }
+        .btn-copy:active {
+            transform: scale(0.98);
+        }
+        .success-toast {
+            color: #27ae60;
+            font-weight: bold;
+            margin-left: 10px;
+            align-self: center;
+            display: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #34495e;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #fbfcfc;
+        }
+        tfoot {
+            background-color: #eaeded;
+            font-weight: bold;
+        }
+        tfoot td {
+            border-top: 2px solid #bdc3c7;
+            border-bottom: 2px solid #bdc3c7;
+        }
+        .text-right { text-align: right; }
+        .remarks-badge {
+            background-color: #f1c40f;
+            color: #7f6000;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+        .remarks-text {
+            color: #555;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+        .no-remarks {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>👤 Buyer Sales & Remarks Summary (Paid Orders Only)</h1>
+    
+    <div class="upload-section">
+        <label for="excel-file" class="file-label">Upload Excel File</label>
+        <input type="file" id="excel-file" accept=".xlsx, .xls, .csv" />
+        <div id="file-name" style="margin-top: 15px; color: #555; font-weight: 500;"></div>
+        <div id="error-msg" class="error"></div>
+    </div>
+
+    <div id="dashboard" class="dashboard">
+        <div class="panel">
+            <h2>Customer Summary Breakdown</h2>
+            
+            <div class="action-bar">
+                <button class="btn-copy" onclick="copyData('with-price')">📋 Copy: Nickname - Remarks - Price</button>
+                <button class="btn-copy" onclick="copyData('no-price')">📋 Copy: Nickname - Remarks</button>
+                <button class="btn-copy" onclick="copyData('no-name-remarks')">📋 Copy: Remarks</button>
+                <span id="toast-msg" class="success-toast">Copied to clipboard successfully!</span>
+            </div>
+
+            <table id="summary-table">
+                <thead>
+                    <tr>
+                        <th>Nickname (昵称)</th>
+                        <th class="text-right">Total Items Bought</th>
+                        <th class="text-right">Total Amount Spent</th>
+                        <th>Remarks / Messages (留言/备注)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td>TOTAL</td>
+                        <td class="text-right" id="total-qty">0</td>
+                        <td class="text-right" id="total-spent">¥0.00</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentSortedBuyers = [];
+
+document.getElementById('excel-file').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    document.getElementById('file-name').textContent = `Loaded File: ${file.name}`;
+    document.getElementById('error-msg').textContent = '';
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            
+            let targetSheet = workbook.Sheets["买家订单统计"] || 
+                              workbook.Sheets["订单统计-单表最大2万行数据超出请筛选后导出"] || 
+                              workbook.Sheets[workbook.SheetNames[0]];
+            
+            const jsonData = XLSX.utils.sheet_to_json(targetSheet, { defval: "" });
+            
+            if (jsonData.length === 0) {
+                throw new Error("The active sheet is empty.");
+            }
+            
+            processBuyerData(jsonData);
+            
+        } catch (err) {
+            document.getElementById('error-msg').textContent = "Error parsing file: " + err.message;
+            document.getElementById('dashboard').style.display = 'none';
+        }
+    };
+    reader.readAsArrayBuffer(file);
+});
+
+function processBuyerData(data) {
+    const buyerSummary = {};
+    
+    let absoluteTotalQty = 0;
+    let absoluteTotalSpent = 0;
+    let lastValidNickname = "";
+
+    data.forEach(row => {
+        let currentNickname = (row["昵称"] || row["顾客昵称"] || "").toString().trim();
+        
+        // Gaps forward-fill logic for merged cells
+        if (currentNickname === "") {
+            currentNickname = lastValidNickname;
+        } else {
+            lastValidNickname = currentNickname;
+        }
+
+        if (!currentNickname) return; 
+
+        // 1. FILTERING CHECK: Look up payment states across standard field exports
+        const isPaidField = (row["已付"] || "").toString().trim(); // "是" vs "否"
+        const orderStatusField = (row["订单状态"] || "").toString().trim(); // "已付款" vs "未付款"
+
+        let isUnpaid = false;
+        if (isPaidField === "否") {
+            isUnpaid = true;
+        } else if (orderStatusField.includes("未付款") || orderStatusField.includes("待付款")) {
+            isUnpaid = true;
+        }
+
+        // Extract row items metrics safely
+        const qty = parseFloat(row["数量"] || row["商品数量"]) || 0;
+        const rowAmount = parseFloat(row["总金额"] || row["商品总价"]) || 0;
+        const remark = (row["留言"] || row["订单备注"] || "").toString().trim();
+
+        // Initialize user bucket if seen for the first time
+        if (!buyerSummary[currentNickname]) {
+            buyerSummary[currentNickname] = {
+                name: currentNickname,
+                totalQty: 0,
+                totalSpent: 0,
+                remarks: new Set()
+            };
+        }
+
+        // Process Remarks safely regardless of payment status (keeps notes intact if desired)
+        if (remark && remark !== "0" && remark.toLowerCase() !== "undefined" && remark !== "无") {
+            remark.split(',').forEach(subRemark => {
+                let cleanSub = subRemark.trim();
+                if (cleanSub && cleanSub !== "无") {
+                    buyerSummary[currentNickname].remarks.add(cleanSub);
+                }
+            });
+        }
+
+        // CRITICAL FIX: Skip adding quantity and amount if the item is unpaid
+        if (isUnpaid) {
+            return; 
+        }
+
+        // Accumulate paid items values only
+        buyerSummary[currentNickname].totalQty += qty;
+        buyerSummary[currentNickname].totalSpent += rowAmount;
+
+        absoluteTotalQty += qty;
+        absoluteTotalSpent += rowAmount;
+    });
+
+    // Filter out users who have 0 total items and 0 spend after removing unpaid items
+    const filteredBuyers = Object.values(buyerSummary).filter(b => b.totalQty > 0 || b.totalSpent > 0);
+
+    // Sort descending by total amount spent
+    currentSortedBuyers = filteredBuyers.sort((a, b) => b.totalSpent - a.totalSpent);
+
+    const tbody = document.querySelector('#summary-table tbody');
+    tbody.innerHTML = '';
+
+    currentSortedBuyers.forEach(buyer => {
+        const tr = document.createElement('tr');
+        
+        let remarksHTML = `<span class="no-remarks">None</span>`;
+        if (buyer.remarks.size > 0) {
+            remarksHTML = Array.from(buyer.remarks).map(r => `
+                <div>
+                    <span class="remarks-badge">Note</span> 
+                    <span class="remarks-text">"${r}"</span>
+                </div>
+            `).join('');
+        }
+
+        tr.innerHTML = `
+            <td><strong>${buyer.name}</strong></td>
+            <td class="text-right" style="font-weight: 500;">${buyer.totalQty}</td>
+            <td class="text-right" style="color: #27ae60; font-weight: bold;">¥${buyer.totalSpent.toFixed(2)}</td>
+            <td>${remarksHTML}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    // Write precise paid grand totals to footer
+    document.getElementById('total-qty').textContent = absoluteTotalQty;
+    document.getElementById('total-spent').textContent = `¥${absoluteTotalSpent.toFixed(2)}`;
+
+    document.getElementById('dashboard').style.display = 'block';
+}
+
+function copyData(type) {
+    if (currentSortedBuyers.length === 0) return;
+
+    let textLines = [];
+
+    currentSortedBuyers.forEach(buyer => {
+        const remarksString = buyer.remarks.size > 0 ? Array.from(buyer.remarks).join(', ') : "None";
+        const priceString = `¥${buyer.totalSpent.toFixed(2)}`;
+
+        if (type === 'with-price') {
+            textLines.push(`${buyer.name} - ${remarksString || buyer.name} - ${priceString}`);
+        } else if (type === 'no-price') {
+            textLines.push(`${buyer.name} - ${remarksString || buyer.name}`);
+        } else if (type === 'no-name-remarks') {
+            textLines.push(`${remarksString || buyer.name}`);
+        }
+    });
+
+    const clearTextOutput = textLines.join('\n');
+
+    navigator.clipboard.writeText(clearTextOutput).then(() => {
+        showToast();
+    }).catch(err => {
+        alert("Unable to copy to clipboard.");
+    });
+}
+
+function showToast() {
+    const toast = document.getElementById('toast-msg');
+    toast.style.display = 'inline';
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 2500);
+}
+</script>
+
+</body>
+</html>
