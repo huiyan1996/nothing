@@ -239,8 +239,8 @@
           
           <div class="control-row">
             <label>行高:</label>
-            <input type="range" id="lineHeightSlider" min="30" max="80" value="50">
-            <span class="value-display" id="lineHeightValue">50px</span>
+            <input type="range" id="lineHeightSlider" min="30" max="80" value="60">
+            <span class="value-display" id="lineHeightValue">60px</span>
           </div>
           
           <div class="control-row">
@@ -251,8 +251,8 @@
           
           <div class="control-row">
             <label>字体大小:</label>
-            <input type="range" id="fontSizeSlider" min="20" max="60" value="40">
-            <span class="value-display" id="fontSizeValue">40px</span>
+            <input type="range" id="fontSizeSlider" min="20" max="60" value="48">
+            <span class="value-display" id="fontSizeValue">48px</span>
           </div>
           
           <div class="control-row">
@@ -420,7 +420,7 @@
       const fontWeight = document.getElementById('fontWeightSelect').value;
 
       // CONTENT - Three separate lines with proper formatting and wrapping
-      const contentX = canvas.width * 0.15; // Fixed X position
+      const contentX = canvas.width * 0.2; // Fixed X position
       const contentY = canvas.height * topY;
       const contentMaxW = canvas.width * 0.70; // Reduced width to fit inside the white box
       ctx.font = `${fontWeight} ${fontSize}px 'Xinqingnian'`;
@@ -492,7 +492,7 @@
       currentY = drawWrappedTextWithLabel("活动地点：", location, contentX, currentY, contentMaxW, lineSpacing);
 
       // DATE with text border
-      ctx.font = "60px 'Xinqingnian'";
+      ctx.font = "80px 'Xinqingnian'";
       ctx.textAlign = "left";
       ctx.textBaseline = "middle";
       
@@ -501,16 +501,16 @@
       ctx.lineWidth = 3;
       ctx.strokeText(
         date,
-        canvas.width - 200,
-        canvas.height * 2.8 / 10
+        canvas.width - 275,
+        canvas.height * 2.8 / 11.7
       );
       
       // Draw white fill
       ctx.fillStyle = "#ffffff";
       ctx.fillText(
         date,
-        canvas.width - 200,
-        canvas.height * 2.8 / 10
+        canvas.width - 275,
+        canvas.height * 2.8 / 11.7
       );
     }
 

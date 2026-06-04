@@ -165,7 +165,8 @@
                 <button class="btn-copy" onclick="copyData('with-price')">📋 Copy: Nickname - Remarks - Price</button>
                 <button class="btn-copy" onclick="copyData('no-price')">📋 Copy: Nickname - Remarks</button>
                 <button class="btn-copy" onclick="copyData('no-name-remarks')">📋 Copy: Remarks</button>
-                <span id="toast-msg" class="success-toast">Copied to clipboard successfully!</span>
+                <button class="btn-copy" onclick="exportToExcel()">Export to Excel: Nickname - Remarks</button>
+                <span id="toast-msg" class="success-toast">Action completed successfully!</span>
             </div>
 
             <table id="summary-table">
@@ -354,14 +355,37 @@ function copyData(type) {
     const clearTextOutput = textLines.join('\n');
 
     navigator.clipboard.writeText(clearTextOutput).then(() => {
-        showToast();
+        showToast('Copied to clipboard successfully!');
     }).catch(err => {
         alert("Unable to copy to clipboard.");
     });
 }
 
-function showToast() {
+function exportToExcel() {
+    if (currentSortedBuyers.length === 0) return;
+
+    const exportRows = currentSortedBuyers.map(buyer => {
+        const remarksString = buyer.remarks.size > 0 ? Array.from(buyer.remarks).join(', ') : "None";
+
+        return {
+            Nickname: buyer.name,
+            Remarks: remarksString
+        };
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(exportRows, {
+        header: ["Nickname", "Remarks"]
+    });
+    const workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Nickname Remarks");
+    XLSX.writeFile(workbook, "nickname-remarks-summary.xlsx");
+    showToast('Excel file exported successfully!');
+}
+
+function showToast(message) {
     const toast = document.getElementById('toast-msg');
+    toast.textContent = message;
     toast.style.display = 'inline';
     setTimeout(() => {
         toast.style.display = 'none';
