@@ -365,11 +365,11 @@ function exportToExcel() {
     if (currentSortedBuyers.length === 0) return;
 
     const exportRows = currentSortedBuyers.map(buyer => {
-        const remarksString = buyer.remarks.size > 0 ? Array.from(buyer.remarks).join(', ') : "None";
+        const remarksString = buyer.remarks.size > 0 ? Array.from(buyer.remarks).join(', ') : buyer.name;
 
         return {
             Nickname: buyer.name,
-            Remarks: remarksString
+            Remarks: remarksString || buyer.name
         };
     });
 
