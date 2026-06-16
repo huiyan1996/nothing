@@ -71,7 +71,7 @@
     <div class="controls">
         <div>
             <button class="button" onclick="startProcess()">生成图片并加水印</button>
-            <button class="button" style="background: lightsalmon;" onclick="combineAllImages()">合并所有图片</button>
+            <button class="button" style="background: lightsalmon;" onclick="combineAllImages()">合并并分割为4部分</button>
             <button class="button" style="background: lightgreen;" onclick="downloadAll()">下载全部</button>
         </div>
         <div id="status">准备就绪</div>
@@ -200,26 +200,50 @@
                     currentY += img.height;
                 }
 
-                // Convert to data URL
-                const combinedDataUrl = combinedCanvas.toDataURL("image/png", 1.0);
+                // Split combined image into 4 equal vertical parts
+                const partCount = 4;
+                const partHeight = Math.floor(totalHeight / partCount);
+                const splitDataUrls = [];
 
-                // Display the combined image
+                for (let i = 0; i < partCount; i++) {
+                    const y = i * partHeight;
+                    const h = i === partCount - 1 ? totalHeight - y : partHeight;
+
+                    const partCanvas = document.createElement('canvas');
+                    partCanvas.width = maxWidth;
+                    partCanvas.height = h;
+                    const partCtx = partCanvas.getContext('2d');
+                    partCtx.drawImage(combinedCanvas, 0, y, maxWidth, h, 0, 0, maxWidth, h);
+
+                    splitDataUrls.push(partCanvas.toDataURL("image/png", 1.0));
+                }
+
+                // Display the 4 parts
                 const container = document.getElementById("genImg");
                 container.innerHTML = "";
-                const resultImg = document.createElement('img');
-                resultImg.src = combinedDataUrl;
-                resultImg.className = "page-img";
-                container.appendChild(resultImg);
+                splitDataUrls.forEach((dataUrl, index) => {
+                    const resultImg = document.createElement('img');
+                    resultImg.src = dataUrl;
+                    resultImg.className = "page-img";
+                    resultImg.title = `第 ${index + 1} 部分`;
+                    container.appendChild(resultImg);
+                });
 
-                // Download the combined image
-                const a = document.createElement('a');
-                a.href = combinedDataUrl;
-                a.download = 'Combined_All_Pages.png';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+                // Download all 4 parts
+                for (let index = 0; index < splitDataUrls.length; index++) {
+                    status.innerText = `正在下载第 ${index + 1} / ${partCount} 部分...`;
 
-                status.innerText = "✨ 图片已合并并下载！";
+                    const a = document.createElement('a');
+                    a.href = splitDataUrls[index];
+                    a.download = `Combined_Part_${index + 1}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }
+
+                status.innerText = "✨ 图片已合并并分割为 4 部分，全部已下载！";
             } catch (err) {
                 console.error(err);
                 status.innerText = "❌ 合并失败: " + err.message;
