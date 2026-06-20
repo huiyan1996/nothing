@@ -61,6 +61,42 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
             background: white;
             flex-shrink: 0; /* Prevents images from squishing */
+            cursor: pointer;
+        }
+
+        .page-img:hover {
+            outline: 2px solid skyblue;
+            outline-offset: 2px;
+        }
+
+        #imageLightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.85);
+            overflow: auto;
+            padding: 24px;
+            box-sizing: border-box;
+            cursor: zoom-out;
+        }
+
+        #imageLightbox.is-open {
+            display: block;
+        }
+
+        .lightbox-content {
+            max-width: min(800px, 92vw);
+            margin: 0 auto;
+            cursor: default;
+        }
+
+        #lightboxImage {
+            display: block;
+            width: 100%;
+            height: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            background: white;
         }
 
         #status { color: #333; font-size: 14px; margin: 5px 0; font-weight: bold;}
@@ -83,8 +119,65 @@
 
     <div id="genImg"></div>
 
+    <div id="imageLightbox" aria-hidden="true">
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+        </div>
+    </div>
+
     <script>
         let generatedImages = [];
+        let imageDownloadNames = [];
+
+        const createPageImage = (dataUrl, title) => {
+            const img = document.createElement('img');
+            img.src = dataUrl;
+            img.className = "page-img";
+            img.title = title;
+            img.alt = title;
+            img.tabIndex = 0;
+            img.setAttribute('role', 'button');
+            img.setAttribute('aria-label', `打开 ${title}`);
+
+            const handleOpen = () => openImage(dataUrl, title);
+
+            img.addEventListener('click', handleOpen);
+            img.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    handleOpen();
+                }
+            });
+
+            return img;
+        };
+
+        const openImage = (dataUrl, title) => {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+
+            lightboxImage.src = dataUrl;
+            lightboxImage.alt = title;
+            lightbox.scrollTop = 0;
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+        };
+
+        const closeImage = () => {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+
+            lightbox.classList.remove('is-open');
+            lightbox.setAttribute('aria-hidden', 'true');
+            lightboxImage.src = '';
+        };
+
+        document.getElementById('imageLightbox').addEventListener('click', (event) => {
+            if (event.target === event.currentTarget) closeImage();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeImage();
+        });
 
         async function startProcess() {
             const element = document.getElementById("textInp");
@@ -93,6 +186,7 @@
 
             container.innerHTML = "";
             generatedImages = [];
+            imageDownloadNames = [];
             
             const width = element.offsetWidth;
             const pageHeight = Math.floor(width * 1.414); 
@@ -130,11 +224,9 @@
                     // 3. Convert to high-quality PNG
                     const dataUrl = finalCanvas.toDataURL("image/png", 1.0);
                     generatedImages.push(dataUrl);
+                    imageDownloadNames.push(`Page_${i + 1}`);
 
-                    const img = document.createElement('img');
-                    img.src = dataUrl;
-                    img.className = "page-img";
-                    container.appendChild(img);
+                    container.appendChild(createPageImage(dataUrl, `第 ${i + 1} 页`));
                 }
                 status.innerText = "✨ 生成成功！右划查看图片。";
             } catch (err) {
@@ -218,32 +310,17 @@
                     splitDataUrls.push(partCanvas.toDataURL("image/png", 1.0));
                 }
 
-                // Display the 4 parts
+                // Display the 4 parts and update download list
                 const container = document.getElementById("genImg");
                 container.innerHTML = "";
+                generatedImages = splitDataUrls;
+                imageDownloadNames = splitDataUrls.map((_, index) => `Combined_Part_${index + 1}`);
+
                 splitDataUrls.forEach((dataUrl, index) => {
-                    const resultImg = document.createElement('img');
-                    resultImg.src = dataUrl;
-                    resultImg.className = "page-img";
-                    resultImg.title = `第 ${index + 1} 部分`;
-                    container.appendChild(resultImg);
+                    container.appendChild(createPageImage(dataUrl, `第 ${index + 1} 部分`));
                 });
 
-                // Download all 4 parts
-                for (let index = 0; index < splitDataUrls.length; index++) {
-                    status.innerText = `正在下载第 ${index + 1} / ${partCount} 部分...`;
-
-                    const a = document.createElement('a');
-                    a.href = splitDataUrls[index];
-                    a.download = `Combined_Part_${index + 1}.png`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-
-                    await new Promise(resolve => setTimeout(resolve, 200));
-                }
-
-                status.innerText = "✨ 图片已合并并分割为 4 部分，全部已下载！";
+                status.innerText = "✨ 图片已合并并分割为 4 部分！点击「下载全部」保存。";
             } catch (err) {
                 console.error(err);
                 status.innerText = "❌ 合并失败: " + err.message;
@@ -263,7 +340,7 @@
                 const data = generatedImages[index];
                 const a = document.createElement('a');
                 a.href = data;
-                a.download = `Page_${index + 1}.png`;
+                a.download = `${imageDownloadNames[index]}.png`;
                 
                 // Add to DOM briefly (required for some Windows browsers)
                 document.body.appendChild(a);
